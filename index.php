@@ -5,7 +5,9 @@
 /**
  * Front-end of Slideshow_XH.
  *
- * Copyright (c) 2012 Christoph M. Becker (see license.txt)
+ * @package   slideshow
+ * @copyright Copyright (c) 2012 Christoph M. Becker
+ * @license   http://www.gnu.org/licenses/gpl.html GPLv3
  */
 
 

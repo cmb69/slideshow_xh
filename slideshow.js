@@ -1,4 +1,15 @@
+// $Id$
+
+/**
+ * JS of Slideshow_XH.
+ *
+ * @copyright Copyright (c) 2012 Christoph M. Becker
+ * @license   http://www.gnu.org/licenses/gpl.html GPLv3
+ */
+
+
 // TODO: use requestAnimationFrame?
+
 
 var slideshow = {
 
