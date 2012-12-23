@@ -17,16 +17,17 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 }
 
 
-define('SLIDESHOW_VERSION', '1alpha1');
+define('SLIDESHOW_VERSION', '1beta1');
 
 
 /**
  * Returns the list of image files in the given folder.
  *
  * @param  string $path  The path of the folder.
+ * @param  string $order  fixed/sorted/random.
  * @return array
  */
-function Slideshow_images($path)
+function Slideshow_images($path, $order)
 {
     global $pth;
 
@@ -42,7 +43,15 @@ function Slideshow_images($path)
         }
     }
     closedir($dh);
-    natcasesort($imgs);
+    if ($order == 'random') {
+        shuffle($imgs);
+    } else {
+        natcasesort($imgs);
+        if ($order == 'sorted') {
+            $n = rand(0, count($imgs) - 1);
+            $imgs = array_merge(array_slice($imgs, $n), array_slice($imgs, 0, $n));
+        }
+    }
     return $imgs;
 }
 
@@ -80,7 +89,7 @@ function Slideshow_getOpts($query, $validOpts)
  * Returns the slideshow.
  *
  * @param  string $path  The path of the image folder.
- * @param  string $options  The options in form of a query string..
+ * @param  string $options  The options in form of a query string.
  * @return string  The (X)HTML.
  */
 function Slideshow($path, $options = '')
@@ -89,7 +98,7 @@ function Slideshow($path, $options = '')
     static $run = 0;
 
     $pcf = $plugin_cf['slideshow'];
-    $validOpts = array('effect', 'delay', 'pause', 'duration');
+    $validOpts = array('order', 'effect', 'delay', 'pause', 'duration');
     $opts = Slideshow_getOpts($options, $validOpts);
     $o = '';
     if (!$run) { // TODO: write to $bjs; if so the init script has to be written to $bjs too
@@ -97,7 +106,7 @@ function Slideshow($path, $options = '')
             . $pth['folder']['plugins'] . 'slideshow/slideshow.js"></script>';
     }
     $run++;
-    $imgs = Slideshow_images($path);
+    $imgs = Slideshow_images($path, $opts['order']);
     list($w, $h) = getimagesize($imgs[0]);
     $id = "slideshow_$run";
     $style = "position:relative;width:${w}px;height:${h}px;overflow:hidden";

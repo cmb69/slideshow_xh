@@ -13,8 +13,8 @@
 
 <h1>Slideshow_XH – a CMSimple_XH Plugin</h1>
 <img src="../slideshow.png" style="float: left;margin-right: 1em" alt="Plugin Icon">
-<p style="text-align:justify">Slideshow_XH facilitates the display
-of images in a given folder as a slideshow.
+<p style="text-align:justify">Slideshow_XH facilitates displaying
+all images in a given folder as a slideshow.
 The slideshows don't allow any interaction of the visitor.
 Multiple slideshows with different effects and timings are possible.</p>
 
@@ -93,6 +93,10 @@ The options can be given in any order.
 If you want to stick with the defaults, you can omit this parameter.
 The following options are available:
 <dl>
+<dt>order</dt>
+<dd>The order of the images: "fixed" (alphabetically ordered; start with first image),
+"sorted" (alphabetically sorted; start with randomly chosen image)
+oder "random" (randomly ordered).</dd>
 <dt>effect</dt>
 <dd>The kind of the transition: "fade", "slide" or "curtain".</dd>
 <dt>delay</dt>
@@ -112,7 +116,7 @@ The following options are available:
 <p>To show images as calm, slowly cross-fading slideshow:</p>
 <pre>{{{PLUGIN:slideshow('slides/slow/', 'effect=fade&pause=5000&duration=100');}}}</pre>
 <p>To show appropriate images in a flip-book style:</p>
-<pre>{{{PLUGIN:slideshow('slides/flip/', 'effect=fade&pause=100&duration=100');}}}</pre>
+<pre>{{{PLUGIN:slideshow('slides/flip/', 'order=fixed&effect=fade&pause=100&duration=100');}}}</pre>
 <div class="toplink"><a href="#">back to top</a></div>
 
 <h2><a name="limitations">Limitations</a></h2>
