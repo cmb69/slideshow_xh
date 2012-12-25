@@ -32,7 +32,7 @@ slideshow.RAF = window.mozRequestAnimationFrame
 /**
  * Main slideshow class.
  */
-slideshow.Show = function(id, effect, delay, pause, duration) {
+slideshow.Show = function(id, effect, easing, delay, pause, duration) {
     var that;
 
     that = this;
@@ -52,7 +52,9 @@ slideshow.Show = function(id, effect, delay, pause, duration) {
         this.effect = new slideshow.Random(this);
         break;
     }
-    this.easing = slideshow.easeInOut;
+    this.easing = slideshow.easing[easing]
+        ? slideshow.easing[easing]
+        : slideshow.easing.easeInOut;
     this.pause = pause;
     this.duration = duration;
 
@@ -245,23 +247,24 @@ slideshow.Random.prototype.step = function(progress) {
  *
  * @see http://gizma.com/easing/
  */
+slideshow.easing = {}
 
-slideshow.linear = function(progress) {
+slideshow.easing.linear = function(progress) {
     return progress;
 }
 
 
-slideshow.easeIn = function(progress) {
+slideshow.easing.easeIn = function(progress) {
     return progress * progress;
 }
 
 
-slideshow.easeOut = function(progress) {
+slideshow.easing.easeOut = function(progress) {
     return - progress * (progress - 2);
 }
 
 
-slideshow.easeInOut = function(progress) {
+slideshow.easing.easeInOut = function(progress) {
     progress *= 2;
     if (progress < 1) {
         return progress * progress / 2;

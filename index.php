@@ -98,7 +98,7 @@ function Slideshow($path, $options = '')
     static $run = 0;
 
     $pcf = $plugin_cf['slideshow'];
-    $validOpts = array('order', 'effect', 'delay', 'pause', 'duration');
+    $validOpts = array('order', 'effect', 'easing', 'delay', 'pause', 'duration');
     $opts = Slideshow_getOpts($options, $validOpts);
     $o = '';
     if (!$run) { // TODO: write to $bjs; if so the init script has to be written to $bjs too
@@ -117,9 +117,8 @@ function Slideshow($path, $options = '')
         $o .= tag("img src=\"$img\" width=\"$w\" height=\"$h\" style=\"position:absolute;$first\" alt=\"$bn\"");
     }
     $o .= '</div>';
-    //$o .= "<script type=\"text/javascript\">new Slideshow('$id').test();</script>";
     $o .= "<script type=\"text/javascript\">new slideshow.Show('$id',"
-        . "'$opts[effect]',$opts[delay],$opts[pause],$opts[duration]);</script>";
+        . "'$opts[effect]','$opts[easing]',$opts[delay],$opts[pause],$opts[duration]);</script>";
     return $o;
 }
 
