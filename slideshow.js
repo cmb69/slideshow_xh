@@ -249,6 +249,7 @@ slideshow.Random.prototype.step = function(progress) {
  */
 slideshow.easing = {}
 
+
 slideshow.easing.linear = function(progress) {
     return progress;
 }

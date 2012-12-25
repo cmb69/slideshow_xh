@@ -49,7 +49,8 @@ function Slideshow_images($path, $order)
         natcasesort($imgs);
         if ($order == 'sorted') {
             $n = rand(0, count($imgs) - 1);
-            $imgs = array_merge(array_slice($imgs, $n), array_slice($imgs, 0, $n));
+            $imgs = array_merge(array_slice($imgs, $n),
+                                array_slice($imgs, 0, $n));
         }
     }
     return $imgs;
@@ -115,11 +116,13 @@ function Slideshow($path, $options = '')
         $bn = basename($img);
         $bn = substr($bn, 0, strrpos($bn, '.'));
         $first = $i == 0 ? 'display:block;z-index:1' : 'display:none';
-        $o .= tag("img src=\"$img\" width=\"$w\" height=\"$h\" style=\"position:absolute;$first\" alt=\"$bn\"");
+        $o .= tag("img src=\"$img\" width=\"$w\" height=\"$h\""
+                  . " style=\"position:absolute;$first\" alt=\"$bn\"");
     }
     $o .= '</div>';
-    $o .= "<script type=\"text/javascript\">new slideshow.Show('$id',"
-        . "'$opts[effect]','$opts[easing]',$opts[delay],$opts[pause],$opts[duration]);</script>";
+    $o .= "<script type=\"text/javascript\">new slideshow.Show('$id'"
+        . ",'$opts[effect]','$opts[easing]',$opts[delay],$opts[pause]"
+        . ",$opts[duration]);</script>";
     return $o;
 }
 
