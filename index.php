@@ -117,7 +117,8 @@ function Slideshow($path, $options = '')
         $o .= tag("img src=\"$img\" width=\"$w\" height=\"$h\" style=\"position:absolute;$first\" alt=\"$bn\"");
     }
     $o .= '</div>';
-    $o .= "<script type=\"text/javascript\">slideshow.init('$id',"
+    //$o .= "<script type=\"text/javascript\">new Slideshow('$id').test();</script>";
+    $o .= "<script type=\"text/javascript\">new slideshow.Show('$id',"
         . "'$opts[effect]',$opts[delay],$opts[pause],$opts[duration]);</script>";
     return $o;
 }

@@ -8,110 +8,265 @@
  */
 
 
-// TODO: use requestAnimationFrame?
+// https://hacks.mozilla.org/2011/08/animating-with-javascript-from-setinterval-to-requestanimationframe/
 
 
-var slideshow = {
-
-    init: function(id, effect, delay, pause, duration) {
-        if (window.addEventListener) {
-            window.addEventListener('load', function() {
-                slideshow.play(id, effect, delay, pause, duration);
-            }, false);
-        } else {
-            window.attachEvent('onload', function() {
-                slideshow.play(id, effect, delay, pause, duration);
-            });
-        }
-    },
-
-    play: function(id, effect, delay, pause, duration) {
-        var start, imgs, frame;
-
-        imgs = document.getElementById(id).childNodes;
-        window.setTimeout(function() {
-            start = new Date().getTime();
-            window.setInterval(frame, 20);
-        }, delay);
-        frame = function() {
-            var elapsed = (new Date().getTime() - start) / (pause + duration);
-            var slide = Math.floor(elapsed);
-            var pauseRatio = pause / (pause + duration);
-            var n = slide % imgs.length;
-            var m = (slide + 1) % imgs.length;
-            if (elapsed - slide - pauseRatio < 0) {
-                slideshow[effect + "End"](imgs[n], imgs[m]);
-                return;
-            }
-            var effectRatio = duration / (pause + duration);
-            var progress = Math.max(elapsed - slide - pauseRatio, 0) / effectRatio;
-            //progress *= progress * progress;
-            for (var i = 0; i < imgs.length; i++) {
-                if (i != n && i != m) {
-                    imgs[i].style.display = "none";
-                    imgs[i].style.zIndex = 0;
-                }
-            }
-            slideshow[effect](imgs[n], imgs[m], progress);
-        }
-    },
-
-    test: function() {console.log(1)},
+/**
+ * The namespace.
+ */
+var slideshow = {}
 
 
-    fade: function(img1, img2, progress) {
-        slideshow.setOpacity(img1, 1);
-        img1.style.zIndex = 1;
-        img1.style.display = "block";
-        slideshow.setOpacity(img2, progress);
-        img2.style.zIndex = 2;
-        img2.style.display = "block";
-    },
+slideshow.FRAME_DURATION = 1000 / 50;
 
 
-    fadeEnd: function(img1, img2) {
-        slideshow.setOpacity(img1, 1);
-        img2.style.display = "none";
-    },
+slideshow.MAX_DELTA_T = 10 * slideshow.FRAME_DURATION;
 
 
-    slide: function(img1, img2, progress) {
-        img1.style.left = (img1.width * progress) + "px";
-        img1.style.zIndex = 1;
-        img1.style.display = "block";
-        img2.style.left = (img1.width * progress - img2.width) + "px";
-        img2.style.zIndex = 2;
-        img2.style.display = "block";
-    },
+slideshow.RAF = window.mozRequestAnimationFrame
+    || window.webkitRequestAnimationFrame
+    || window.msRequestAnimationFrame
+    || window.oRequestAnimationFrame;
 
 
-    slideEnd: function(img1, img2) {
-        img1.style.left = 0;
-        img2.style.display = "none";
-    },
+/**
+ * Main slideshow class.
+ */
+slideshow.Show = function(id, effect, delay, pause, duration) {
+    var that;
 
+    that = this;
 
-    curtain: function(img1, img2, progress) {
-        img1.style.zIndex = 1;
-        img1.style.display = "block";
-        img2.style.top = (img1.height * progress - img1.height) + "px";
-        img2.style.zIndex = 2;
-        img2.style.display = "block";
-    },
-
-
-    curtainEnd: function(img1, img2) {
-        img1.style.top = 0;
-        img2.style.display = "none";
-    },
-
-
-    setOpacity: function(img, val) {
-        if (typeof img.style.opacity != 'undefined') {
-            img.style.opacity = val;
-        } else {
-            img.style.filter = "alpha(opacity = " + Math.round(100 * val) + ")";
-        }
+    this.elt = window.document.getElementById(id);
+    switch (effect) {
+    case 'fade':
+        this.effect = new slideshow.Fader(this);
+        break;
+    case 'slide':
+        this.effect = new slideshow.Slider(this);
+        break;
+    case 'curtain':
+        this.effect = new slideshow.Curtain(this);
+        break;
+    default:
+        this.effect = new slideshow.Random(this);
+        break;
     }
+    this.easing = slideshow.easeInOut;
+    this.pause = pause;
+    this.duration = duration;
 
+    this.current = this.elt.firstChild.nextSibling;
+    this.init();
+    this.running = 0;
+    this.lastFrame = null;
+    setTimeout(function() {that.animate()}, delay + pause);
+}
+
+
+slideshow.Show.prototype.getPrevious = function() {
+    return this.current.previousSibling
+        ? this.current.previousSibling
+        : this.current.parentNode.lastChild;
+}
+
+
+slideshow.Show.prototype.next = function() {
+    this.current = this.current.nextSibling
+        ? this.current.nextSibling
+        : this.current.parentNode.firstChild;
+    return this.current;
+}
+
+
+slideshow.Show.prototype.init = function() {
+    var style;
+
+    style = this.current.style;
+    style.zIndex = 2;
+    style.display = "block";
+    this.effect.prepare();
+}
+
+
+slideshow.Show.prototype.animate = function() {
+    var that, now, deltaT;
+
+    that = this;
+    if (this.lastFrame === null) {
+        this.lastFrame = new Date().getTime();
+    }
+    now = new Date().getTime();
+    if (this.running < 1) {
+        if (slideshow.RAF) {
+            slideshow.RAF.call(window, function() {that.animate();}, this.elt);
+        } else {
+            setTimeout(function() {that.animate()}, slideshow.FRAME_DURATION);
+        }
+        deltaT = now - this.lastFrame;
+        if (deltaT < slideshow.MAX_DELTA_T) {
+            this.render(deltaT);
+        }
+        this.lastFrame = now;
+    } else {
+        this.lastFrame = null;
+        this.running = 0;
+        setTimeout(function() {that.animate()}, this.pause)
+    }
+}
+
+
+slideshow.Show.prototype.render = function(deltaT) {
+    var img, prev;
+
+    img = this.current;
+
+    this.running += deltaT / this.duration;
+    this.running = Math.min(this.running, 1);
+
+    this.effect.step(this.easing(this.running));
+
+    if (this.running >= 1) {
+        prev = this.getPrevious();
+        prev.style.zIndex = 0;
+        prev.style.display = "none";
+        img.style.zIndex = 1;
+        img = this.next();
+        img.style.zIndex = 2;
+        img.style.display = "block";
+        this.effect.prepare();
+    }
+}
+
+
+/**
+ * The 'fade' effect.
+ */
+slideshow.Fader = function(show) {
+    this.show = show;
+}
+
+
+slideshow.Fader.setOpacity = function(img, val) {
+    if (typeof img.style.opacity != 'undefined') {
+        img.style.opacity = val;
+    } else {
+        img.style.filter = "alpha(opacity = " + Math.round(100 * val) + ")";
+    }
+}
+
+
+slideshow.Fader.prototype.prepare = function() {
+    slideshow.Fader.setOpacity(this.show.current, 0);
+}
+
+
+slideshow.Fader.prototype.step = function(progress) {
+    slideshow.Fader.setOpacity(this.show.current, progress);
+}
+
+
+/**
+ * The 'slide' effect.
+ */
+slideshow.Slider = function(show) {
+    this.show = show;
+}
+
+
+slideshow.Slider.prototype.prepare = function() {
+    var img;
+
+    this.show.getPrevious().style.left = "0px";
+    img = this.show.current;
+    img.style.left = - img.width + "px";
+}
+
+
+slideshow.Slider.prototype.step = function(progress) {
+    var img;
+
+    img = this.show.getPrevious();
+    img.style.left = progress * img.width + "px";
+    img = this.show.current;
+    img.style.left = progress * img.width - img.width + "px";
+}
+
+
+/**
+ * The 'curtain' effect.
+ */
+slideshow.Curtain = function(show) {
+    this.show = show;
+}
+
+
+slideshow.Curtain.prototype.prepare = function() {
+    var img;
+
+    img = this.show.current;
+    img.style.top = -img.height + "px";
+}
+
+
+slideshow.Curtain.prototype.step = function(progress) {
+    var img;
+
+    img = this.show.current;
+    img.style.top = (progress - 1) * img.height + "px";
+}
+
+
+/**
+ * The 'random' effect.
+ *
+ * Switch randomly between all available effects.
+ */
+slideshow.Random = function(show) {
+    this.show = show;
+    this.effects = [new slideshow.Fader(show),
+                    new slideshow.Slider(show),
+                    new slideshow.Curtain(show)];
+    this.effect = -1;
+}
+
+slideshow.Random.prototype.prepare = function() {
+    this.effect = Math.floor(3 * Math.random());
+    this.effects[this.effect].prepare();
+}
+
+slideshow.Random.prototype.step = function(progress) {
+    return this.effects[this.effect].step(progress);
+}
+
+
+/*
+ * The easing functions.
+ *
+ * @see http://gizma.com/easing/
+ */
+
+slideshow.linear = function(progress) {
+    return progress;
+}
+
+
+slideshow.easeIn = function(progress) {
+    return progress * progress;
+}
+
+
+slideshow.easeOut = function(progress) {
+    return - progress * (progress - 2);
+}
+
+
+slideshow.easeInOut = function(progress) {
+    progress *= 2;
+    if (progress < 1) {
+        return progress * progress / 2;
+    } else {
+        progress--;
+        return -1/2 * (progress * (progress - 2) - 1);
+    }
 }
