@@ -127,6 +127,16 @@ Die Übergangseffekte sind rechenintensiv, besonders für große Bilder.
 Daher sollten Sie sich auf nur wenige Diashows
 mit kleinen oder mittelgroßen Bildern auf der selben Seite beschränken,
 um Besuchern mit geringer Rechenleistung keine stotternden Diashows zu präsentieren.</p>
+<p>Grundsätzlich ist es kein Problem die selbe Diashow mehrfach auf der selben Seite anzuzeigen.
+Aber das funktioniert nicht, wenn der Pluginaufruf identisch ist, z.B.</p>
+<pre>{{{PLUGIN:slideshow('dias');}}}
+{{{PLUGIN:slideshow('dias');}}}</pre>
+<p>Dies wird durch die Skriptauswertung des Pluginaufrufs verursacht,
+die indentische Aufrufe nur einmal auswertet.
+Verwenden Sie daher in diesem Fall CMSimple-Skripting, hi_pdscripting
+oder überlisten Sie den Evaluator durch das Einfügen eines Leerzeichens:</p>
+<pre>{{{PLUGIN:slideshow('dias');}}}
+{{{PLUGIN:slideshow( 'dias');}}}</pre>
 <div class="toplink"><a href="#">zum Seitenanfang</a></div>
 
 <h2><a name="license">Lizenz</a></h2>

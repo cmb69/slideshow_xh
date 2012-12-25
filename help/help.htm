@@ -127,6 +127,16 @@ The transition effects are CPU-intensive, particularly for large images.
 So you should restrain yourself to only a few slideshows
 with small or medium-sized images on the same page,
 to avoid stuttering slideshows for visitors with little processing power.</p>
+<p>Basically it's no problem to display the same slideshow several times on the same page.
+But that will not work, if the plugin call is exactly the same, e.g.</p>
+<pre>{{{PLUGIN:slideshow('slides');}}}
+{{{PLUGIN:slideshow('slides');}}}</pre>
+<p>This is caused by the script evaluation of the plugin call,
+which will evaluate identical calls only once.
+So use classic CMSimple scripting, hi_pdscripting
+or fool the evaluator by inserting a space:</p>
+<pre>{{{PLUGIN:slideshow('slides');}}}
+{{{PLUGIN:slideshow( 'slides');}}}</pre>
 <div class="toplink"><a href="#">back to top</a></div>
 
 <h2><a name="license">License</a></h2>
