@@ -36,7 +36,7 @@ function Slideshow_images($path, $order)
     $dh = opendir($path);
     while (($fn = readdir($dh)) !== false) {
         if (in_array(strtolower(pathinfo($fn, PATHINFO_EXTENSION)),
-                     array('gif', 'jpg', 'png')))
+                     array('gif', 'jpeg', 'jpg', 'png')))
         {
             $ffn = $path . $fn;
             $imgs[] = $ffn;
