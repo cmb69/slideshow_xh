@@ -82,8 +82,7 @@ insert into the page:</p>
 <dt>%FOLDER%</dt>
 <dd>The path of a folder relative to CMSimple_XH's image folder.
 All JPEG, PNG and GIF images inside this folder will be used for the slideshow,
-and displayed in alphabetic order.
-All images will be resized according to the first image,
+and be resized according to the first image,
 so usually you'll want to prepare the images to have exactly the same size.</dd>
 <dt>%OPTIONS%</dt>
 <dd>Any given option will override the respective value
@@ -110,15 +109,15 @@ oder "random" (randomly ordered).</dd>
 </dl>
 </dd>
 </dl>
-<h4>Examples</h4
+<h4>Examples</h4>
 <p>To show the images inside of images/banners/ with the default settings on every page:</p>
 <pre>&lt;?php echo slideshow('banners');?&gt;</pre>
 <p>To show images in a treatmill fashion:</p>
-<pre>{{{PLUGIN:slideshow('slides/run/', 'effect=slide&pause=0&duration=2000');}}}</pre>
+<pre>{{{PLUGIN:slideshow('slides/run/', 'effect=slide&amp;pause=0&amp;duration=2000');}}}</pre>
 <p>To show images as calm, slowly cross-fading slideshow:</p>
-<pre>{{{PLUGIN:slideshow('slides/slow/', 'effect=fade&pause=5000&duration=100');}}}</pre>
+<pre>{{{PLUGIN:slideshow('slides/slow/', 'effect=fade&amp;pause=5000&amp;duration=100');}}}</pre>
 <p>To show appropriate images in a flip-book style:</p>
-<pre>{{{PLUGIN:slideshow('slides/flip/', 'order=fixed&effect=fade&pause=100&duration=100');}}}</pre>
+<pre>{{{PLUGIN:slideshow('slides/flip/', 'order=fixed&amp;effect=fade&amp;pause=100&amp;duration=100');}}}</pre>
 <div class="toplink"><a href="#">back to top</a></div>
 
 <h2><a name="limitations">Limitations</a></h2>
