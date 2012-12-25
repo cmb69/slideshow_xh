@@ -112,7 +112,8 @@ function Slideshow($path, $options = '')
     $style = "position:relative;width:${w}px;height:${h}px;overflow:hidden";
     $o .= "<div id=\"$id\" class=\"slideshow\" style=\"$style\">";
     foreach ($imgs as $i => $img) {
-        $bn = substr(basename($img), 0, -4);
+        $bn = basename($img);
+        $bn = substr($bn, 0, strrpos($bn, '.'));
         $first = $i == 0 ? 'display:block;z-index:1' : 'display:none';
         $o .= tag("img src=\"$img\" width=\"$w\" height=\"$h\" style=\"position:absolute;$first\" alt=\"$bn\"");
     }
