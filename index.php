@@ -104,7 +104,7 @@ function Slideshow($path, $options = '')
     $o = '';
     if (!$run) { // TODO: write to $bjs; if so the init script has to be written to $bjs too
         $o .= '<script type="text/javascript" src="'
-            . $pth['folder']['plugins'] . 'slideshow/slideshow.js"></script>';
+            . $pth['folder']['plugins'] . 'slideshow/slideshow.min.js"></script>';
     }
     $run++;
     $imgs = Slideshow_images($path, $opts['order']);
