@@ -1,16 +1,19 @@
 <?php
 
-// $Id$
-
 /**
  * Back-end of Slideshow_XH.
  *
- * @package   slideshow
- * @copyright Copyright (c) 2012-2013 Christoph M. Becker
- * @license   http://www.gnu.org/licenses/gpl.html GPLv3
+ * @package	Slideshow
+ * @copyright	Copyright (c) 2012-2013 Christoph M. Becker <http://3-magi.net/>
+ * @license	http://www.gnu.org/licenses/gpl.html GNU GPLv3
+ * @version	$Id$
+ * @link	<http://3-magi.net/?CMSimple_XH/Slideshow_XH>
  */
 
 
+/*
+ * Prevent direct access.
+ */
 if (!defined('CMSIMPLE_XH_VERSION')) {
     header('HTTP/1.0 403 Forbidden');
     exit;
@@ -20,6 +23,7 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 /**
  * Returns the plugin version information view.
  *
+ * @global array  The paths of system files and folders.
  * @return string  The (X)HTML.
  */
 function Slideshow_version()
@@ -48,6 +52,9 @@ function Slideshow_version()
 /**
  * Returns the requirements information view.
  *
+ * @global array  The paths of system files and folders.
+ * @global array  The localization of the core.
+ * @global array  The localization of the plugins.
  * @return string  The (X)HTML.
  */
 function Slideshow_systemCheck() // RELEASE-TODO

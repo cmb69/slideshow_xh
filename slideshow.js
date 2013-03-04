@@ -1,18 +1,16 @@
-// $Id$
-
 /**
- * JS of Slideshow_XH.
+ * JavaScript of Slideshow_XH.
  *
- * @copyright Copyright (c) 2012-2013 Christoph M. Becker
- * @license   http://www.gnu.org/licenses/gpl.html GPLv3
+ * @copyright   Copyright (c) 2012-2013 Christoph M. Becker <http://3-magi.net/>
+ * @license     http://www.gnu.org/licenses/gpl.html GNU GPLv3
+ * @version     $Id$
+ * @link        <http://3-magi.net/?CMSimple_XH/Slideshow_XH>
+ * @see         <https://hacks.mozilla.org/2011/08/animating-with-javascript-from-setinterval-to-requestanimationframe/>
  */
 
 
-// https://hacks.mozilla.org/2011/08/animating-with-javascript-from-setinterval-to-requestanimationframe/
-
-
 /**
- * The namespace.
+ * The plugin's namespace.
  */
 var slideshow = {}
 
@@ -31,6 +29,15 @@ slideshow.RAF = window.mozRequestAnimationFrame
 
 /**
  * Main slideshow class.
+ *
+ * @constructor
+ *
+ * @param {String} id
+ * @param {String} effect
+ * @param {String} easing
+ * @param {Number} delay
+ * @param {Number} pause
+ * @param {Number} duration
  */
 slideshow.Show = function(id, effect, easing, delay, pause, duration) {
     var that;
@@ -66,6 +73,13 @@ slideshow.Show = function(id, effect, easing, delay, pause, duration) {
 }
 
 
+/**
+ * Returns the previous `image' element.
+ *
+ * @private
+ *
+ * @returns {HTMLImageElement}
+ */
 slideshow.Show.prototype.getPrevious = function() {
     return this.current.previousSibling
         ? this.current.previousSibling
@@ -73,6 +87,13 @@ slideshow.Show.prototype.getPrevious = function() {
 }
 
 
+/**
+ * Returns the next `image' element.
+ *
+ * @private
+ *
+ * @returns {HTMLImageElement}
+ */
 slideshow.Show.prototype.next = function() {
     this.current = this.current.nextSibling.nextSibling
         ? this.current.nextSibling
@@ -81,12 +102,20 @@ slideshow.Show.prototype.next = function() {
 }
 
 
+/**
+ * Initializes the slideshow.
+ *
+ * @private
+ *
+ * @returns {undefined}
+ */
 slideshow.Show.prototype.init = function() {
-    // create clone of the first image with static position
-    // to force height of the surrounding `div' > 0
-    var clone = this.elt.firstChild.cloneNode(false);
-    var style = clone.style;
+    var clone, style;
 
+    // Create a clone of the first image with static position
+    // to force height of the surrounding `div' to be greater than 0.
+    clone = this.elt.firstChild.cloneNode(false);
+    style = clone.style;
     style.position = "static";
     style.visibility = "hidden";
     this.elt.appendChild(clone);
@@ -97,6 +126,13 @@ slideshow.Show.prototype.init = function() {
 }
 
 
+/**
+ * Executes the next animation step.
+ *
+ * @private
+ *
+ * @returns {undefined}
+ */
 slideshow.Show.prototype.animate = function() {
     var that, now, deltaT;
 
@@ -107,9 +143,13 @@ slideshow.Show.prototype.animate = function() {
     now = new Date().getTime();
     if (this.running < 1) {
         if (slideshow.RAF) {
-            slideshow.RAF.call(window, function() {that.animate();}, this.elt);
+            slideshow.RAF.call(window, function() {
+                that.animate();
+            }, this.elt);
         } else {
-            setTimeout(function() {that.animate()}, slideshow.FRAME_DURATION);
+            setTimeout(function() {
+                that.animate()
+            }, slideshow.FRAME_DURATION);
         }
         deltaT = now - this.lastFrame;
         if (deltaT < slideshow.MAX_DELTA_T) {
@@ -119,11 +159,21 @@ slideshow.Show.prototype.animate = function() {
     } else {
         this.lastFrame = null;
         this.running = 0;
-        setTimeout(function() {that.animate()}, this.pause)
+        setTimeout(function() {
+            that.animate()
+        }, this.pause);
     }
 }
 
 
+/**
+ * Renders the animation.
+ *
+ * @private
+ *
+ * @param   {Number} deltaT
+ * @returns {undefined}
+ */
 slideshow.Show.prototype.render = function(deltaT) {
     var img, prev;
 
@@ -148,13 +198,26 @@ slideshow.Show.prototype.render = function(deltaT) {
 
 
 /**
- * The 'fade' effect.
+ * The `fade' effect class.
+ *
+ * @constructor
+ *
+ * @param {slideshow.Show} show
  */
 slideshow.Fader = function(show) {
     this.show = show;
 }
 
 
+/**
+ * Sets the opacity.
+ *
+ * @private
+ *
+ * @param   {HTMLImageElement} img
+ * @param   {Number} val
+ * @returns {undefined}
+ */
 slideshow.Fader.setOpacity = function(img, val) {
     if (typeof img.style.opacity != 'undefined') {
         img.style.opacity = val;
@@ -164,24 +227,50 @@ slideshow.Fader.setOpacity = function(img, val) {
 }
 
 
+/**
+ * Prepares the next image.
+ *
+ * @public
+ *
+ * @returns {undefined}
+ */
 slideshow.Fader.prototype.prepare = function() {
     slideshow.Fader.setOpacity(this.show.current, 0);
 }
 
 
+/**
+ * Executes the next animation step.
+ *
+ * @public
+ *
+ * @param   {Number} progress
+ * @returns {undefined}
+ */
 slideshow.Fader.prototype.step = function(progress) {
     slideshow.Fader.setOpacity(this.show.current, progress);
 }
 
 
 /**
- * The 'slide' effect.
+ * The `slide' effect class.
+ *
+ * @constructor
+ *
+ * @param {slideshow.Show} show
  */
 slideshow.Slider = function(show) {
     this.show = show;
 }
 
 
+/**
+ * Prepares the next image.
+ *
+ * @public
+ *
+ * @returns {undefined}
+ */
 slideshow.Slider.prototype.prepare = function() {
     var img;
 
@@ -191,6 +280,14 @@ slideshow.Slider.prototype.prepare = function() {
 }
 
 
+/**
+ * Executes the next animation step.
+ *
+ * @public
+ *
+ * @param   {Number} progress
+ * @returns {undefined}
+ */
 slideshow.Slider.prototype.step = function(progress) {
     var img;
 
@@ -202,13 +299,24 @@ slideshow.Slider.prototype.step = function(progress) {
 
 
 /**
- * The 'curtain' effect.
+ * The `curtain' effect class.
+ *
+ * @constructor
+ *
+ * @param {slideshow.Show} show
  */
 slideshow.Curtain = function(show) {
     this.show = show;
 }
 
 
+/**
+ * Prepares the next image.
+ *
+ * @public
+ *
+ * @returns {undefined}
+ */
 slideshow.Curtain.prototype.prepare = function() {
     var img;
 
@@ -217,6 +325,14 @@ slideshow.Curtain.prototype.prepare = function() {
 }
 
 
+/**
+ * Executes the next animation step.
+ *
+ * @public
+ *
+ * @param   {Number} progress
+ * @returns {undefined}
+ */
 slideshow.Curtain.prototype.step = function(progress) {
     var img;
 
@@ -226,9 +342,14 @@ slideshow.Curtain.prototype.step = function(progress) {
 
 
 /**
- * The 'random' effect.
+ * The `random' effect.
  *
  * Switch randomly between all available effects.
+ *
+ * @constructor
+ *
+ * @param   {slideshow.Show} show
+ * @returns {undefined}
  */
 slideshow.Random = function(show) {
     this.show = show;
@@ -238,39 +359,78 @@ slideshow.Random = function(show) {
     this.effect = -1;
 }
 
+/**
+ * Prepares the next image.
+ *
+ * @public
+ *
+ * @returns {undefined}
+ */
 slideshow.Random.prototype.prepare = function() {
     this.effect = Math.floor(3 * Math.random());
     this.effects[this.effect].prepare();
 }
 
+/**
+ * Executes the next animation step.
+ *
+ * @public
+ *
+ * @param   {Number} progress
+ * @returns {undefined}
+ */
 slideshow.Random.prototype.step = function(progress) {
     return this.effects[this.effect].step(progress);
 }
 
 
-/*
- * The easing functions.
+/**
+ * The easing functions' namespace.
  *
  * @see http://gizma.com/easing/
  */
 slideshow.easing = {}
 
 
+/**
+ * Returns a linear easing value.
+ *
+ * @param   {Number} progress
+ * @returns {Number}
+ */
 slideshow.easing.linear = function(progress) {
     return progress;
 }
 
 
+/**
+ * Returns an ease in easing value.
+ *
+ * @param   {Number} progress
+ * @returns {Number}
+ */
 slideshow.easing.easeIn = function(progress) {
     return progress * progress;
 }
 
 
+/**
+ * Returns an ease out easing value.
+ *
+ * @param   {Number} progress
+ * @returns {Number}
+ */
 slideshow.easing.easeOut = function(progress) {
     return - progress * (progress - 2);
 }
 
 
+/**
+ * Returns an ease in-out easing value.
+ *
+ * @param   {Number} progress
+ * @returns {Number}
+ */
 slideshow.easing.easeInOut = function(progress) {
     progress *= 2;
     if (progress < 1) {

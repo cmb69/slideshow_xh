@@ -1,22 +1,28 @@
 <?php
 
-// $Id$
-
 /**
  * Front-end of Slideshow_XH.
  *
- * @package   slideshow
- * @copyright Copyright (c) 2012-2013 Christoph M. Becker
- * @license   http://www.gnu.org/licenses/gpl.html GPLv3
+ * @package	Slideshow
+ * @copyright	Copyright (c) 2012-2013 Christoph M. Becker <http://3-magi.net/>
+ * @license	http://www.gnu.org/licenses/gpl.html GNU GPLv3
+ * @version	$Id$
+ * @link	<http://3-magi.net/?CMSimple_XH/Slideshow_XH>
  */
 
 
+/*
+ * Prevent direct access.
+ */
 if (!defined('CMSIMPLE_XH_VERSION')) {
     header('HTTP/1.0 403 Forbidden');
     exit;
 }
 
 
+/**
+ * The version number of the plugin.
+ */
 define('SLIDESHOW_VERSION', '1beta1');
 
 
@@ -24,7 +30,7 @@ define('SLIDESHOW_VERSION', '1beta1');
  * Returns the list of image files in the given folder.
  *
  * @param  string $path  The path of the folder.
- * @param  string $order  fixed/sorted/random.
+ * @param  string $order  `fixed'/`sorted'/`random'.
  * @return array
  */
 function Slideshow_images($path, $order)
@@ -63,6 +69,7 @@ function Slideshow_images($path, $order)
  * Defaults are taken from $plugin_cf['slideshow']['default_*'].
  * Those will be overridden with the options in $query.
  *
+ * @global array  The configuration of the plugins.
  * @param  string $query  The options given like a query string.
  * @param  array $validOpts  The valid options.
  * @return array
