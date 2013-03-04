@@ -89,22 +89,31 @@ function Slideshow_getOpts($query, $validOpts)
 /**
  * Returns the slideshow.
  *
+ * @global string  (X)HTML to insert to the end of the `body' element.
+ * @global array  The paths of system files and folders.
+ * @global array  The configuration of the plugins.
  * @param  string $path  The path of the image folder.
  * @param  string $options  The options in form of a query string.
  * @return string  The (X)HTML.
  */
 function Slideshow($path, $options = '')
 {
-    global $hjs, $onload, $pth, $plugin_cf;
+    global $bjs, $pth, $plugin_cf;
     static $run = 0;
 
     $pcf = $plugin_cf['slideshow'];
-    $validOpts = array('order', 'effect', 'easing', 'delay', 'pause', 'duration');
+    $validOpts = array('order', 'effect', 'easing', 'delay', 'pause',
+		       'duration');
     $opts = Slideshow_getOpts($options, $validOpts);
+    if (isset($bjs)) {
+	$script =& $bjs;
+    } else {
+	$script =& $o;
+    }
     $o = '';
-    if (!$run) { // TODO: write to $bjs; if so the init script has to be written to $bjs too
-        $o .= '<script type="text/javascript" src="'
-            . $pth['folder']['plugins'] . 'slideshow/slideshow.js"></script>'; // TODO: min
+    if (!$run) {
+	$src = $pth['folder']['plugins'] . 'slideshow/slideshow.js'; // TODO: minify
+        $script .= "<script type=\"text/javascript\" src=\"$src\"></script>";
     }
     $run++;
     $imgs = Slideshow_images($path, $opts['order']);
@@ -120,7 +129,7 @@ function Slideshow($path, $options = '')
 		  . " style=\"position:absolute;$first;width:100%\"");
     }
     $o .= '</div>';
-    $o .= "<script type=\"text/javascript\">new slideshow.Show('$id'"
+    $script .= "<script type=\"text/javascript\">new slideshow.Show('$id'"
         . ",'$opts[effect]','$opts[easing]',$opts[delay],$opts[pause]"
         . ",$opts[duration]);</script>";
     return $o;
