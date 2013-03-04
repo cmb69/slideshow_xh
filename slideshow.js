@@ -69,12 +69,12 @@ slideshow.Show = function(id, effect, easing, delay, pause, duration) {
 slideshow.Show.prototype.getPrevious = function() {
     return this.current.previousSibling
         ? this.current.previousSibling
-        : this.current.parentNode.lastChild;
+        : this.current.parentNode.lastChild.previousSibling;
 }
 
 
 slideshow.Show.prototype.next = function() {
-    this.current = this.current.nextSibling
+    this.current = this.current.nextSibling.nextSibling
         ? this.current.nextSibling
         : this.current.parentNode.firstChild;
     return this.current;
@@ -82,10 +82,16 @@ slideshow.Show.prototype.next = function() {
 
 
 slideshow.Show.prototype.init = function() {
-    var style;
+    // create clone of the first image with static position
+    // to force height of the surrounding `div' > 0
+    var clone = this.elt.firstChild.cloneNode(false);
+    var style = clone.style;
+
+    style.position = "static";
+    style.visibility = "hidden";
+    this.elt.appendChild(clone);
 
     style = this.current.style;
-    style.zIndex = 2;
     style.display = "block";
     this.effect.prepare();
 }
@@ -122,6 +128,7 @@ slideshow.Show.prototype.render = function(deltaT) {
     var img, prev;
 
     img = this.current;
+    img.style.zIndex = 2;
 
     this.running += deltaT / this.duration;
     this.running = Math.min(this.running, 1);
@@ -134,7 +141,6 @@ slideshow.Show.prototype.render = function(deltaT) {
         prev.style.display = "none";
         img.style.zIndex = 1;
         img = this.next();
-        img.style.zIndex = 2;
         img.style.display = "block";
         this.effect.prepare();
     }
@@ -181,7 +187,7 @@ slideshow.Slider.prototype.prepare = function() {
 
     this.show.getPrevious().style.left = "0px";
     img = this.show.current;
-    img.style.left = - img.width + "px";
+    img.style.left = - img.offsetWidth + "px";
 }
 
 
@@ -189,9 +195,9 @@ slideshow.Slider.prototype.step = function(progress) {
     var img;
 
     img = this.show.getPrevious();
-    img.style.left = progress * img.width + "px";
+    img.style.left = progress * img.offsetWidth + "px";
     img = this.show.current;
-    img.style.left = progress * img.width - img.width + "px";
+    img.style.left = (progress - 1) * img.offsetWidth + "px";
 }
 
 
@@ -207,7 +213,7 @@ slideshow.Curtain.prototype.prepare = function() {
     var img;
 
     img = this.show.current;
-    img.style.top = -img.height + "px";
+    img.style.top = -img.offsetHeight + "px";
 }
 
 
@@ -215,7 +221,7 @@ slideshow.Curtain.prototype.step = function(progress) {
     var img;
 
     img = this.show.current;
-    img.style.top = (progress - 1) * img.height + "px";
+    img.style.top = (progress - 1) * img.offsetHeight + "px";
 }
 
 

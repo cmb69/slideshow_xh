@@ -104,20 +104,20 @@ function Slideshow($path, $options = '')
     $o = '';
     if (!$run) { // TODO: write to $bjs; if so the init script has to be written to $bjs too
         $o .= '<script type="text/javascript" src="'
-            . $pth['folder']['plugins'] . 'slideshow/slideshow.min.js"></script>';
+            . $pth['folder']['plugins'] . 'slideshow/slideshow.js"></script>'; // TODO: min
     }
     $run++;
     $imgs = Slideshow_images($path, $opts['order']);
     list($w, $h) = getimagesize($imgs[0]);
     $id = "slideshow_$run";
-    $style = "position:relative;width:${w}px;height:${h}px;overflow:hidden";
+    $style = "position:relative;width:100%;height:100%;overflow:hidden";
     $o .= "<div id=\"$id\" class=\"slideshow\" style=\"$style\">";
     foreach ($imgs as $i => $img) {
         $bn = basename($img);
         $bn = substr($bn, 0, strrpos($bn, '.'));
         $first = $i == 0 ? 'display:block;z-index:1' : 'display:none';
-        $o .= tag("img src=\"$img\" width=\"$w\" height=\"$h\""
-                  . " style=\"position:absolute;$first\" alt=\"$bn\"");
+        $o .= tag("img src=\"$img\" alt=\"$bn\""
+		  . " style=\"position:absolute;$first;width:100%\"");
     }
     $o .= '</div>';
     $o .= "<script type=\"text/javascript\">new slideshow.Show('$id'"
