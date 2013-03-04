@@ -3,7 +3,7 @@
 /**
  * JS of Slideshow_XH.
  *
- * @copyright Copyright (c) 2012 Christoph M. Becker
+ * @copyright Copyright (c) 2012-2013 Christoph M. Becker
  * @license   http://www.gnu.org/licenses/gpl.html GPLv3
  */
 
