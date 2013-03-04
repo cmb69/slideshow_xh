@@ -15,12 +15,21 @@
 var slideshow = {}
 
 
+/**
+ * The interval in milliseconds between to animation frames.
+ */
 slideshow.FRAME_DURATION = 1000 / 50;
 
 
+/**
+ * The time in milliseconds, which triggers the rendering of a new animation frame.
+ */
 slideshow.MAX_DELTA_T = 10 * slideshow.FRAME_DURATION;
 
 
+/**
+ * The request animation frame function.
+ */
 slideshow.RAF = window.mozRequestAnimationFrame
     || window.webkitRequestAnimationFrame
     || window.msRequestAnimationFrame
