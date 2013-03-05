@@ -64,6 +64,34 @@ function Slideshow_images($path, $order)
 
 
 /**
+ * Returns an instantiated view template.
+ *
+ * @global array  The paths of system files and folders.
+ * @global array  The configuration of the core.
+ * @param string $_template  The path of the template file.
+ * @param array $_bag  The variables.
+ * @return string
+ */
+function Slideshow_view($_template, $_bag)
+{
+    global $pth, $cf;
+
+    $_template = $pth['folder']['plugins'] . 'slideshow/views/' . $_template
+        . '.htm';
+    $_xhtml = strtolower($cf['xhtml']['endtags']) == 'true';
+    unset($pth, $cf);
+    extract($_bag);
+    ob_start();
+    include $_template;
+    $view = ob_get_clean();
+    if (!$_xhtml) {
+        $view = str_replace(' />', '>', $view);
+    }
+    return $view;
+}
+
+
+/**
  * Returns the options.
  *
  * Defaults are taken from $plugin_cf['slideshow']['default_*'].

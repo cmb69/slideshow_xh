@@ -7,7 +7,7 @@
  * License.
  */
 
-$plugin_tx['slideshow']['syscheck_title']="System check";
+$plugin_tx['slideshow']['syscheck']="System check";
 $plugin_tx['slideshow']['syscheck_phpversion']="PHP version ≥ %s";
 $plugin_tx['slideshow']['syscheck_extension']="Extension '%s' loaded";
 $plugin_tx['slideshow']['syscheck_encoding']="Encoding 'UTF-8' configured";

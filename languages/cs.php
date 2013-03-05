@@ -1,6 +1,6 @@
 <?php
 
-	$plugin_tx['slideshow']['syscheck_title']="Kontrola systému";
+	$plugin_tx['slideshow']['syscheck']="Kontrola systému";
 	$plugin_tx['slideshow']['syscheck_phpversion']="PHP verze ≥ %s";
 	$plugin_tx['slideshow']['syscheck_extension']="Rozšíření '%s' načteno";
 	$plugin_tx['slideshow']['syscheck_encoding']="Kodování 'UTF-8' nastaveno";
