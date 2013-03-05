@@ -147,7 +147,7 @@ function Slideshow($path, $options = '')
     }
     $o = '';
     if (!$run) {
-	$src = $pth['folder']['plugins'] . 'slideshow/slideshow.js'; // TODO: minify
+	$src = $pth['folder']['plugins'] . 'slideshow/slideshow.min.js';
         $script .= "<script type=\"text/javascript\" src=\"$src\"></script>";
     }
     $run++;

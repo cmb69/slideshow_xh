@@ -30,7 +30,7 @@ function Slideshow_info() // RELEASE-TODO
     global $pth, $tx, $plugin_tx;
 
     $ptx = $plugin_tx['slideshow'];
-    $phpVersion = '4.0.7';
+    $phpVersion = '4.3.0';
     foreach (array('ok', 'warn', 'fail') as $state) {
         $images[$state] = "{$pth['folder']['plugins']}slideshow/images/$state.png";
     }
