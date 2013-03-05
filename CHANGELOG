@@ -1,3 +1,10 @@
+Version 1beta2 - released 2013-03-05
+cmb     changed image widths to 100% to be properly displayed in responsive templates (insp. by Tata)
+cmb     improved to use $bjs, if available (slight performance gain)
+cmb     added synopsis to system info
+cmb     added Danish and Czech translation (contributed by maeg resp. oldnema)
+cmb     cleaned up code
+
 Version 1beta1 - released 2012-12-25
 cmb     implemented different orderings of the images (suggested by Joe)
 cmb     rewritten slideshow.js in OOP style
