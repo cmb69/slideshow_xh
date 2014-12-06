@@ -119,7 +119,6 @@
                 <exclude name="build.xml"/>
                 <exclude name="phpcompatinfo.xml"/>
                 <exclude name="slideshow.js"/>
-                <exclude name="slideshow.komodoproject"/>
                 <exclude name="tests/**"/>
                 <exclude name="TODO"/>
             </fileset>
