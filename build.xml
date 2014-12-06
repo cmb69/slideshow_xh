@@ -120,7 +120,6 @@
                 <exclude name="phpcompatinfo.xml"/>
                 <exclude name="slideshow.js"/>
                 <exclude name="tests/**"/>
-                <exclude name="TODO"/>
             </fileset>
         </move>
         <delete dir="export"/>

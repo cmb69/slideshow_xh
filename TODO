@@ -1,9 +1,0 @@
-* check and solve size issue
-    <http://cmsimpleforum.com/viewtopic.php?f=5&t=5953&p=34683#p34683> (Korvell)
-    <http://cmsimpleforum.com/ucp.php?i=pm&mode=view&f=0&p=9963> (oldnema)
-* suppress error, if only 1 image is there
-* pause on mouseover (sugg. Holger)
-  <http://cmsimpleforum.com/viewtopic.php?f=16&t=6225&p=35639#p35634>
-* store last image in cookie (sugg. by Holger)
-  <http://cmsimpleforum.com/viewtopic.php?f=16&t=6225&p=35639#p35634>
-* load images on demand
