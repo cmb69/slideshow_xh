@@ -1,59 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id$ -->
-
-<project name="Slideshow" default="default">
-
-    <!-- Properties -->
-
-    <property name="styledir" value="C:\xampp\php\data\phing\etc"/>
-
-    <!-- Filesets -->
+<project name="Slideshow" default="help">
 
     <fileset id="php-sources" dir=".">
         <include name="admin.php"/>
         <include name="index.php"/>
     </fileset>
 
-    <!-- Checks -->
+    <fileset id="js-sources" dir=".">
+        <include name="todo.js"/>
+    </fileset>
 
-    <target name="sniff">
+    <fileset id="unit-tests" dir="tests/unit">
+        <include name="*Test.php"/>
+    </fileset>
+
+    <fileset id="attack-tests" dir="tests/attack">
+        <include name="*Test.php"/>
+    </fileset>
+
+    <target name="help" description="lists available targets">
+        <exec command="phing -l" outputProperty="help"/>
+        <echo>${help}</echo>
+    </target>
+
+    <target name="sniff" description="checks adherence to PEAR CS">
         <phpcodesniffer standard="PEAR">
             <fileset refid="php-sources"/>
+            <fileset refid="unit-tests"/>
+            <fileset refid="attack-tests"/>
         </phpcodesniffer>
     </target>
 
-    <target name="compat">
-        <exec command="phpcompatinfo --configuration phpcompatinfo.xml print --exclude-pattern slideshow ."
-              logoutput="true"/>
+    <target name="compat"
+            description="checks compatibility with PHP_CompatInfo 3">
+        <exec command="phpcompatinfo analyser:run ." logoutput="true"/>
     </target>
-
-    <!-- Tests -->
 
     <target name="unit-tests">
         <phpunit haltonerror="true" haltonfailure="true">
             <formatter type="plain" usefile="false"/>
             <batchtest>
-                <fileset dir="tests/unit">
-                    <include name="*Test.php"/>
-                </fileset>
+                <fileset refid="unit-tests"/>
             </batchtest>
         </phpunit>
     </target>
 
-<!--    <target name="attack-tests">
+    <target name="attack-tests">
         <fail unless="env.CMSIMPLEDIR" message="CMSIMPLEDIR undefined!"/>
         <phpunit haltonerror="true" haltonfailure="true">
             <formatter type="plain" usefile="false"/>
             <batchtest>
-                <fileset dir="tests/attack">
-                    <include name="*Test.php"/>
-                </fileset>
+                <fileset refid="attack-tests"/>
             </batchtest>
         </phpunit>
     </target>
--->
-    <!-- Code coverage -->
 
     <target name="coverage">
         <coverage-setup database="tests/coverage/coverage.db">
@@ -73,11 +74,9 @@
         </coverage-report>
     </target>
 
-    <!-- Documentation -->
-
     <target name="php-doc">
         <phpdoc title="Slideshow_XH Developer Documentation" destdir="doc/php"
-                output="HTML:frames:default" defaultpackagename="Slideshow"
+                output="HTML:Smarty:HandS" defaultpackagename="Slideshow"
                 defaultcategoryname="CMSimple_XH">
             <fileset refid="php-sources"/>
             <projdocfileset dir=".">
@@ -87,17 +86,23 @@
         </phpdoc>
     </target>
 
-<!--    <target name="js-doc">
-        <exec command="jsdoc -d doc/js translator.js" checkreturn="true"/>
+    <target name="js-doc">
+        <apply executable="jsdoc" parallel="true" checkreturn="true">
+            <arg value="-d"/>
+            <arg value="doc/js"/>
+            <arg value="-p"/>
+            <fileset refid="js-sources"/>
+        </apply>
     </target>
--->
-    <target name="doc" depends="php-doc"/>
 
-    <!-- Build -->
+    <target name="doc" depends="php-doc, js-doc"
+            description="generates the developer documentation"/>
 
     <target name="build">
         <fail unless="version" message="version is not defined!"/>
-        <svnexport revision="" repositoryurl="." todir="export"/>
+        <exec command="git archive -o export.tar HEAD" checkreturn="true"/>
+        <untar file="export.tar" todir="export"/>
+        <delete file="export.tar"/>
         <move todir="dist">
             <fileset dir="export">
                 <include name="index.php"/>
@@ -111,14 +116,15 @@
         </move>
         <jsMin targetDir="dist" suffix="" failonerror="true">
             <fileset dir="export">
-                <include name="slideshow.js"/>
+                <include name="*.js"/>
             </fileset>
         </jsMin>
         <move todir="dist">
             <fileset dir="export">
                 <exclude name="build.xml"/>
-                <exclude name="phpcompatinfo.xml"/>
-                <exclude name="slideshow.js"/>
+                <exclude name="composer.*"/>
+                <exclude name="coverage.xml"/>
+                <exclude name="phpcompatinfo.*"/>
                 <exclude name="tests/**"/>
             </fileset>
         </move>
