@@ -25,7 +25,7 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 /**
  * The version number of the plugin.
  */
-define('SLIDESHOW_VERSION', '1beta2');
+define('SLIDESHOW_VERSION', '@SLIDESHOW_VERSION@');
 
 /**
  * Returns the list of image files in the given folder.
@@ -155,7 +155,7 @@ function slideshow($path, $options = '')
     }
     $o = '';
     if (!$run) {
-        $src = $pth['folder']['plugins'] . 'slideshow/slideshow.min.js';
+        $src = $pth['folder']['plugins'] . 'slideshow/slideshow.js';
         $script .= "<script type=\"text/javascript\" src=\"$src\"></script>";
     }
     $run++;
