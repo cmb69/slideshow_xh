@@ -8,7 +8,7 @@
     </fileset>
 
     <fileset id="js-sources" dir=".">
-        <include name="todo.js"/>
+        <include name="*.js"/>
     </fileset>
 
     <fileset id="unit-tests" dir="tests/unit">
