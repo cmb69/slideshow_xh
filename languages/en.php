@@ -20,8 +20,8 @@ $plugin_tx['slideshow']['syscheck_writable']="Folder '%s' writable";
 $plugin_tx['slideshow']['about']="About Slideshow_XH";
 
 $plugin_tx['slideshow']['cf_default_order']="The order of the images: \"fixed\" (alphabetically ordered; start with first image), \"sorted\" (alphabetically sorted; start with randomly chosen image) or \"random\" (randomly ordered).";
-$plugin_tx['slideshow']['cf_default_effect']="The kind of the transition: \"fade\", \"slide\", \"curtain\" or \"random\".";
-$plugin_tx['slideshow']['cf_default_easing']="The acceleration effect: \"linear\", \"easeIn\", \"easeOut\" or \"easeInOut\".";
+$plugin_tx['slideshow']['cf_default_effect']="The kind of the transition.";
+$plugin_tx['slideshow']['cf_default_easing']="The acceleration effect.";
 $plugin_tx['slideshow']['cf_default_delay']="The initial delay in ms until the slideshow starts.";
 $plugin_tx['slideshow']['cf_default_pause']="The duration of the pause between the transitions in ms.";
 $plugin_tx['slideshow']['cf_default_duration']="The duration of the transition effect in ms.";

@@ -16,8 +16,8 @@ $plugin_tx['slideshow']['syscheck_writable']="Dossier '%s' écrivable";
 $plugin_tx['slideshow']['about']="&Agrave; propos de Slideshow_XH";
 
 $plugin_tx['slideshow']['cf_default_order']="Ordre des images : \"fixed\" (ordre alphabétique fixe ; démarre avec la première image), \"sorted\" (trié alphabétiquement mais image de départ aléatoire) ou \"random\" (séquence complètement aléatoire).";
-$plugin_tx['slideshow']['cf_default_effect']="Type de  transition : \"fade\", \"slide\", \"curtain\" or \"random\".";
-$plugin_tx['slideshow']['cf_default_easing']="Accélération de l'effet : \"linear\", \"easeIn\", \"easeOut\" or \"easeInOut\".";
+$plugin_tx['slideshow']['cf_default_effect']="Type de  transition.";
+$plugin_tx['slideshow']['cf_default_easing']="Accélération de l'effet.";
 $plugin_tx['slideshow']['cf_default_delay']="Délai initial en ms avant le démarrage du diaporama.";
 $plugin_tx['slideshow']['cf_default_pause']="Durée de la pause entre chaque transition en ms.";
 $plugin_tx['slideshow']['cf_default_duration']="Durée de l'effet de transition en ms.";
