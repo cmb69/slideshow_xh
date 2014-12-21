@@ -206,7 +206,7 @@ class Slideshow_Controller
         global $pth, $tx, $plugin_tx;
 
         $ptx = $plugin_tx['slideshow'];
-        $phpVersion = '5.0.0';
+        $phpVersion = '5.2.0';
         foreach (array('ok', 'warn', 'fail') as $state) {
             $images[$state] = $pth['folder']['plugins'] . 'slideshow/images/'
                 . $state . '.png';
