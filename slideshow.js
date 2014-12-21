@@ -31,7 +31,8 @@ slideshow.MAX_DELTA_T = 10 * slideshow.FRAME_DURATION;
 /**
  * The request animation frame function.
  */
-slideshow.RAF = window.mozRequestAnimationFrame
+slideshow.RAF = window.requestAnimationFrame
+    || window.mozRequestAnimationFrame
     || window.webkitRequestAnimationFrame
     || window.msRequestAnimationFrame
     || window.oRequestAnimationFrame;
