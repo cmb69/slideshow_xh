@@ -1,5 +1,9 @@
 <?php
 
+$plugin_tx['slideshow']['message_insufficient_images']="Le dossier \"%s\" doit contenir au moins deux images !";
+
+$plugin_tx['slideshow']['info']="Informations";
+
 $plugin_tx['slideshow']['synopsis']="Synopsis";
 $plugin_tx['slideshow']['synopsis_folder']="<strong>DOSSIER</strong> ";
 $plugin_tx['slideshow']['synopsis_folder_desc']="Chemin relatif depuis le dossier d'images de CMSimple_XH";
