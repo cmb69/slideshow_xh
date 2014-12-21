@@ -58,37 +58,32 @@ class Slideshow_Controller
         static $run = 0;
 
         $pcf = $plugin_cf['slideshow'];
-        $validOpts = array(
-            'order', 'effect', 'easing', 'delay', 'pause', 'duration'
+        $opts = self::getOpts(
+            $options,
+            array('order', 'effect', 'easing', 'delay', 'pause', 'duration')
         );
-        $opts = self::getOpts($options, $validOpts);
-        if (isset($bjs)) {
-            $script =& $bjs;
-        } else {
-            $script =& $o; // FIXME: $o is not global!
-        }
         $o = '';
         if (!$run) {
-            $src = $pth['folder']['plugins'] . 'slideshow/slideshow.js';
-            $script .= "<script type=\"text/javascript\" src=\"$src\"></script>";
+            $bjs .= '<script type="text/javascript" src="'
+                . $pth['folder']['plugins'] . 'slideshow/slideshow.js'
+                . '"></script>';
         }
         $run++;
-        $imgs = self::images($path, $opts['order']);
-        list($w, $h) = getimagesize($imgs[0]);
+        $path = $pth['folder']['images'] . rtrim($path, '/') . '/';
+        $imgs = Slideshow_Image::findAll($path, $opts['order']);
+        list($w, $h) = getimagesize($imgs[0]->getFilename());
         $id = "slideshow_$run";
-        $style = "position:relative;width:100%;height:100%;overflow:hidden";
-        $o .= "<div id=\"$id\" class=\"slideshow\" style=\"$style\">";
+        $o .= '<div id="' . $id . '" class="slideshow" style="position: relative;'
+            . ' width: 100%; height: 100%; overflow: hidden">';
         foreach ($imgs as $i => $img) {
-            $bn = basename($img);
-            $bn = substr($bn, 0, strrpos($bn, '.'));
-            $first = $i == 0 ? 'display:block;z-index:1' : 'display:none';
+            $first = $i == 0 ? 'display: block; z-index: 1' : 'display: none';
             $o .= tag(
-                "img src=\"$img\" alt=\"$bn\""
-                . " style=\"position:absolute;$first;width:100%\""
+                'img src="' . $img->getFilename() . '" alt="' . $img->getName()
+                . '" style="position: absolute;' . $first. '; width: 100%"'
             );
         }
         $o .= '</div>';
-        $script .= "<script type=\"text/javascript\">new slideshow.Show('$id'"
+        $bjs .= "<script type=\"text/javascript\">new slideshow.Show('$id'"
             . ",'$opts[effect]','$opts[easing]',$opts[delay],$opts[pause]"
             . ",$opts[duration]);</script>";
         return $o;
@@ -152,45 +147,6 @@ class Slideshow_Controller
             $view = str_replace(' />', '>', $view);
         }
         return $view;
-    }
-
-    /**
-     * Returns the list of image files in the given folder.
-     *
-     * @param string $path  The path of the folder.
-     * @param string $order `fixed'/`sorted'/`random'.
-     *
-     * @return array
-     *
-     * @global array The paths of system files and folders.
-     */
-    protected static function images($path, $order)
-    {
-        global $pth;
-
-        $imgs = array();
-        $path = $pth['folder']['images'] . rtrim($path, '/') . '/';
-        $dh = opendir($path);
-        while (($fn = readdir($dh)) !== false) {
-            $ext = strtolower(pathinfo($fn, PATHINFO_EXTENSION));
-            if (in_array($ext, array('gif', 'jpeg', 'jpg', 'png'))) {
-                $ffn = $path . $fn;
-                $imgs[] = $ffn;
-            }
-        }
-        closedir($dh);
-        if ($order == 'random') {
-            shuffle($imgs);
-        } else {
-            natcasesort($imgs);
-            if ($order == 'sorted') {
-                $n = rand(0, count($imgs) - 1);
-                $imgs = array_merge(
-                    array_slice($imgs, $n), array_slice($imgs, 0, $n)
-                );
-            }
-        }
-        return $imgs;
     }
 
     /**
