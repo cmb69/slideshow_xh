@@ -1,5 +1,7 @@
 <?php
 
+$plugin_tx['slideshow']['message_folder_empty']="The folder \"%s\" does not contain any images!";
+
 $plugin_tx['slideshow']['synopsis']="Synopsis";
 $plugin_tx['slideshow']['synopsis_folder']="FOLDER";
 $plugin_tx['slideshow']['synopsis_folder_desc']="The path of a folder relative to CMSimple_XH's image folder.";

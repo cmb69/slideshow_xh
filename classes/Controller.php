@@ -49,12 +49,13 @@ class Slideshow_Controller
      * @global string The (X)HTML to insert to the end of the `body' element.
      * @global array  The paths of system files and folders.
      * @global array  The configuration of the plugins.
+     * @global array  The localization of the plugins.
      *
      * @staticvar int $run The number of times the function has been called.
      */
     static function main($path, $options = '')
     {
-        global $bjs, $pth, $plugin_cf;
+        global $bjs, $pth, $plugin_cf, $plugin_tx;
         static $run = 0;
 
         $pcf = $plugin_cf['slideshow'];
@@ -62,6 +63,13 @@ class Slideshow_Controller
             $options,
             array('order', 'effect', 'easing', 'delay', 'pause', 'duration')
         );
+        $path = $pth['folder']['images'] . rtrim($path, '/') . '/';
+        $imgs = Slideshow_Image::findAll($path, $opts['order']);
+        if (empty($imgs)) {
+            return XH_message(
+                'fail', $plugin_tx['slideshow']['message_folder_empty'], $path
+            );
+        }
         $o = '';
         if (!$run) {
             $bjs .= '<script type="text/javascript" src="'
@@ -69,8 +77,6 @@ class Slideshow_Controller
                 . '"></script>';
         }
         $run++;
-        $path = $pth['folder']['images'] . rtrim($path, '/') . '/';
-        $imgs = Slideshow_Image::findAll($path, $opts['order']);
         list($w, $h) = getimagesize($imgs[0]->getFilename());
         $id = "slideshow_$run";
         $o .= '<div id="' . $id . '" class="slideshow" style="position: relative;'

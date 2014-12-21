@@ -35,13 +35,14 @@ class Slideshow_Image
     public static function findAll($path, $order)
     {
         $images = array();
-        $dir = opendir($path);
-        while (($entry = readdir($dir)) !== false) {
-            if (preg_match('/\.(gif|jpg|jpeg|png)$/i', $entry)) {
-                $images[] = new self($path . $entry);
+        if (is_dir($path) && $dir = opendir($path)) {
+            while (($entry = readdir($dir)) !== false) {
+                if (preg_match('/\.(gif|jpg|jpeg|png)$/i', $entry)) {
+                    $images[] = new self($path . $entry);
+                }
             }
+            closedir($dir);
         }
-        closedir($dir);
         return self::sort($images, $order);
     }
 
