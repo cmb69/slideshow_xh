@@ -32,6 +32,9 @@ class Slideshow_Controller
     public static function dispatch()
     {
         if (XH_ADM) {
+            if (function_exists('XH_registerStandardPluginMenuItems')) {
+                XH_registerStandardPluginMenuItems(false);
+            }
             if (self::isAdministrationRequested()) {
                 self::handleAdministration();
             }
@@ -166,7 +169,9 @@ class Slideshow_Controller
     {
         global $slideshow;
 
-        return isset($slideshow) && $slideshow == 'true';
+        return function_exists('XH_wantsPluginAdministration')
+            && XH_wantsPluginAdministration('slideshow')
+            || isset($slideshow) && $slideshow == 'true';
     }
 
     /**
