@@ -122,13 +122,15 @@ slideshow.Show.prototype.next = function() {
 slideshow.Show.prototype.init = function() {
     var clone, style;
 
-    // Create a clone of the first image with static position
-    // to force height of the surrounding `div' to be greater than 0.
+    // Insert a clone of the first image with static position
+    // to force height of the surrounding `div' to be greater than 0,
+    // before absolutely positioning the first image.
     clone = this.elt.firstChild.cloneNode(false);
     style = clone.style;
-    style.position = "static";
+    //style.position = "static";
     style.visibility = "hidden";
     this.elt.appendChild(clone);
+    this.elt.firstChild.style.position = "absolute";
 
     style = this.current.style;
     style.display = "block";

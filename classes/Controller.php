@@ -86,10 +86,14 @@ class Slideshow_Controller
         $o .= '<div id="' . $id . '" class="slideshow" style="position: relative;'
             . ' width: 100%; height: 100%; overflow: hidden">';
         foreach ($imgs as $i => $img) {
-            $first = $i == 0 ? 'display: block; z-index: 1' : 'display: none';
+            if ($i === 0) {
+                $style = 'position: static; display: block; z-index: 1; width: 100%';
+            } else {
+                $style = 'position: absolute; display: none; width: 100%';
+            }
             $o .= tag(
                 'img src="' . $img->getFilename() . '" alt="' . $img->getName()
-                . '" style="position: absolute;' . $first. '; width: 100%"'
+                . '" style="' . $style. '"'
             );
         }
         $o .= '</div>';
