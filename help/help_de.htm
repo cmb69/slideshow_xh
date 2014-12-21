@@ -1,5 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-    "http://www.w3.org/TR/html4/loose.dtd">
+﻿<!DOCTYPE html>
 <html lang="de">
 
 <head>
@@ -34,32 +33,32 @@ und Zeitabläufen sind möglich.</p>
 <p><strong>Bitte lesen Sie diese Dokumentation <em>bevor</em> Probleme
 auftreten!</strong></p>
 
-<h2><a name="notice">Wichtiger Hinweis</a></h2>
+<h2 id="notice">Wichtiger Hinweis</h2>
 <p><strong>Slideshow_XH konnte bisher nicht in diversen Umgebungen getestet
 werden. Es ist eine so genannte BETA-Version. Vorsicht bei der
 Verwendung!</strong></p>
 <div class="toplink"><a href="#">zum Seitenanfang</a></div>
 
-<h2><a name="requirements">Voraussetzungen</a></h2>
+<h2 id="requirements">Voraussetzungen</h2>
 <p>Slideshow_XH ist ein Plugin für CMSimple_XH &ge; 1.6. Es benötigt PHP &ge; 5.2.0.</p>
 <div class="toplink"><a href="#">zum Seitenanfang</a></div>
 
-<h2><a name="installation">Installation</a></h2>
+<h2 id="installation">Installation</h2>
 <p>Die Installation erfolgt wie bei vielen anderen CMSimple_XH-Plugins auch. Im
 <a href="http://www.cmsimple-xh.org/wiki/doku.php/de:installation">
 CMSimple_XH-Wiki</a> finden Sie weitere Details.</p>
 <ol>
-<li><strong>Sichern Sie die Daten auf Ihrem Server.</strong></li>
+<li>Sichern Sie die Daten auf Ihrem Server.</li>
 <li>Entpacken Sie die ZIP-Datei auf Ihrem Rechner.</li>
 <li>Laden Sie das ganze Verzeichnis slideshow/ auf Ihren Server in CMSimple_XHs
 Plugin-Verzeichnis hoch.</li>
 <li>Machen Sie die Unterverzeichnisse config/ und languages/ beschreibbar.</li>
-<li><strong>Gehen Sie zu "Slideshow" im Administrationsbereich, um zu prüfen, ob
-alle Voraussetzungen erfüllt sind.</strong></li>
+<li>Gehen Sie zu "Slideshow" im Administrationsbereich, um zu prüfen, ob
+alle Voraussetzungen erfüllt sind.</li>
 </ol>
 <div class="toplink"><a href="#">zum Seitenanfang</a></div>
 
-<h2><a name="settings">Einstellungen</a></h2>
+<h2 id="settings">Einstellungen</h2>
 <p>Die Plugin-Konfiguration erfolgt wie bei vielen anderen CMSimple_XH-Plugins
 auch im Administrationsbereich der Website. Wählen Sie
 "Plugins"&rarr;"Slideshow".</p>
@@ -67,29 +66,29 @@ auch im Administrationsbereich der Website. Wählen Sie
 ändern. Hinweise zu den Optionen werden beim Überfahren der Hilfe-Icons mit der
 Maus angezeigt.</p>
 <p>Die Lokalisierung wird unter "Sprache" vorgenommen.
-Sie können die Sprachtexte in Ihre eigene Sprache übersetzen, oder diese Ihren
+Sie können die Sprachtexte in Ihre eigene Sprache übersetzen,
+falls keine entsprechende Sprachdatei zur Verfügung steht, oder diese Ihren
 Wünschen gemäß anpassen.</p>
 <!--<p>Das Aussehen von Slideshow_XH kann unter "Stylesheet" angepasst
 werden.</p>-->
 <div class="toplink"><a href="#">zum Seitenanfang</a></div>
 
-<h2><a name="usage">Verwendung</a></h2>
+<h2 id="usage">Verwendung</h2>
 <p>Um eine Diashow auf allen Seiten anzuzeigen, fügen sie ins Template ein:</p>
 <pre>&lt;?php echo slideshow('%ORDNER%', '%OPTIONEN%');?&gt;</pre>
-<p>Um eine Diashow auf einer einzelnen Seite oder in einer Newsbox anzuzeigen
-(letzteres ist seit CMSimple_XH 1.5 möglich), geben auf der Seite ein:</p>
+<p>Um eine Diashow auf einer einzelnen Seite oder in einer Newsbox anzuzeigen,
+geben auf der Seite ein:</p>
 <pre>{{{PLUGIN:slideshow('%ORDNER%', '%OPTIONEN%');}}}</pre>
 <p>Die Parameter haben die folgende Bedeutung:</p>
 <dl>
 <dt>%ORDNER%</dt>
 <dd>Der Pfad eines Ordners relativ zu CMSimple_XHs Bilderordner. Alle JPEG, PNG
-und GIF Bilder in diesem Ordner werden für die Diashow verwendet, und auf das
-Seitenverhältnis des ersten Bildes skaliert, so dass Sie überlicherweise die
-Bilder vorbereiten sollten, damit sie das selbe Seitenverhältnis haben, um
-Verzerrungen zu vermeiden.</dd>
+und GIF Bilder in diesem Ordner werden für die Diashow verwendet;
+es müssen sich mindestens zwei Bilder in diesem Ordner befinden.
+Alle Bilder sollten das gleiche Seitenverhältnis aufweisen.</dd>
 <dt>%OPTIONEN%</dt>
-<dd>Jede angegebene Option wird die entsprechende Voreinstellung im "default"
-Abschnitt der Pluginkonfiguration überschreiben. Das Format dieses Parameters
+<dd>Jede angegebene Option überschreibt die entsprechende Voreinstellung im "default"
+Abschnitt der Pluginkonfiguration. Das Format dieses Parameters
 ist das gleiche wie bei einem "Query-String" (siehe die Beispiele weiter unten).
 Die Optionen können in beliebiger Reihenfolge angegeben werden. Wenn Sie bei den
 Voreinstellungen bleiben wollen, können Sie diesen Parameter auslassen. Die
@@ -114,38 +113,27 @@ gewählten Bild) oder "random" (zufällig geordnet).</dd>
 </dd>
 </dl>
 <h4>Beispiele</h4>
-<p>Zum Anzeigen der Bilder in images/banner/ mit den Voreinstellungen auf jeder
+<p>Zum Anzeigen der Bilder in userfiles/images/banner/ mit den Voreinstellungen auf jeder
 Seite:</p>
 <pre>&lt;?php echo slideshow('banner');?&gt;</pre>
 <p>Zum Anzeigen der Bilder in der Art eines Fließbands:</p>
-<pre>{{{PLUGIN:slideshow('slides/fliessband/', 'effect=slide&amp;pause=0&amp;duration=2000');}}}</pre>
+<pre>{{{slideshow('slides/fliessband/', 'effect=slide&amp;pause=0&amp;duration=2000');}}}</pre>
 <p>Zum Anzeigen der Bilder als ruhige, langsam überblendende Diashow:</p>
-<pre>{{{PLUGIN:slideshow('slides/ruhig/', 'effect=fade&amp;pause=5000&amp;duration=100');}}}</pre>
+<pre>{{{slideshow('slides/ruhig/', 'effect=fade&amp;pause=5000&amp;duration=100');}}}</pre>
 <p>Zum Anzeigen geigneter Bilder als Daumenkino:</p>
-<pre>{{{PLUGIN:slideshow('slides/daumenkino/', 'order=fixed&amp;effect=fade&amp;pause=100&amp;duration=100');}}}</pre>
+<pre>{{{slideshow('slides/daumenkino/', 'order=fixed&amp;effect=fade&amp;pause=100&amp;duration=100');}}}</pre>
 <div class="toplink"><a href="#">zum Seitenanfang</a></div>
 
-<h2><a name="limitations">Einschränkungen</a></h2>
+<h2 id="limitations">Einschränkungen</h2>
 <p>Die Diashows werden nur abgespielt, wenn JS im Browser des Besuchers
 aktiviert ist. Ansonsten wird nur das erste Bild angezeigt. Die Übergangseffekte
 sind rechenintensiv, besonders für große Bilder. Daher sollten Sie sich auf nur
 wenige Diashows mit kleinen oder mittelgroßen Bildern auf der selben Seite
 beschränken, um Besuchern mit geringer Rechenleistung keine stotternden Diashows
 zu präsentieren.</p>
-<p>Grundsätzlich ist es kein Problem die selbe Diashow mehrfach auf der selben
-Seite anzuzeigen. Aber das funktioniert nicht, wenn der Pluginaufruf identisch
-ist, z.B.:</p>
-<pre>{{{PLUGIN:slideshow('dias');}}}
-{{{PLUGIN:slideshow('dias');}}}</pre>
-<p>Dies wird durch die Skriptauswertung des Pluginaufrufs verursacht, die
-indentische Aufrufe nur einmal auswertet. Verwenden Sie daher in diesem Fall
-CMSimple-Skripting, hi_pdscripting oder überlisten Sie den Evaluator durch das
-Einfügen eines Leerzeichens:</p>
-<pre>{{{PLUGIN:slideshow('dias');}}}
-{{{PLUGIN:slideshow( 'dias');}}}</pre>
 <div class="toplink"><a href="#">zum Seitenanfang</a></div>
 
-<h2><a name="license">Lizenz</a></h2>
+<h2 id="license">Lizenz</h2>
 <p>Slideshow_XH kann unter Einhaltung der <a
 href="http://www.gnu.org/licenses/gpl.html">GPLv3</a> verwendet werden.</p>
 <p>&copy; 2012-2014 Christoph M. Becker</p>
@@ -155,7 +143,7 @@ Slovakische Übersetzung &copy; 2013 Dr. Martin Sereday<br>
 Französische Übersetzung &copy; 2014 Patrick Varlet</p>
 <div class="toplink"><a href="#">zum Seitenanfang</a></div>
 
-<h2><a name="credits">Danksagung</a></h2>
+<h2 id="credits">Danksagung</h2>
 <p>Slideshow_XH wurde von Joe angeregt.</p>
 <p>Das Pluginicon wurde von <a href="https://twitter.com/Zyote">Mischa
 McLachlan</a> entworfen. Vielen Dank für die Veröffentlichung unter einer freien

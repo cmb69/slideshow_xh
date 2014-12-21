@@ -1,5 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-    "http://www.w3.org/TR/html4/loose.dtd">
+﻿<!DOCTYPE html>
 <html lang="cs">
 
 <head>
@@ -33,55 +32,54 @@ návštěvníka. Použití více prezentací s různými efekty a časováním j
 <p><strong>Prosím, přečtěte si tuto dokumentaci <em>předtím,</em> než narazíte
 na nějaké problémy!</strong></p>
 
-<h2><a name="notice">Důležité upozornění</a></h2>
+<h2 id="notice">Důležité upozornění</h2>
 <p><strong>Slideshow_XH nemohly být testovány tak daleko v různých prostředích.
  Je tzv. BETA verze. Používejte opatrně!</strong></p>
 <div class="toplink"><a href="#">zpět nahoru</a></div>
 
-<h2><a name="requirements">Požadavky</a></h2>
+<h2 id="requirements">Požadavky</h2>
 <p>Slideshow_XH je plugin pro CMSimple_XH &ge; 1.6. <ins>It requires PHP &ge; 5.2.0.</ins></p>
 <div class="toplink"><a href="#">zpět nahoru</a></div>
 
-<h2><a name="installation">Instalace</a></h2>
+<h2 id="installation">Instalace</h2>
 <p>Instalace se provádí stejně jako u ostatních pluginů CMSimple_XH. Viz <a
 href="http://www.cmsimple-xh.org/wiki/doku.php/installation"> CMSimple_XH
 wiki</a> kde najdete více detailů.</p>
 <ol>
-<li><strong>Zálohujte data na svém serveru.</strong></li>
+<li>Zálohujte data na svém serveru.</li>
 <li>Rozbalte distribuční balíček ve svém počítači.</li>
 <li>Nahrajte celý adresář slideshow/ na váš server do adresáře pluginy
 CMSimple_XH.</li>
 <li>Nastavte práva k zápisu pro podadresáře config/ a languages/.</li>
-<li><strong>Zkontrolujte "Slideshow" v režimu administrace zda jsou všechny
-požadavky splněny.</strong></li>
+<li>Zkontrolujte "Slideshow" v režimu administrace zda jsou všechny
+požadavky splněny.</li>
 </ol>
 <div class="toplink"><a href="#">zpět nahoru</a></div>
 
-<h2><a name="settings">Nastavení</a></h2>
+<h2 id="settings">Nastavení</h2>
 <p>Konfigurace tohoto pluginu se pravádí stejně jako u ostatních CMSimple_XH
 pluginů v režimu administrace. Vyberte "Slideshow" v sekci "Pluginy".</p>
 <p>Můžete změnit výchozí nastavení Slideshow_XH v "Config". Tipy pro volby se
 zobrazí při najetí nad nápovědy ikon s myší.</p>
 <p>Lokalizace se provádí v nastavení "Jazyk". Můžete přeložit řetězce znaků ve
-vašem vlastním jazyce, nebo je upravit podle vašich potřeb.</p>
+vašem vlastním jazyce <ins>if there is no appropriate language file available</ins>,
+nebo je upravit podle vašich potřeb.</p>
 <!--<p>The look of the Slideshow_XH can be customized in "Plugin
 Stylesheet".</p>
 --><div class="toplink"><a href="#">zpět nahoru</a></div>
 
-<h2><a name="usage">Použití</a></h2>
+<h2 id="usage">Použití</h2>
 <p>Chcete-li zobrazit prezentaci na všech stránkách vložte do šablony:</p>
-<pre>&lt;?php echo slideshow('%FOLDER%', '%OPTIONS%');?&gt;</pre>
-<p>Chcete-li zobrazit prezentaci na jedné stránce nebo v Newsboxu (je to možné v
-CMSimple_XH 1.5) vložte na stránku:</p>
+<pre>&lt;?php echo slideshow('%ADRESÁŘ%', '%NASTAVENÍ%');?&gt;</pre>
+<p>Chcete-li zobrazit prezentaci na jedné stránce nebo v Newsboxu vložte na stránku:</p>
 <pre>{{{PLUGIN:slideshow('%ADRESÁŘ%', '%NASTAVENÍ%');}}}</pre>
 <p>Tyto parametry mají následující význam:</p>
 <dl>
 <dt>%ADRESÁŘ%</dt>
 <dd>Cesta k adresáři relativní k adresáři images v CMSimple_XH. Všechny JPEG,
-PNG a GIF obrázky uvnitř této složky budou použity pro prezentaci a budou
-změněny v závislosti na POMĚRU STRAN prvního snímku, takže je vhodné použít
-obrázky, které mají stejný poměr stran, aby se zabránilo jejich
-deformaci.</dd>
+PNG a GIF obrázky uvnitř této složky budou použity pro prezentaci<ins>;
+there must be at least two images inside this folder.
+All images should have the same aspect ratio.</ins></dd>
 <dt>%NASTAVENÍ%</dt>
 <dd>Jakákoli volba přepíše odpovídající hodnotu ve "výchozí" části konfigurace
 pluginu. Formát tohoto parametru je stejný jako "řetězec dotazu" (viz příklady
@@ -107,36 +105,26 @@ zobrazení).</dd>
 </dd>
 </dl>
 <h4>Příklady</h4>
-<p>Chcete-li zobrazit obrázky z adresáře images/bannery/ ve výchozím nastavením
+<p>Chcete-li zobrazit obrázky z adresáře userfiles/images/bannery/ ve výchozím nastavením
 pluginu na každé stránce:</p>
 <pre>&lt;?php echo slideshow('bannery');?&gt;</pre>
 <p>Způsob, chcete-li zobrazit snímky v posuvném pásu:</p>
-<pre>{{{PLUGIN:slideshow('slides/run/', 'effect=slide&amp;pause=0&amp;duration=2000');}}}</pre>
+<pre>{{{slideshow('slides/run/', 'effect=slide&amp;pause=0&amp;duration=2000');}}}</pre>
 <p>Chcete-li zobrazit obrázky klidně, pomalé vyblednutí slideshow:</p>
-<pre>{{{PLUGIN:slideshow('slides/slow/', 'effect=fade&amp;pause=5000&amp;duration=100');}}}</pre>
+<pre>{{{slideshow('slides/slow/', 'effect=fade&amp;pause=5000&amp;duration=100');}}}</pre>
 <p>Chcete-li zobrazit odpovídající obrázky ve stylu knihy s listováním:</p>
-<pre>{{{PLUGIN:slideshow('slides/flip/', 'order=fixed&amp;effect=fade&amp;pause=100&amp;duration=100');}}}</pre>
+<pre>{{{slideshow('slides/flip/', 'order=fixed&amp;effect=fade&amp;pause=100&amp;duration=100');}}}</pre>
 <div class="toplink"><a href="#">zpět nahoru</a></div>
 
-<h2><a name="limitations">Omezení</a></h2>
+<h2 id="limitations">Omezení</h2>
 <p>Tyto prezentace mohou být přehrávány pouze, pokud je JS povolen v prohlížeči
 návštěvníka. Jinak ukáže pouze první obrázek. Přechodové efekty jsou náročné na
 výkon CPU, zejména pro velké obrázky. Takže byste se měli omezit jen na několik
 prezentací s malým nebo středním obrázky na stejné stránce, aby se zabránilo
 trhání prezentace pro návštěvníky s malým výpočetním výkonem.</p>
-<p>V podstatě to není problém zobrazit stejné prezentace několikrát na stejné
-stránce. Ale nebude fungovat v případě, že vlání pluginu je přesně stejné,
-např.:</p>
-<pre>{{{PLUGIN:slideshow('slides');}}}
-{{{PLUGIN:slideshow('slides');}}}</pre>
-<p>To je způsobeno voláním skriptu pluginu, který umožní stejné volání pouze
-jednou. Takže použijte klasické CMSimple skriptování, hi_pdscripting nebo
-oklamejte plugin vložením mezery takto:</p>
-<pre>{{{PLUGIN:slideshow('slides');}}}
-{{{PLUGIN:slideshow( 'slides');}}}</pre>
 <div class="toplink"><a href="#">zpět nahoru</a></div>
 
-<h2><a name="license">Licence</a></h2>
+<h2 id="license">Licence</h2>
 <p>Slideshow_XH je licencován pod <a
 href="http://www.gnu.org/licenses/gpl.html">GPLv3</a>.</p>
 <p>&copy; 2012-2014 Christoph M. Becker</p>
@@ -146,7 +134,7 @@ Slovenský překlad &copy; 2013 Dr. Martin Sereday<ins><br>
 French translation &copy; 2014 Patrick Varlet</ins></p>
 <div class="toplink"><a href="#">zpět nahoru</a></div>
 
-<h2><a name="credits">Credits</a></h2>
+<h2 id="credits">Credits</h2>
 <p>Slideshow_XH was inspired by Joe.</p>
 <p>The plugin icon is designed by <a href="https://twitter.com/Zyote">Mischa
 McLachlan</a>. Many thanks for publishing this icon under a liberal license.</p>
