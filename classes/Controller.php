@@ -68,9 +68,10 @@ class Slideshow_Controller
         );
         $path = $pth['folder']['images'] . rtrim($path, '/') . '/';
         $imgs = Slideshow_Image::findAll($path, $opts['order']);
-        if (empty($imgs)) {
+        if (count($imgs) < 2) {
             return XH_message(
-                'fail', $plugin_tx['slideshow']['message_folder_empty'], $path
+                'fail', $plugin_tx['slideshow']['message_insufficient_images'],
+                $path
             );
         }
         $o = '';

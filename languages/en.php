@@ -1,6 +1,6 @@
 <?php
 
-$plugin_tx['slideshow']['message_folder_empty']="The folder \"%s\" does not contain any images!";
+$plugin_tx['slideshow']['message_insufficient_images']="The folder \"%s\" has to contain two images at least!";
 
 $plugin_tx['slideshow']['info']="Info";
 
