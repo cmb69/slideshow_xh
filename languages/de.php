@@ -2,6 +2,8 @@
 
 $plugin_tx['slideshow']['message_folder_empty']="Der Ordner \"%s\" enthält keine Bilder!";
 
+$plugin_tx['slideshow']['info']="Info";
+
 $plugin_tx['slideshow']['synopsis']="Kurzfassung";
 $plugin_tx['slideshow']['synopsis_folder']="ORDNER";
 $plugin_tx['slideshow']['synopsis_folder_desc']="Der Pfad eines Ordners relativ zu CMSimple_XHs Bilderordner.";
