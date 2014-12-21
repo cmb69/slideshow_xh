@@ -1,3 +1,17 @@
+Version 1beta3 - released 2014-12-21
+* fixed bug, where no image was shown when browser scripting is not available
+* fixed bug, where a missing slideshow folder triggered an infinite loop
+  (reported by Bob)
+* fixed bug, where a folder with only one image triggered an JS error
+* fixed bug, where only vendor prefixed requestAnimationFrame() functions were
+  used
+* raised requirements to PHP >= 5.2.0 and CMSimple_XH >= 1.6, making use of some
+  improved possibilites
+* revised manuals
+* added Czech, Slovak and French localization (contributed by oldnema, Tata
+  resp. Bob)
+* added version.nfo
+
 Version 1beta2 - released 2013-03-05
 * changed image widths to 100% to be properly displayed in responsive templates
   (insp. by Tata)
