@@ -12,6 +12,7 @@ $plugin_tx['slideshow']['synopsis_options_desc']="Optional settings in form of a
 
 $plugin_tx['slideshow']['syscheck']="System check";
 $plugin_tx['slideshow']['syscheck_phpversion']="PHP version ≥ %s";
+$plugin_tx['slideshow']['syscheck_xhversion']="CMSimple_XH version ≥ %s";
 $plugin_tx['slideshow']['syscheck_extension']="Extension '%s' loaded";
 $plugin_tx['slideshow']['syscheck_encoding']="Encoding 'UTF-8' configured";
 $plugin_tx['slideshow']['syscheck_magic_quotes']="Magic quotes runtime off";

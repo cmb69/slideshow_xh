@@ -31,7 +31,7 @@ class Slideshow_Controller
      */
     public static function dispatch()
     {
-        if (XH_ADM) {
+        if (defined('XH_ADM') && XH_ADM) {
             if (function_exists('XH_registerStandardPluginMenuItems')) {
                 XH_registerStandardPluginMenuItems(false);
             }
@@ -217,6 +217,7 @@ class Slideshow_Controller
 
         $ptx = $plugin_tx['slideshow'];
         $phpVersion = '5.2.0';
+        $xhVersion = '1.6';
         foreach (array('ok', 'warn', 'fail') as $state) {
             $images[$state] = $pth['folder']['plugins'] . 'slideshow/images/'
                 . $state . '.png';
@@ -224,6 +225,8 @@ class Slideshow_Controller
         $checks = array();
         $checks[sprintf($ptx['syscheck_phpversion'], $phpVersion)]
             = version_compare(PHP_VERSION, $phpVersion) >= 0 ? 'ok' : 'fail';
+        $checks[sprintf($ptx['syscheck_xhversion'], $xhVersion)]
+            = self::hasXhVersion($xhVersion) ? 'ok' : 'fail';
         foreach (array() as $ext) {
             $checks[sprintf($ptx['syscheck_extension'], $ext)]
                 = extension_loaded($ext) ? 'ok' : 'fail';
@@ -248,7 +251,20 @@ class Slideshow_Controller
         );
         return self::view('info', $bag);
     }
-
+    
+    /**
+     * Returns whether we have a certain CMSimple_XH version at least.
+     *
+     * @param string $version A version number.
+     *
+     * @return bool
+     */
+    protected static function hasXhVersion($version)
+    {
+        return defined('CMSIMPLE_XH_VERSION')
+            && strpos(CMSIMPLE_XH_VERSION, 'CMSimple_XH') === 0
+            && version_compare(CMSIMPLE_XH_VERSION, "CMSimple_XH $version", 'ge');
+    }
 }
 
 ?>
