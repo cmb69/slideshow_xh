@@ -1,11 +1,10 @@
 /**
  * JavaScript of Slideshow_XH.
  *
- * @copyright   Copyright (c) 2012-2015 Christoph M. Becker <http://3-magi.net/>
- * @license     http://www.gnu.org/licenses/gpl.html GNU GPLv3
- * @version     $Id$
- * @link        <http://3-magi.net/?CMSimple_XH/Slideshow_XH>
- * @see         <https://hacks.mozilla.org/2011/08/animating-with-javascript-from-setinterval-to-requestanimationframe/>
+ * @copyright Copyright (c) 2012-2015 Christoph M. Becker <http://3-magi.net/>
+ * @license   http://www.gnu.org/licenses/gpl.html GNU GPLv3
+ * @link      <http://3-magi.net/?CMSimple_XH/Slideshow_XH>
+ * @see       <https://hacks.mozilla.org/2011/08/animating-with-javascript-from-setinterval-to-requestanimationframe/>
  */
 
 
