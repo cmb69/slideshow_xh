@@ -1,4 +1,4 @@
-/**
+/*!
  * JavaScript of Slideshow_XH.
  *
  * @copyright Copyright (c) 2012-2015 Christoph M. Becker <http://3-magi.net/>
