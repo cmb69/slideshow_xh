@@ -14,11 +14,7 @@
  */
 
 require_once './vendor/autoload.php';
-
-/**
- * The file under test.
- */
-require_once './classes/Image.php';
+require_once './classes/required_classes.php';
 
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;

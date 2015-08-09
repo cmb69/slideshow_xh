@@ -35,25 +35,6 @@ EOT
 define('SLIDESHOW_VERSION', '@SLIDESHOW_VERSION@');
 
 /**
- * Autoloads the plugin classes.
- *
- * @param string $class A class name.
- *
- * @return void
- */
-function Slideshow_autoload($class)
-{
-    global $pth;
-    $parts = explode('_', $class, 2);
-    if ($parts[0] == 'Slideshow') {
-        include_once $pth['folder']['plugins'] . 'slideshow/classes/'
-            . $parts[1] . '.php';
-    }
-}
-
-spl_autoload_register('Slideshow_autoload');
-
-/**
  * Returns the slideshow.
  *
  * @param string $path    The path of the image folder.
