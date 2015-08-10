@@ -462,22 +462,6 @@ slideshow.easing.easeInOut = function(progress) {
 }
 
 /**
- * Fetches the name of the current image from the cookie.
- *
- * @returns {String}
- */
-slideshow.getCurrentCookie = function () {
-    var cookies = document.cookie.split(";");
-    for (var i = 0; i < cookies.length; ++i) {
-        var cookie = cookies[i].split("=");
-        if (cookie[0].trim() == "slideshow_current") {
-            return cookie[1];
-        }
-    }
-    return false;
-}
-
-/**
  * Stores the name of the current image in the cookie.
  *
  * @param   {String} basename
