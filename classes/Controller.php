@@ -51,13 +51,14 @@ class Slideshow_Controller
      *
      * @global string The (X)HTML to insert to the end of the `body' element.
      * @global array  The paths of system files and folders.
+     * @global array  The configuration of the plugins.
      * @global array  The localization of the plugins.
      *
      * @staticvar int $run The number of times the function has been called.
      */
     static function main($path, $options = '')
     {
-        global $bjs, $pth, $plugin_tx;
+        global $bjs, $pth, $plugin_cf, $plugin_tx;
         static $run = 0;
 
         $opts = self::getOpts(
@@ -75,12 +76,19 @@ class Slideshow_Controller
                 $path
             );
         }
-        setcookie(
-            'slideshow_current',
-            basename($imgs[1]->getFilename()), 0, CMSIMPLE_URL
-        );
+        if ($plugin_cf['slideshow']['cookie_use']) {
+            setcookie(
+                'slideshow_current',
+                basename($imgs[1]->getFilename()), 0, CMSIMPLE_URL
+            );
+        }
         if (!$run) {
-            $bjs .= '<script type="text/javascript" src="'
+            $config = array(
+                'useCookie' => (bool) $plugin_cf['slideshow']['cookie_use']
+            );
+            $bjs .= '<script type="text/javascript">var slideshow = {config: '
+                . json_encode($config) . '};</script>'
+                . '<script type="text/javascript" src="'
                 . $pth['folder']['plugins'] . 'slideshow/slideshow.js'
                 . '"></script>';
         }

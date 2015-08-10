@@ -11,7 +11,9 @@
 /**
  * The plugin's namespace.
  */
-var slideshow = {}
+if (!slideshow) {
+    var slideshow = {};
+}
 
 
 /**
@@ -212,7 +214,10 @@ slideshow.Show.prototype.render = function(deltaT) {
         img = this.next();
         img.style.display = "block";
         this.effect.prepare();
-        slideshow.setCurrentCookie(this.current.src.replace(/^.*\/(.*)$/, "$1"));
+        if (slideshow.config.useCookie) {
+            var basename = this.current.src.replace(/^.*\/(.*)$/, "$1");
+            slideshow.setCurrentCookie(basename);
+        }
     }
 }
 
@@ -469,5 +474,4 @@ slideshow.easing.easeInOut = function(progress) {
  */
 slideshow.setCurrentCookie = function (basename) {
     document.cookie = "slideshow_current=" + encodeURIComponent(basename);
-    return;
 }

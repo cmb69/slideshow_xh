@@ -20,6 +20,7 @@ $plugin_tx['slideshow']['syscheck_writable']="Folder '%s' writable";
 
 $plugin_tx['slideshow']['about']="About Slideshow_XH";
 
+$plugin_tx['slideshow']['cf_cookie_use']="Whether to remember the most recently shown image. Works only when \"order\" is \"sorted\".";
 $plugin_tx['slideshow']['cf_default_order']="The order of the images: \"fixed\" (alphabetically ordered; start with first image), \"sorted\" (alphabetically sorted; start with randomly chosen image) or \"random\" (randomly ordered).";
 $plugin_tx['slideshow']['cf_default_effect']="The kind of the transition.";
 $plugin_tx['slideshow']['cf_default_easing']="The acceleration effect.";

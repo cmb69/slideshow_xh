@@ -1,5 +1,7 @@
 <?php
 
+$plugin_cf['slideshow']['cookie_use']="true";
+
 $plugin_cf['slideshow']['default_order']="fixed";
 $plugin_cf['slideshow']['default_effect']="fade";
 $plugin_cf['slideshow']['default_easing']="easeInOut";

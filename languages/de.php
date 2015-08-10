@@ -20,6 +20,7 @@ $plugin_tx['slideshow']['syscheck_writable']="Ordner '%s' beschreibbar";
 
 $plugin_tx['slideshow']['about']="Über Slideshow_XH";
 
+$plugin_tx['slideshow']['cf_cookie_use']="Ob das zuletzt gezeigte Bild gemerkt werden soll. Das funktioniert nur für \"order\" = \"sorted\".";
 $plugin_tx['slideshow']['cf_default_order']="Die Reihenfolge der Bilder: \"fixed\" (alphabetisch sortiert; beginnt mit dem ersten Bild), \"sorted\" (alphabetisch sortiert; beginnt mit einem zufällig gewählten Bild) or \"random\" (zufällig geordnet).";
 $plugin_tx['slideshow']['cf_default_effect']="Die Art des Übergangs.";
 $plugin_tx['slideshow']['cf_default_easing']="Der Beschleunigungseffekt.";
