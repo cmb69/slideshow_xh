@@ -67,13 +67,20 @@ class Slideshow_Controller
             array('order', 'effect', 'easing', 'delay', 'pause', 'duration')
         );
         $path = $pth['folder']['images'] . rtrim($path, '/') . '/';
-        $imgs = Slideshow_Image::findAll($path, $opts['order']);
+        $current = isset($_COOKIE['slideshow_current'])
+            ? $_COOKIE['slideshow_current']
+            : false;
+        $imgs = Slideshow_Image::findAll($path, $opts['order'], $current);
         if (count($imgs) < 2) {
             return XH_message(
                 'fail', $plugin_tx['slideshow']['message_insufficient_images'],
                 $path
             );
         }
+        setcookie(
+            'slideshow_current',
+            basename($imgs[1]->getFilename()), 0, CMSIMPLE_URL
+        );
         $o = '';
         if (!$run) {
             $bjs .= '<script type="text/javascript" src="'

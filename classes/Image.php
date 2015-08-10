@@ -27,12 +27,13 @@ class Slideshow_Image
     /**
      * Returns the list of image files in the given folder.
      *
-     * @param string $path  The path of the folder.
-     * @param string $order `fixed'/`sorted'/`random'.
+     * @param string $path    The path of the folder.
+     * @param string $order   `fixed'/`sorted'/`random'.
+     * @param string $current The basename of an image file.
      *
      * @return array
      */
-    public static function findAll($path, $order)
+    public static function findAll($path, $order, $current = false)
     {
         $images = array();
         if (is_dir($path) && $dir = opendir($path)) {
@@ -43,25 +44,37 @@ class Slideshow_Image
             }
             closedir($dir);
         }
-        return self::sort($images, $order);
+        return self::sort($images, $order, $current);
     }
 
     /**
      * Sorts an array of images.
      *
-     * @param array  $images An array of images.
-     * @param string $order  A sort order.
+     * @param array  $images  An array of images.
+     * @param string $order   A sort order.
+     * @param int    $current The basename of an image file.
      *
      * @return array
      */
-    protected static function sort($images, $order)
+    protected static function sort($images, $order, $current)
     {
         if ($order == 'random') {
             shuffle($images);
         } else {
             usort($images, array(get_class(), 'compareFilenames'));
             if ($order == 'sorted') {
-                $n = rand(0, count($images) - 1);
+                if ($current !== false) {
+                    // if not found, take first image!
+                    $n = 0;
+                    foreach ($images as $i => $image) {
+                        if (basename($image->getFilename()) == $current) {
+                            $n = $i;
+                            break;
+                        }
+                    }
+                } else {
+                    $n = rand(0, count($images) - 1);
+                }
                 $images = array_merge(
                     array_slice($images, $n), array_slice($images, 0, $n)
                 );
