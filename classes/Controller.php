@@ -51,17 +51,15 @@ class Slideshow_Controller
      *
      * @global string The (X)HTML to insert to the end of the `body' element.
      * @global array  The paths of system files and folders.
-     * @global array  The configuration of the plugins.
      * @global array  The localization of the plugins.
      *
      * @staticvar int $run The number of times the function has been called.
      */
     static function main($path, $options = '')
     {
-        global $bjs, $pth, $plugin_cf, $plugin_tx;
+        global $bjs, $pth, $plugin_tx;
         static $run = 0;
 
-        $pcf = $plugin_cf['slideshow'];
         $opts = self::getOpts(
             $options,
             array('order', 'effect', 'easing', 'delay', 'pause', 'duration')
@@ -88,7 +86,6 @@ class Slideshow_Controller
                 . '"></script>';
         }
         $run++;
-        list($w, $h) = getimagesize($imgs[0]->getFilename());
         $id = "slideshow_$run";
         $o .= '<div id="' . $id . '" class="slideshow" style="position: relative;'
             . ' width: 100%; height: 100%; overflow: hidden">';
@@ -215,44 +212,25 @@ class Slideshow_Controller
      * @return string (X)HTML.
      *
      * @global array The paths of system files and folders.
-     * @global array The localization of the core.
      * @global array The localization of the plugins.
      */
     protected static function info()
     {
-        global $pth, $tx, $plugin_tx;
+        global $pth, $plugin_tx;
 
-        $ptx = $plugin_tx['slideshow'];
-        $phpVersion = '5.2.0';
-        $xhVersion = '1.6';
-        foreach (array('ok', 'warn', 'fail') as $state) {
+        $states = array(
+            Slideshow_SystemChecker::OK => 'ok',
+            Slideshow_SystemChecker::WARN => 'warn',
+            Slideshow_SystemChecker::FAIL => 'fail'
+        ); 
+        foreach ($states as $state => $name) {
             $images[$state] = $pth['folder']['plugins'] . 'slideshow/images/'
-                . $state . '.png';
-        }
-        $checks = array();
-        $checks[sprintf($ptx['syscheck_phpversion'], $phpVersion)]
-            = version_compare(PHP_VERSION, $phpVersion) >= 0 ? 'ok' : 'fail';
-        $checks[sprintf($ptx['syscheck_xhversion'], $xhVersion)]
-            = self::hasXhVersion($xhVersion) ? 'ok' : 'fail';
-        foreach (array() as $ext) {
-            $checks[sprintf($ptx['syscheck_extension'], $ext)]
-                = extension_loaded($ext) ? 'ok' : 'fail';
-        }
-        $checks[$ptx['syscheck_magic_quotes']]
-            = !get_magic_quotes_runtime() ? 'ok' : 'fail';
-        $checks[$ptx['syscheck_encoding']]
-            = strtoupper($tx['meta']['codepage']) == 'UTF-8' ? 'ok' : 'warn';
-        foreach (array('config/', 'languages/') as $folder) {
-            $folders[] = $pth['folder']['plugins'] . 'slideshow/' . $folder;
-        }
-        foreach ($folders as $folder) {
-            $checks[sprintf($ptx['syscheck_writable'], $folder)]
-                = is_writable($folder) ? 'ok' : 'warn';
+                . $name . '.png';
         }
         $bag = array(
-            'tx' => $ptx,
+            'tx' => $plugin_tx['slideshow'],
             'images' => $images,
-            'checks' => $checks,
+            'checks' => self::getSystemChecks(),
             'icon' => $pth['folder']['plugins'] . 'slideshow/slideshow.png',
             'version' => SLIDESHOW_VERSION
         );
@@ -260,17 +238,41 @@ class Slideshow_Controller
     }
     
     /**
-     * Returns whether we have a certain CMSimple_XH version at least.
+     * Returns the system check results.
      *
-     * @param string $version A version number.
+     * @return array.
      *
-     * @return bool
+     * @global array The paths of system files and folders.
+     * @global array The localization of the plugins.
      */
-    protected static function hasXhVersion($version)
+    protected static function getSystemChecks()
     {
-        return defined('CMSIMPLE_XH_VERSION')
-            && strpos(CMSIMPLE_XH_VERSION, 'CMSimple_XH') === 0
-            && version_compare(CMSIMPLE_XH_VERSION, "CMSimple_XH $version", 'ge');
+        global $pth, $plugin_tx;
+
+        $ptx = $plugin_tx['slideshow'];
+        $phpVersion = '5.2.0';
+        $xhVersion = '1.6';
+        $checks = array();
+        $checks[sprintf($ptx['syscheck_phpversion'], $phpVersion)]
+            = Slideshow_SystemChecker::checkPHPVersion($phpVersion);
+        $checks[sprintf($ptx['syscheck_xhversion'], $xhVersion)]
+            = Slideshow_SystemChecker::checkXhVersion($xhVersion);
+        foreach (array() as $ext) {
+            $checks[sprintf($ptx['syscheck_extension'], $ext)]
+                = Slideshow_SystemChecker::checkExtension($ext);
+        }
+        $checks[$ptx['syscheck_magic_quotes']]
+            = Slideshow_SystemChecker::checkMagicQuotes();
+        $checks[$ptx['syscheck_encoding']]
+            = Slideshow_SystemChecker::checkEncoding();
+        foreach (array('config/', 'languages/') as $folder) {
+            $folders[] = $pth['folder']['plugins'] . 'slideshow/' . $folder;
+        }
+        foreach ($folders as $folder) {
+            $checks[sprintf($ptx['syscheck_writable'], $folder)]
+                = Slideshow_SystemChecker::checkWritability($folder);
+        }
+        return $checks;
     }
 }
 
