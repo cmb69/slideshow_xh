@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The system checker.
+ * The system checkers.
  *
  * PHP version 5
  *
@@ -14,7 +14,7 @@
  */
 
 /**
- * The images.
+ * The system checkers.
  *
  * @category CMSimple_XH
  * @package  Slideshow
@@ -37,7 +37,7 @@ class Slideshow_SystemChecker
      *
      * @return int The status code.
      */
-    static function checkPHPVersion($version)
+    public function checkPHPVersion($version)
     {
         return version_compare(PHP_VERSION, $version) >= 0
             ? self::OK
@@ -51,7 +51,7 @@ class Slideshow_SystemChecker
      *
      * @return int The status code.
      */
-    static function checkXHVersion($version)
+    public function checkXHVersion($version)
     {
         return self::hasXhVersion($version) ? self::OK : self::FAIL;
     }
@@ -63,7 +63,7 @@ class Slideshow_SystemChecker
      *
      * @return bool
      */
-    protected static function hasXhVersion($version)
+    protected function hasXhVersion($version)
     {
         return defined('CMSIMPLE_XH_VERSION')
             && strpos(CMSIMPLE_XH_VERSION, 'CMSimple_XH') === 0
@@ -77,7 +77,7 @@ class Slideshow_SystemChecker
      *
      * @return int The status code.
      */
-    static function checkExtension($name)
+    public function checkExtension($name)
     {
         return extension_loaded($name) ? self::OK : self::FAIL;
     }
@@ -87,7 +87,7 @@ class Slideshow_SystemChecker
      *
      * @return int The status code.
      */
-    static function checkMagicQuotes()
+    public function checkMagicQuotes()
     {
         return !get_magic_quotes_runtime() ? self::OK : self::FAIL;
     }
@@ -99,7 +99,7 @@ class Slideshow_SystemChecker
      *
      * @global array The localization of the core.
      */
-    static function checkEncoding()
+    public function checkEncoding()
     {
         global $tx;
         
@@ -115,7 +115,7 @@ class Slideshow_SystemChecker
      *
      * @return int The status code.
      */
-    static function checkWritability($filename)
+    public function checkWritability($filename)
     {
         return is_writable($filename) ? self::OK : self::WARN;
     }

@@ -79,7 +79,6 @@ class Slideshow_Controller
             'slideshow_current',
             basename($imgs[1]->getFilename()), 0, CMSIMPLE_URL
         );
-        $o = '';
         if (!$run) {
             $bjs .= '<script type="text/javascript" src="'
                 . $pth['folder']['plugins'] . 'slideshow/slideshow.js'
@@ -87,20 +86,7 @@ class Slideshow_Controller
         }
         $run++;
         $id = "slideshow_$run";
-        $o .= '<div id="' . $id . '" class="slideshow" style="position: relative;'
-            . ' width: 100%; height: 100%; overflow: hidden">';
-        foreach ($imgs as $i => $img) {
-            if ($i === 0) {
-                $style = 'position: static; display: block; z-index: 1; width: 100%';
-            } else {
-                $style = 'position: absolute; display: none; width: 100%';
-            }
-            $o .= tag(
-                'img src="' . $img->getFilename() . '" alt="' . $img->getName()
-                . '" style="' . $style. '"'
-            );
-        }
-        $o .= '</div>';
+        $o = self::view('slideshow', array('id' => $id, 'imgs' => $imgs));
         $bjs .= "<script type=\"text/javascript\">new slideshow.Show('$id'"
             . ",'$opts[effect]','$opts[easing]',$opts[delay],$opts[pause]"
             . ",$opts[duration]);</script>";
@@ -252,25 +238,26 @@ class Slideshow_Controller
         $ptx = $plugin_tx['slideshow'];
         $phpVersion = '5.2.0';
         $xhVersion = '1.6';
+        $checker = new Slideshow_SystemChecker();
         $checks = array();
         $checks[sprintf($ptx['syscheck_phpversion'], $phpVersion)]
-            = Slideshow_SystemChecker::checkPHPVersion($phpVersion);
+            = $checker->checkPHPVersion($phpVersion);
         $checks[sprintf($ptx['syscheck_xhversion'], $xhVersion)]
-            = Slideshow_SystemChecker::checkXhVersion($xhVersion);
+            = $checker->checkXhVersion($xhVersion);
         foreach (array() as $ext) {
             $checks[sprintf($ptx['syscheck_extension'], $ext)]
-                = Slideshow_SystemChecker::checkExtension($ext);
+                = $checker->checkExtension($ext);
         }
         $checks[$ptx['syscheck_magic_quotes']]
-            = Slideshow_SystemChecker::checkMagicQuotes();
+            = $checker->checkMagicQuotes();
         $checks[$ptx['syscheck_encoding']]
-            = Slideshow_SystemChecker::checkEncoding();
+            = $checker->checkEncoding();
         foreach (array('config/', 'languages/') as $folder) {
             $folders[] = $pth['folder']['plugins'] . 'slideshow/' . $folder;
         }
         foreach ($folders as $folder) {
             $checks[sprintf($ptx['syscheck_writable'], $folder)]
-                = Slideshow_SystemChecker::checkWritability($folder);
+                = $checker->checkWritability($folder);
         }
         return $checks;
     }

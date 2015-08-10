@@ -75,7 +75,9 @@ slideshow.Show = function(id, effect, easing, delay, pause, duration) {
     this.pause = pause;
     this.duration = duration;
 
-    this.current = this.elt.firstChild.nextSibling;
+    this.images = this.elt.getElementsByTagName("img");
+    this.currentIndex = 1;
+    this.current = this.images[this.currentIndex];
     this.init();
     this.running = 0;
     this.lastFrame = null;
@@ -91,9 +93,12 @@ slideshow.Show = function(id, effect, easing, delay, pause, duration) {
  * @returns {HTMLImageElement}
  */
 slideshow.Show.prototype.getPrevious = function() {
-    return this.current.previousSibling
-        ? this.current.previousSibling
-        : this.current.parentNode.lastChild.previousSibling;
+    var i = this.currentIndex - 1;
+    
+    if (i < 0) {
+        i += this.images.length - 1;
+    }
+    return this.images[i];
 }
 
 
@@ -105,9 +110,11 @@ slideshow.Show.prototype.getPrevious = function() {
  * @returns {HTMLImageElement}
  */
 slideshow.Show.prototype.next = function() {
-    this.current = this.current.nextSibling.nextSibling
-        ? this.current.nextSibling
-        : this.current.parentNode.firstChild;
+    this.currentIndex++;
+    if (this.currentIndex >= this.images.length - 1) {
+        this.currentIndex = 0;
+    }
+    this.current = this.images[this.currentIndex];
     return this.current;
 }
 
@@ -125,12 +132,12 @@ slideshow.Show.prototype.init = function() {
     // Insert a clone of the first image with static position
     // to force height of the surrounding `div' to be greater than 0,
     // before absolutely positioning the first image.
-    clone = this.elt.firstChild.cloneNode(false);
+    clone = this.images[0].cloneNode(false);
     style = clone.style;
     //style.position = "static";
     style.visibility = "hidden";
     this.elt.appendChild(clone);
-    this.elt.firstChild.style.position = "absolute";
+    this.images[0].style.position = "absolute";
 
     style = this.current.style;
     style.display = "block";
