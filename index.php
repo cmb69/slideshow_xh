@@ -16,7 +16,7 @@
 /**
  * The version number of the plugin.
  */
-define('SLIDESHOW_VERSION', '@SLIDESHOW_VERSION@');
+define('SLIDESHOW_VERSION', '1beta3');
 
 /**
  * Returns the slideshow.
