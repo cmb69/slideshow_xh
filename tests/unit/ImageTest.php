@@ -22,7 +22,7 @@
 namespace Slideshow;
 
 require_once './vendor/autoload.php';
-require_once './classes/required_classes.php';
+require_once './classes/Image.php';
 
 use PHPUnit_Framework_TestCase;
 use org\bovigo\vfs\vfsStreamWrapper;

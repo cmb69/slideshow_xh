@@ -3,7 +3,6 @@
 	$plugin_tx['slideshow']['syscheck']="Kontrola systému";
 	$plugin_tx['slideshow']['syscheck_phpversion']="PHP verzia ≥ %s";
 	$plugin_tx['slideshow']['syscheck_extension']="Rozšírenie '%s' načíané";
-	$plugin_tx['slideshow']['syscheck_encoding']="Kodovanie 'UTF-8' nastavené";
 	$plugin_tx['slideshow']['syscheck_writable']="Adresár '%s' umožňuje zápis";
 	$plugin_tx['slideshow']['cf_default_order']="Poradie obrázkov: \"fixed\" (abecedne zoradené, od prvého snímku), \"sorted\" (abecedne zoradené; začať náhodne vybraným snímkom) alebo \"random\" (náhodne vybrané).";
 	$plugin_tx['slideshow']['cf_default_effect']="Druh prechodu.";

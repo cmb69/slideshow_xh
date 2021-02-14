@@ -73,11 +73,9 @@ class SystemChecker
      */
     protected function hasXhVersion($version)
     {
-        return defined('CMSIMPLE_XH_VERSION')
-            && strpos(CMSIMPLE_XH_VERSION, 'CMSimple_XH') === 0
-            && version_compare(CMSIMPLE_XH_VERSION, "CMSimple_XH $version", 'ge');
+        return version_compare(CMSIMPLE_XH_VERSION, "CMSimple_XH $version", 'ge');
     }
-    
+
     /**
      * Checks whether a extension is available.
      *
@@ -89,23 +87,7 @@ class SystemChecker
     {
         return extension_loaded($name) ? self::OK : self::FAIL;
     }
-    
-    /**
-     * Checks whether UTF-8 encoding is configured.
-     *
-     * @return int The status code.
-     *
-     * @global array The localization of the core.
-     */
-    public function checkEncoding()
-    {
-        global $tx;
-        
-        return strtoupper($tx['meta']['codepage']) == 'UTF-8'
-            ? self::OK
-            : self::WARN;
-    }
-    
+
     /**
      * Checks whether a folder is writable.
      *

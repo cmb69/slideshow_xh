@@ -8,7 +8,6 @@ $plugin_tx['slideshow']['synopsis_options_desc']="Paramètres optionnels en form
 $plugin_tx['slideshow']['syscheck']="Vérification du système";
 $plugin_tx['slideshow']['syscheck_phpversion']="Version PHP ≥ %s";
 $plugin_tx['slideshow']['syscheck_extension']="Extension '%s' chargée";
-$plugin_tx['slideshow']['syscheck_encoding']="Encodage 'UTF-8' configuré";
 $plugin_tx['slideshow']['syscheck_writable']="Dossier '%s' écrivable";
 $plugin_tx['slideshow']['about']="&Agrave; propos de Slideshow_XH";
 $plugin_tx['slideshow']['cf_default_order']="Ordre des images : \"fixed\" (ordre alphabétique fixe ; démarre avec la première image), \"sorted\" (trié alphabétiquement mais image de départ aléatoire) ou \"random\" (séquence complètement aléatoire).";

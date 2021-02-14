@@ -39,10 +39,8 @@ class Controller
      */
     public static function dispatch()
     {
-        if (defined('XH_ADM') && XH_ADM) {
-            if (function_exists('XH_registerStandardPluginMenuItems')) {
-                XH_registerStandardPluginMenuItems(false);
-            }
+        if (XH_ADM) {
+            XH_registerStandardPluginMenuItems(false);
             if (self::isAdministrationRequested()) {
                 self::handleAdministration();
             }
@@ -161,16 +159,10 @@ class Controller
      * Returns whether the plugin administration is requested.
      *
      * @return bool
-     *
-     * @global string Whether the plugin administration is requested.
      */
     protected static function isAdministrationRequested()
     {
-        global $slideshow;
-
-        return function_exists('XH_wantsPluginAdministration')
-            && XH_wantsPluginAdministration('slideshow')
-            || isset($slideshow) && $slideshow == 'true';
+        return XH_wantsPluginAdministration('slideshow');
     }
 
     /**
@@ -241,7 +233,7 @@ class Controller
 
         $ptx = $plugin_tx['slideshow'];
         $phpVersion = '5.4.0';
-        $xhVersion = '1.6';
+        $xhVersion = '1.7.0';
         $checker = new SystemChecker();
         $checks = array();
         $checks[sprintf($ptx['syscheck_phpversion'], $phpVersion)]
@@ -252,8 +244,6 @@ class Controller
             $checks[sprintf($ptx['syscheck_extension'], $ext)]
                 = $checker->checkExtension($ext);
         }
-        $checks[$ptx['syscheck_encoding']]
-            = $checker->checkEncoding();
         foreach (array('config/', 'languages/') as $folder) {
             $folders[] = $pth['folder']['plugins'] . 'slideshow/' . $folder;
         }

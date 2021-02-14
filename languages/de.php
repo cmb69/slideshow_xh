@@ -14,7 +14,6 @@ $plugin_tx['slideshow']['syscheck']="Systemprüfung";
 $plugin_tx['slideshow']['syscheck_phpversion']="PHP-Version ≥ %s";
 $plugin_tx['slideshow']['syscheck_xhversion']="CMSimple_XH-Version ≥ %s";
 $plugin_tx['slideshow']['syscheck_extension']="Erweiterung '%s' geladen";
-$plugin_tx['slideshow']['syscheck_encoding']="'UTF-8' Kodierung gewählt";
 $plugin_tx['slideshow']['syscheck_writable']="Ordner '%s' beschreibbar";
 
 $plugin_tx['slideshow']['about']="Über Slideshow_XH";
