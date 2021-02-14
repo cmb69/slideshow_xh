@@ -24,7 +24,7 @@ namespace Slideshow;
 require_once './vendor/autoload.php';
 require_once './classes/Image.php';
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
@@ -38,7 +38,7 @@ use org\bovigo\vfs\vfsStream;
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://3-magi.net/?CMSimple_XH/Slideshow_XH
  */
-class ImageTest extends PHPUnit_Framework_TestCase
+class ImageTest extends TestCase
 {
     /**
      * The foldername.
@@ -54,12 +54,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
      */
     protected $subject;
 
-    /**
-     * Sets up the test fixture.
-     *
-     * @return void
-     */
-    public function setUp()
+    public function setUp(): void
     {
         vfsStreamWrapper::register();
         vfsStreamWrapper::setRoot(new vfsStreamDirectory('test'));
