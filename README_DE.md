@@ -151,7 +151,7 @@ Sie sollten ein Exemplar der GNU General Public License zusammen mit
 Slideshow\_XH erhalten haben. Falls nicht, siehe
 <https://www.gnu.org/licenses/>.
 
-Copyright 2012-2015 Christoph M. Becker
+Copyright 2012-2021 Christoph M. Becker
 
 Dänische Übersetzung © 2012 Jens Maegard  
 Tschechische Übersetzung © 2012-2013 Josef Němec  

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2014-2015 Christoph M. Becker
+ * Copyright 2014-2021 Christoph M. Becker
  *
  * This file is part of Slideshow_XH.
  *
