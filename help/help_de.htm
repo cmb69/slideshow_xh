@@ -1,167 +1,100 @@
-﻿<!DOCTYPE html>
-<html lang="de">
-
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de">
 <head>
-<meta http-equiv="content-type" content="text/html;charset=utf-8">
-<title>Slideshow_XH – Handbuch</title>
-<link rel="stylesheet" type="text/css" href="./stylesheet.css">
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Slideshow_XH – Benutzerhandbuch</title>
+  <style type="text/css">
+    body {
+        font-family: Georgia, serif;
+        line-height: 1.5;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+        background: #ffffe1;
+        max-width: 40em;
+    }
+    p {
+        text-align: justify;
+    }
+    pre {
+        color: black;
+        background: #ffe;
+        overflow: auto;
+        padding: 0.2em 0.5em;
+        border: 1px solid silver;
+    }
+  </style>
 </head>
-
 <body>
-
-<h1>Slideshow_XH – ein CMSimple_XH Plugin</h1>
-<img src="../slideshow.png" style="float: left;margin-right: 1em" alt="Plugin
-Icon">
-<p style="text-align:justify">Slideshow_XH ermöglicht die Anzeige aller Bilder
-in einem angegeben Ordner als Diashow. Diese Diashows erlauben keinerlei
-Interaktion durch den Benutzer. Mehrere Diashows mit unterschiedlichen Effekten
-und Zeitabläufen sind möglich.</p>
-
-<ul id="nav">
-<li><a href="#notice">Wichtiger Hinweis</a></li>
-<li><a href="#requirements">Voraussetzungen</a></li>
+<h1 id="slideshow_xh">Slideshow_XH</h1>
+<p>Slideshow_XH ermöglicht die Anzeige aller Bilder in einem angegeben Ordner als Diashow. Diese Diashows erlauben keinerlei Interaktion durch den Benutzer. Mehrere Diashows mit unterschiedlichen Effekten und Zeitabläufen sind möglich.</p>
+<ul>
+<li><a href="#voraussetzungen">Voraussetzungen</a></li>
+<li><a href="#download">Download</a></li>
 <li><a href="#installation">Installation</a></li>
-<li><a href="#settings">Einstellungen</a></li>
-<li><a href="#usage">Verwendung</a></li>
-<li><a href="#limitations">Einschränkungen</a></li>
-<li><a href="#license">Lizenz</a></li>
-<li><a href="#credits">Danksagung</a></li>
+<li><a href="#einstellungen">Einstellungen</a></li>
+<li><a href="#verwendung">Verwendung</a>
+<ul>
+<li><a href="#beispiele">Beispiele</a></li>
+</ul></li>
+<li><a href="#einschränkungen">Einschränkungen</a></li>
+<li><a href="#problembehebung">Problembehebung</a></li>
+<li><a href="#lizenz">Lizenz</a></li>
+<li><a href="#danksagung">Danksagung</a></li>
 </ul>
-
-<div id="body">
-
-<p><strong>Bitte lesen Sie diese Dokumentation <em>bevor</em> Probleme
-auftreten!</strong></p>
-
-<h2 id="notice">Wichtiger Hinweis</h2>
-<p><strong>Slideshow_XH konnte bisher nicht in diversen Umgebungen getestet
-werden. Es ist eine so genannte BETA-Version. Vorsicht bei der
-Verwendung!</strong></p>
-<div class="toplink"><a href="#">zum Seitenanfang</a></div>
-
-<h2 id="requirements">Voraussetzungen</h2>
-<p>Slideshow_XH ist ein Plugin für CMSimple_XH &ge; 1.7.0. Es benötigt PHP &ge; 5.4.0.</p>
-<div class="toplink"><a href="#">zum Seitenanfang</a></div>
-
+<h2 id="voraussetzungen">Voraussetzungen</h2>
+<p>Slideshow_XH ist ein Plugin für CMSimple_XH ≥ 1.7.0. Es benötigt PHP ≥ 5.4.0.</p>
+<h2 id="download">Download</h2>
+<p>Das <a href="https://github.com/cmb69/slideshow_xh/releases/latest">aktuelle Release</a> kann von Github herunter geladen werden.</p>
 <h2 id="installation">Installation</h2>
-<p>Die Installation erfolgt wie bei vielen anderen CMSimple_XH-Plugins auch. Im
-<a href="http://www.cmsimple-xh.org/wiki/doku.php/de:installation">
-CMSimple_XH-Wiki</a> finden Sie weitere Details.</p>
-<ol>
+<p>Die Installation erfolgt wie bei vielen anderen CMSimple_XH-Plugins auch.</p>
+<ol type="1">
 <li>Sichern Sie die Daten auf Ihrem Server.</li>
 <li>Entpacken Sie die ZIP-Datei auf Ihrem Rechner.</li>
-<li>Laden Sie das ganze Verzeichnis slideshow/ auf Ihren Server in CMSimple_XHs
-Plugin-Verzeichnis hoch.</li>
-<li>Machen Sie die Unterverzeichnisse config/ und languages/ beschreibbar.</li>
-<li>Gehen Sie zu "Slideshow" im Administrationsbereich, um zu prüfen, ob
-alle Voraussetzungen erfüllt sind.</li>
+<li>Laden Sie das ganze Verzeichnis <code>slideshow/</code> auf Ihren Server in das <code>plugins/</code> Verzeichnis von CMSimple_XH hoch.</li>
+<li>Vergeben Sie falls nötig Schreibrechte für die Unterverzeichnisse <code>config/</code> und <code>languages/</code>.</li>
+<li>Navigieren Sie zu <code>Plugins</code> → <code>Slideshow</code> im Administrationsbereich, um zu prüfen, ob alle Voraussetzungen erfüllt sind.</li>
 </ol>
-<div class="toplink"><a href="#">zum Seitenanfang</a></div>
-
-<h2 id="settings">Einstellungen</h2>
-<p>Die Plugin-Konfiguration erfolgt wie bei vielen anderen CMSimple_XH-Plugins
-auch im Administrationsbereich der Website. Wählen Sie
-"Plugins"&rarr;"Slideshow".</p>
-<p>Sie können die Voreinstellungen von Slideshow_XH unter "Konfiguration"
-ändern. Hinweise zu den Optionen werden beim Überfahren der Hilfe-Icons mit der
-Maus angezeigt.</p>
-<p>Die Lokalisierung wird unter "Sprache" vorgenommen.
-Sie können die Sprachtexte in Ihre eigene Sprache übersetzen,
-falls keine entsprechende Sprachdatei zur Verfügung steht, oder diese Ihren
-Wünschen gemäß anpassen.</p>
-<!--<p>Das Aussehen von Slideshow_XH kann unter "Stylesheet" angepasst
-werden.</p>-->
-<div class="toplink"><a href="#">zum Seitenanfang</a></div>
-
-<h2 id="usage">Verwendung</h2>
+<h2 id="einstellungen">Einstellungen</h2>
+<p>Die Plugin-Konfiguration erfolgt wie bei vielen anderen CMSimple_XH-Plugins auch im Administrationsbereich der Website. Gehen Sie zu <code>Plugins</code> → <code>Slideshow</code>.</p>
+<p>Sie können die Voreinstellungen von Slideshow_XH unter <code>Konfiguration</code> ändern. Beim Überfahren der Hilfe-Icons mit der Maus werden Hinweise zu den Einstellungen angezeigt.</p>
+<p>Die Lokalisierung wird unter <code>Sprache</code> vorgenommen. Sie können die Sprachtexte in Ihre eigene Sprache übersetzen, falls keine entsprechende Sprachdatei zur Verfügung steht, oder diese Ihren Wünschen gemäß anpassen.</p>
+<h2 id="verwendung">Verwendung</h2>
 <p>Um eine Diashow auf allen Seiten anzuzeigen, fügen sie ins Template ein:</p>
-<pre>&lt;?php echo slideshow('%ORDNER%', '%OPTIONEN%');?&gt;</pre>
-<p>Um eine Diashow auf einer einzelnen Seite oder in einer Newsbox anzuzeigen,
-geben auf der Seite ein:</p>
-<pre>{{{PLUGIN:slideshow('%ORDNER%', '%OPTIONEN%');}}}</pre>
-<p>Die Parameter haben die folgende Bedeutung:</p>
-<dl>
-<dt>%ORDNER%</dt>
-<dd>Der Pfad eines Ordners relativ zu CMSimple_XHs Bilderordner. Alle JPEG, PNG
-und GIF Bilder in diesem Ordner werden für die Diashow verwendet;
-es müssen sich mindestens zwei Bilder in diesem Ordner befinden.
-Alle Bilder sollten das gleiche Seitenverhältnis aufweisen.</dd>
-<dt>%OPTIONEN%</dt>
-<dd>Jede angegebene Option überschreibt die entsprechende Voreinstellung im "default"
-Abschnitt der Pluginkonfiguration. Das Format dieses Parameters
-ist das gleiche wie bei einem "Query-String" (siehe die Beispiele weiter unten).
-Die Optionen können in beliebiger Reihenfolge angegeben werden. Wenn Sie bei den
-Voreinstellungen bleiben wollen, können Sie diesen Parameter auslassen. Die
-folgenden Optionen können angegeben werden:
-<dl>
-<dt>order</dt>
-<dd>Die Reihenfolge der Bilder: "fixed" (alphabetisch sortiert; beginnt mit dem
-ersten Bild), "sorted" (alphabetisch sortiert; beginnt mit einem zufällig
-gewählten Bild) oder "random" (zufällig geordnet).</dd>
-<dt>effect</dt>
-<dd>Die Art des Übergangs: "fade", "slide", "curtain" oder "random".</dd>
-<dt>easing</dt>
-<dd>Der Beschleunigungseffekt: "linear", "easeIn", "easeOut" oder
-"easeInOut".</dd>
-<dt>delay</dt>
-<dd>Die Verzögerung in ms bis zum ersten Start der Diashow.</dd>
-<dt>pause</dt>
-<dd>Die Dauer der Pause zwischen den Übergängen in ms.</dd>
-<dt>duration</dt>
-<dd>Die Dauer des Übergangseffekts in ms.</dd>
-</dl>
-</dd>
-</dl>
-<h4>Beispiele</h4>
-<p>Zum Anzeigen der Bilder in userfiles/images/banner/ mit den Voreinstellungen auf jeder
-Seite:</p>
-<pre>&lt;?php echo slideshow('banner');?&gt;</pre>
+<pre><code>&lt;?=slideshow(&#39;ORDNER&#39;, &#39;OPTIONEN&#39;)?&gt;</code></pre>
+<p>Um eine Diashow auf einer einzelnen Seite oder in einer Newsbox anzuzeigen, geben Sie auf der Seite ein:</p>
+<pre><code>{{{slideshow(&#39;ORDNER&#39;, &#39;OPTIONEN&#39;)}}}</code></pre>
+<p>Die Parameter haben die folgende Bedeutung: - <code>ORDNER</code>: Der Pfad eines Ordners relativ zum Bilderordner von CMSimple_XH. Alle JPEG, PNG und GIF Bilder in diesem Ordner werden für die Diashow verwendet; es müssen sich mindestens zwei Bilder in diesem Ordner befinden. Alle Bilder sollten das gleiche Seitenverhältnis aufweisen. - <code>OPTIONEN</code>: Jede angegebene Option überschreibt die entsprechende Voreinstellung im <code>Default</code> Abschnitt der Pluginkonfiguration. Das Format dieses Parameters ist das gleiche wie bei einem „Query-String“ (siehe die Beispiele weiter unten). Die Optionen können in beliebiger Reihenfolge angegeben werden. Wenn Sie bei den Voreinstellungen bleiben wollen, können Sie diesen Parameter auslassen. Die folgenden Optionen können angegeben werden: - <code>order</code>: Die Reihenfolge der Bilder: <code>fixed</code> (alphabetisch sortiert; beginnt mit dem ersten Bild), <code>sorted</code> (alphabetisch sortiert; beginnt mit einem zufällig gewählten Bild) oder <code>random</code> (zufällig geordnet). - <code>effect</code>: Die Art des Übergangs: <code>fade</code>, <code>slide</code>, <code>curtain</code> oder <code>random</code>. - <code>easing</code>: Der Beschleunigungseffekt: <code>linear</code>, <code>easeIn</code>, <code>easeOut</code> oder <code>easeInOut</code>. - <code>delay</code>: Die Verzögerung in Millisekunden bis zum ersten Start der Diashow. - <code>pause</code>: Die Dauer der Pause zwischen den Übergängen in Millisekunden. - <code>duration</code>: Die Dauer des Übergangseffekts in Millisekunden.</p>
+<h3 id="beispiele">Beispiele</h3>
+<p>Zum Anzeigen der Bilder in <code>userfiles/images/banner/</code> mit den Voreinstellungen auf jeder Seite:</p>
+<pre><code>&lt;?=slideshow(&#39;banner&#39;)?&gt;</code></pre>
 <p>Zum Anzeigen der Bilder in der Art eines Fließbands:</p>
-<pre>{{{slideshow('slides/fliessband/', 'effect=slide&amp;pause=0&amp;duration=2000');}}}</pre>
+<pre><code>{{{slideshow(&#39;slides/fliessband/&#39;, &#39;effect=slide&amp;amp;pause=0&amp;amp;duration=2000&#39;)}}}</code></pre>
 <p>Zum Anzeigen der Bilder als ruhige, langsam überblendende Diashow:</p>
-<pre>{{{slideshow('slides/ruhig/', 'effect=fade&amp;pause=5000&amp;duration=100');}}}</pre>
+<pre><code>{{{slideshow(&#39;slides/ruhig/&#39;, &#39;effect=fade&amp;amp;pause=5000&amp;amp;duration=100&#39;)}}}</code></pre>
 <p>Zum Anzeigen geigneter Bilder als Daumenkino:</p>
-<pre>{{{slideshow('slides/daumenkino/', 'order=fixed&amp;effect=fade&amp;pause=100&amp;duration=100');}}}</pre>
-<div class="toplink"><a href="#">zum Seitenanfang</a></div>
-
-<h2 id="limitations">Einschränkungen</h2>
-<p>Die Diashows werden nur abgespielt, wenn JS im Browser des Besuchers
-aktiviert ist. Ansonsten wird nur das erste Bild angezeigt. Die Übergangseffekte
-sind rechenintensiv, besonders für große Bilder. Daher sollten Sie sich auf nur
-wenige Diashows mit kleinen oder mittelgroßen Bildern auf der selben Seite
-beschränken, um Besuchern mit geringer Rechenleistung keine stotternden Diashows
-zu präsentieren.</p>
-<div class="toplink"><a href="#">zum Seitenanfang</a></div>
-
-<h2 id="license">Lizenz</h2>
-<p>Slideshow_XH kann unter Einhaltung der <a
-href="http://www.gnu.org/licenses/gpl.html">GPLv3</a> verwendet werden.</p>
-<p>&copy; 2012-2015 Christoph M. Becker</p>
-<p>Dänische Übersetzung &copy; 2012 Jens Maegard<br>
-Tschechische Übersetzung &copy; 2012-2013 Josef Němec<br>
-Slovakische Übersetzung &copy; 2013 Dr. Martin Sereday<br>
-Französische Übersetzung &copy; 2014 Patrick Varlet</p>
-<div class="toplink"><a href="#">zum Seitenanfang</a></div>
-
-<h2 id="credits">Danksagung</h2>
-<p>Slideshow_XH wurde von Joe angeregt.</p>
-<p>Das Pluginicon wurde von <a href="https://twitter.com/Zyote">Mischa
-McLachlan</a> entworfen. Vielen Dank für die Veröffentlichung unter einer freien
-Lizenz.</p>
-<p>Dieses Plugin verwendet freie Anwendungs-Icons von <a
-href="http://www.aha-soft.com/">Aha-Soft</a>. Vielen Dank für die freie
-Verwendbarkeit dieser Icons.</p>
-<p>Many thanks to the community at the <a
-href="http://www.cmsimpleforum.com/">CMSimple_XH-Forum</a> for tips, suggestions
-and testing.</p>
-<p>Und zu guter letzt vielen Dank an <a href="http://www.harteg.dk/">Peter
-Harteg</a>, den "Vater" von CMSimple, und allen Entwicklern von <a
-href="http://www.cmsimple-xh.org/de/">CMSimple_XH</a> ohne die es dieses
-phantastische CMS nicht gäbe.</p>
-<div class="toplink"><a href="#">zum Seitenanfang</a></div>
-
-</div>
-
+<pre><code>{{{slideshow(&#39;slides/daumenkino/&#39;, &#39;order=fixed&amp;amp;effect=fade&amp;amp;pause=100&amp;amp;duration=100&#39;)}}}</code></pre>
+<h2 id="einschränkungen">Einschränkungen</h2>
+<p>Die Diashows werden nur abgespielt, wenn JS im Browser des Besuchers aktiviert ist. Ansonsten wird nur das erste Bild angezeigt. Die Übergangseffekte sind rechenintensiv, besonders für große Bilder. Daher sollten Sie sich auf nur wenige Diashows mit kleinen oder mittelgroßen Bildern auf der selben Seite beschränken, um Besuchern mit geringer Rechenleistung keine stotternden Diashows zu präsentieren.</p>
+<h2 id="problembehebung">Problembehebung</h2>
+<p>Melden Sie Programmfehler und stellen Sie Supportanfragen entweder auf <a href="https://github.com/cmb69/slideshow_xh/issues">Github</a> oder im <a href="https://cmsimpleforum.com/">CMSimple_XH Forum</a>.</p>
+<h2 id="lizenz">Lizenz</h2>
+<p>Slideshow_XH ist freie Software. Sie können es unter den Bedingungen der GNU General Public License, wie von der Free Software Foundation veröffentlicht, weitergeben und/oder modifizieren, entweder gemäß Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren Version.</p>
+<p>Die Veröffentlichung von Slideshow_XH erfolgt in der Hoffnung, daß es Ihnen von Nutzen sein wird, aber <em>ohne irgendeine Garantie</em>, sogar ohne die implizite Garantie der <em>Marktreife</em> oder der <em>Verwendbarkeit für einen bestimmten Zweck</em>. Details finden Sie in der GNU General Public License.</p>
+<p>Sie sollten ein Exemplar der GNU General Public License zusammen mit Slideshow_XH erhalten haben. Falls nicht, siehe <a href="https://www.gnu.org/licenses/" class="uri">https://www.gnu.org/licenses/</a>.</p>
+<p>Copyright 2012-2015 Christoph M. Becker</p>
+<p>Dänische Übersetzung © 2012 Jens Maegard<br />
+Tschechische Übersetzung © 2012-2013 Josef Němec<br />
+Slovakische Übersetzung © 2013 Dr. Martin Sereday<br />
+Französische Übersetzung © 2014 Patrick Varlet</p>
+<h2 id="danksagung">Danksagung</h2>
+<p>Slideshow_XH wurde von <em>Joe</em> angeregt.</p>
+<p>Das Pluginicon wurde von <a href="https://twitter.com/Zyote">Mischa McLachlan</a> entworfen. Vielen Dank für die Veröffentlichung unter einer freien Lizenz.</p>
+<p>Dieses Plugin verwendet freie Anwendungs-Icons von <a href="http://www.aha-soft.com/">Aha-Soft</a>. Vielen Dank für die freie Verwendbarkeit dieser Icons.</p>
+<p>Many thanks to the community at the <a href="https://www.cmsimpleforum.com/">CMSimple_XH Forum</a> for tips, suggestions and testing.</p>
+<p>Und zu guter letzt vielen Dank an <a href="https://www.harteg.dk/">Peter Harteg</a>, den „Vater“ von CMSimple, und allen Entwicklern von <a href="https://www.cmsimple-xh.org/de/">CMSimple_XH</a> ohne die es dieses phantastische CMS nicht gäbe.</p>
 </body>
-
 </html>

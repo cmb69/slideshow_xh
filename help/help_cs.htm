@@ -1,157 +1,100 @@
-﻿<!DOCTYPE html>
-<html lang="cs">
-
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="cs" xml:lang="cs">
 <head>
-<meta http-equiv="content-type" content="text/html;charset=utf-8">
-<title>Slideshow_XH – Manual</title>
-<link rel="stylesheet" type="text/css" href="./stylesheet.css">
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Slideshow_XH – UÅ¾ivatelskÃ½ manuÃ¡l</title>
+  <style type="text/css">
+    body {
+        font-family: Georgia, serif;
+        line-height: 1.5;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+        background: #ffffe1;
+        max-width: 40em;
+    }
+    p {
+        text-align: justify;
+    }
+    pre {
+        color: black;
+        background: #ffe;
+        overflow: auto;
+        padding: 0.2em 0.5em;
+        border: 1px solid silver;
+    }
+  </style>
 </head>
-
 <body>
-
-<h1>Slideshow_XH – CMSimple_XH Plugin</h1>
-<img src="../slideshow.png" style="float: left;margin-right: 1em" alt="Plugin
-Icon">
-<p style="text-align:justify">Slideshow_XH usnadňuje zobrazení všech obrázků v
-dané složce jako prezentace. Tyto prezentace neumožňují žádnou interakci
-návštěvníka. Použití více prezentací s různými efekty a časováním je možné.</p>
-
-<ul id="nav">
-<li><a href="#notice">Důležité upozornění</a></li>
-<li><a href="#requirements">Požadavky</a></li>
-<li><a href="#installation">Instalace</a></li>
-<li><a href="#settings">Nastavení</a></li>
-<li><a href="#usage">Použití</a></li>
-<li><a href="#limitations">Omezení</a></li>
-<li><a href="#license">Licence</a></li>
+<h1 id="slideshow_xh">Slideshow_XH</h1>
+<p>Slideshow_XH usnadňuje zobrazení všech obrázků v dané složce jako prezentace. Tyto prezentace neumožňují žádnou interakci návštěvníka. Použití více prezentací s různými efekty a časováním je možné.</p>
+<ul>
+<li><a href="#požadavky">Požadavky</a></li>
+<li><a href="#download">Download</a></li>
+<li><a href="#instalace">Instalace</a></li>
+<li><a href="#nastavení">Nastavení</a></li>
+<li><a href="#použití">Použití</a>
+<ul>
+<li><a href="#příklady">Příklady</a></li>
+</ul></li>
+<li><a href="#omezení">Omezení</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+<li><a href="#license">License</a></li>
 <li><a href="#credits">Credits</a></li>
 </ul>
-
-<div id="body">
-
-<p><strong>Prosím, přečtěte si tuto dokumentaci <em>předtím,</em> než narazíte
-na nějaké problémy!</strong></p>
-
-<h2 id="notice">Důležité upozornění</h2>
-<p><strong>Slideshow_XH nemohly být testovány tak daleko v různých prostředích.
- Je tzv. BETA verze. Používejte opatrně!</strong></p>
-<div class="toplink"><a href="#">zpět nahoru</a></div>
-
-<h2 id="requirements">Požadavky</h2>
-<p>Slideshow_XH je plugin pro CMSimple_XH &ge; 1.7.0. <ins>It requires PHP &ge; 5.4.0.</ins></p>
-<div class="toplink"><a href="#">zpět nahoru</a></div>
-
-<h2 id="installation">Instalace</h2>
-<p>Instalace se provádí stejně jako u ostatních pluginů CMSimple_XH. Viz <a
-href="http://www.cmsimple-xh.org/wiki/doku.php/installation"> CMSimple_XH
-wiki</a> kde najdete více detailů.</p>
-<ol>
+<h2 id="požadavky">Požadavky</h2>
+<p>Slideshow_XH je plugin pro CMSimple_XH Omezení 1.7.0. It requires PHP Omezení 5.4.0.</p>
+<h2 id="download">Download</h2>
+<p>The <a href="https://github.com/cmb69/slideshow_xh/releases/latest">lastest release</a> is available for download on Github.</p>
+<h2 id="instalace">Instalace</h2>
+<p>Instalace se provádí stejně jako u ostatních pluginů CMSimple_XH.</p>
+<ol type="1">
 <li>Zálohujte data na svém serveru.</li>
 <li>Rozbalte distribuční balíček ve svém počítači.</li>
-<li>Nahrajte celý adresář slideshow/ na váš server do adresáře pluginy
-CMSimple_XH.</li>
-<li>Nastavte práva k zápisu pro podadresáře config/ a languages/.</li>
-<li>Zkontrolujte "Slideshow" v režimu administrace zda jsou všechny
-požadavky splněny.</li>
+<li>Nahrajte celý adresář <code>slideshow/</code> na váš server do adresáře <code>plugins/</code> CMSimple_XH.</li>
+<li>Nastavte práva k zápisu pro podadresáře <code>config/</code> a <code>languages/</code>.</li>
+<li>Zkontrolujte <code>Pluginy</code> → <code>Slideshow</code> v režimu administrace zda jsou všechny požadavky splněny.</li>
 </ol>
-<div class="toplink"><a href="#">zpět nahoru</a></div>
-
-<h2 id="settings">Nastavení</h2>
-<p>Konfigurace tohoto pluginu se pravádí stejně jako u ostatních CMSimple_XH
-pluginů v režimu administrace. Vyberte "Slideshow" v sekci "Pluginy".</p>
-<p>Můžete změnit výchozí nastavení Slideshow_XH v "Config". Tipy pro volby se
-zobrazí při najetí nad nápovědy ikon s myší.</p>
-<p>Lokalizace se provádí v nastavení "Jazyk". Můžete přeložit řetězce znaků ve
-vašem vlastním jazyce <ins>if there is no appropriate language file available</ins>,
-nebo je upravit podle vašich potřeb.</p>
-<!--<p>The look of the Slideshow_XH can be customized in "Plugin
-Stylesheet".</p>
---><div class="toplink"><a href="#">zpět nahoru</a></div>
-
-<h2 id="usage">Použití</h2>
+<h2 id="nastavení">Nastavení</h2>
+<p>Konfigurace tohoto pluginu se pravádí stejně jako u ostatních CMSimple_XH pluginů v režimu administrace. Vyberte <code>Pluginy</code> → <code>Slideshow</code>.</p>
+<p>Můžete změnit výchozí nastavení Slideshow_XH v <code>Config</code>. Tipy pro volby se zobrazí při najetí nad nápovědy ikon s myší.</p>
+<p>Lokalizace se provádí v nastavení <code>Jazyk</code>. Můžete přeložit řetězce znaků ve vašem vlastním jazyce if there is no appropriate language file available, nebo je upravit podle vašich potřeb.</p>
+<h2 id="použití">Použití</h2>
 <p>Chcete-li zobrazit prezentaci na všech stránkách vložte do šablony:</p>
-<pre>&lt;?php echo slideshow('%ADRESÁŘ%', '%NASTAVENÍ%');?&gt;</pre>
+<pre><code>&lt;?=slideshow(&#39;ADRESÁŘ&#39;, &#39;NASTAVENÍ&#39;);?&gt;</code></pre>
 <p>Chcete-li zobrazit prezentaci na jedné stránce nebo v Newsboxu vložte na stránku:</p>
-<pre>{{{PLUGIN:slideshow('%ADRESÁŘ%', '%NASTAVENÍ%');}}}</pre>
-<p>Tyto parametry mají následující význam:</p>
-<dl>
-<dt>%ADRESÁŘ%</dt>
-<dd>Cesta k adresáři relativní k adresáři images v CMSimple_XH. Všechny JPEG,
-PNG a GIF obrázky uvnitř této složky budou použity pro prezentaci<ins>;
-there must be at least two images inside this folder.
-All images should have the same aspect ratio.</ins></dd>
-<dt>%NASTAVENÍ%</dt>
-<dd>Jakákoli volba přepíše odpovídající hodnotu ve "výchozí" části konfigurace
-pluginu. Formát tohoto parametru je stejný jako "řetězec dotazu" (viz příklady
-níže). Možnosti mohou být uvedeny v libovolném pořadí. Pokud chcete použít
-výchozí nastavení, můžete tento parametr vynecháte. K dispozici jsou následující
-možnosti:
-<dl>
-<dt>order</dt>
-<dd> Pořadí obrázků: "fixed" (abecedně seřazeny; start od prvního obrázku),
-"sorted" (abecedně seřazeny; start od náhodného obrázku) oder "random" (náhodné
-zobrazení).</dd>
-<dt>effect</dt>
-<dd>Druh přechodu: "fade", "slide", "curtain" nebo "random".</dd>
-<dt>easing</dt>
-<dd>Efekt akcelerace: "linear", "easeIn", "easeOut" nebo "easeInOut".</dd>
-<dt>delay</dt>
-<dd>Počáteční zpoždění v ms než se spustí prezentace.</dd>
-<dt>pause</dt>
-<dd>Doba trvání pauzy mezi přechody v ms.</dd>
-<dt>duration</dt>
-<dd>Doba trvání přechodového efektu v ms.</dd>
-</dl>
-</dd>
-</dl>
-<h4>Příklady</h4>
-<p>Chcete-li zobrazit obrázky z adresáře userfiles/images/bannery/ ve výchozím nastavením
-pluginu na každé stránce:</p>
-<pre>&lt;?php echo slideshow('bannery');?&gt;</pre>
+<pre><code>{{{slideshow(&#39;ADRESÁŘ&#39;, &#39;NASTAVENÍ&#39;)}}}</code></pre>
+<p>Tyto parametry mají následující význam: - <code>ADRESÁŘ</code>: Cesta k adresáři relativní k adresáři images v CMSimple_XH. Všechny JPEG, PNG a GIF obrázky uvnitř této složky budou použity pro prezentaci; there must be at least two images inside this folder. All images should have the same aspect ratio. - <code>NASTAVENÍ</code>: Jakákoli volba přepíše odpovídající hodnotu ve <code>Default</code> části konfigurace pluginu. Formát tohoto parametru je stejný jako “řetězec dotazu” (viz příklady níže). Možnosti mohou být uvedeny v libovolném pořadí. Pokud chcete použít výchozí nastavení, můžete tento parametr vynecháte. K dispozici jsou následující možnosti: - <code>order</code>: Pořadí obrázků: <code>fixed</code> (abecedně seřazeny; start od prvního obrázku), <code>sorted</code> (abecedně seřazeny; start od náhodného obrázku) nebo <code>random</code> (náhodné zobrazení). - <code>effect</code>: Druh přechodu: <code>fade</code>, <code>slide</code>, <code>curtain</code> nebo <code>random</code>. - <code>easing</code>: Efekt akcelerace: <code>linear</code>, <code>easeIn</code>, <code>easeOut</code> nebo <code>easeInOut</code>. - <code>delay</code>: Počáteční zpoždění v milisekundy než se spustí prezentace. - <code>pause</code>: - Doba trvání pauzy mezi přechody v milisekundy. - <code>duration</code>: Doba trvání přechodového efektu v milisekundy.</p>
+<h3 id="příklady">Příklady</h3>
+<p>Chcete-li zobrazit obrázky z adresáře <code>userfiles/images/bannery/</code> ve výchozím nastavením pluginu na každé stránce:</p>
+<pre><code>&lt;?=slideshow(&#39;bannery&#39;)?&gt;</code></pre>
 <p>Způsob, chcete-li zobrazit snímky v posuvném pásu:</p>
-<pre>{{{slideshow('slides/run/', 'effect=slide&amp;pause=0&amp;duration=2000');}}}</pre>
+<pre><code>{{{slideshow(&#39;slides/run/&#39;, &#39;effect=slide&amp;amp;pause=0&amp;amp;duration=2000&#39;)}}}</code></pre>
 <p>Chcete-li zobrazit obrázky klidně, pomalé vyblednutí slideshow:</p>
-<pre>{{{slideshow('slides/slow/', 'effect=fade&amp;pause=5000&amp;duration=100');}}}</pre>
+<pre><code>{{{slideshow(&#39;slides/slow/&#39;, &#39;effect=fade&amp;amp;pause=5000&amp;amp;duration=100&#39;)}}}</code></pre>
 <p>Chcete-li zobrazit odpovídající obrázky ve stylu knihy s listováním:</p>
-<pre>{{{slideshow('slides/flip/', 'order=fixed&amp;effect=fade&amp;pause=100&amp;duration=100');}}}</pre>
-<div class="toplink"><a href="#">zpět nahoru</a></div>
-
-<h2 id="limitations">Omezení</h2>
-<p>Tyto prezentace mohou být přehrávány pouze, pokud je JS povolen v prohlížeči
-návštěvníka. Jinak ukáže pouze první obrázek. Přechodové efekty jsou náročné na
-výkon CPU, zejména pro velké obrázky. Takže byste se měli omezit jen na několik
-prezentací s malým nebo středním obrázky na stejné stránce, aby se zabránilo
-trhání prezentace pro návštěvníky s malým výpočetním výkonem.</p>
-<div class="toplink"><a href="#">zpět nahoru</a></div>
-
-<h2 id="license">Licence</h2>
-<p>Slideshow_XH je licencován pod <a
-href="http://www.gnu.org/licenses/gpl.html">GPLv3</a>.</p>
-<p>&copy; 2012-2015 Christoph M. Becker</p>
-<p>Dánský překlad &copy; 2012 Jens Maegard<br>
-Český překlad &copy; 2012-2013 Josef Němec<br>
-Slovenský překlad &copy; 2013 Dr. Martin Sereday<ins><br>
-French translation &copy; 2014 Patrick Varlet</ins></p>
-<div class="toplink"><a href="#">zpět nahoru</a></div>
-
+<pre><code>{{{slideshow(&#39;slides/flip/&#39;, &#39;order=fixed&amp;amp;effect=fade&amp;amp;pause=100&amp;amp;duration=100&#39;)}}}</code></pre>
+<h2 id="omezení">Omezení</h2>
+<p>Tyto prezentace mohou být přehrávány pouze, pokud je JS povolen v prohlížeči návštěvníka. Jinak ukáže pouze první obrázek. Přechodové efekty jsou náročné na výkon CPU, zejména pro velké obrázky. Takže byste se měli omezit jen na několik prezentací s malým nebo středním obrázky na stejné stránce, aby se zabránilo trhání prezentace pro návštěvníky s malým výpočetním výkonem.</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p>Report bugs and ask for support either on <a href="https://github.com/cmb69/slideshow_xh/issues">Github</a> or in the <a href="https://cmsimpleforum.com/">CMSimple_XH Forum</a>.</p>
+<h2 id="license">License</h2>
+<p>Slideshow_XH je svobodný software: můžete jej šířit a/nebo modifikovat podle podmínek GNU General Public License, vydané Free Software Foundation, buď ve verzi 3 licence, nebo (podle vašeho uvážení) kterékoli pozdější verze.</p>
+<p>Slideshow_XH je rozšiřován v naději, že bude užitečný, ale BEZ JAKÉKOLIV ZÁRUKY; dokonce i bez předpokládané záruky PRODEJNOSTI anebo VHODNOSTI PRO URČITÝ ÚČEL. viz GNU General Public License pro více informací.</p>
+<p>Měli by jste obdržet kopii GNU General Public License spolu s Slideshow_XH. If not, see <a href="https://www.gnu.org/licenses/" class="uri">https://www.gnu.org/licenses/</a>.</p>
+<p>Copyright 2012-2015 Christoph M. Becker</p>
+<p>Dánský překlad © 2012 Jens Maegard<br />
+Český překlad © 2012-2013 Josef Němec<br />
+Slovenský překlad © 2013 Dr. Martin Sereday<br />
+Francouzský překlad © 2014 Patrick Varlet</p>
 <h2 id="credits">Credits</h2>
-<p>Slideshow_XH was inspired by Joe.</p>
-<p>The plugin icon is designed by <a href="https://twitter.com/Zyote">Mischa
-McLachlan</a>. Many thanks for publishing this icon under a liberal license.</p>
-<p>This plugin uses free applications icons from <a
-href="http://www.aha-soft.com/">Aha-Soft</a>. Many thanks for making these icons
-freely available.</p>
-<p>Many thanks to the community at the <a
-href="http://www.cmsimpleforum.com/">CMSimple_XH-Forum</a> for tips, suggestions
-and testing.</p>
-<p>And last but not least many thanks to <a href="http://www.harteg.dk/">Peter
-Harteg</a>, the "father" of CMSimple, and all developers of <a
-href="http://www.cmsimple-xh.org/">CMSimple_XH</a> without whom this amazing CMS
-wouldn't exist.</p>
-<div class="toplink"><a href="#">zpět nahoru</a></div>
-
-</div>
-
+<p>Slideshow_XH was inspired by <em>Joe</em>.</p>
+<p>The plugin icon is designed by <a href="https://twitter.com/Zyote">Mischa McLachlan</a>. Many thanks for publishing this icon under a liberal license.</p>
+<p>This plugin uses free applications icons from <a href="http://www.aha-soft.com/">Aha-Soft</a>. Many thanks for making these icons freely available.</p>
+<p>Many thanks to the community at the <a href="https://www.cmsimpleforum.com/">CMSimple_XH Forum</a> for tips, suggestions and testing.</p>
+<p>And last but not least many thanks to <a href="https://www.harteg.dk/">Peter Harteg</a>, the “father” of CMSimple, and all developers of <a href="https://www.cmsimple-xh.org/">CMSimple_XH</a> without whom this amazing CMS would not exist.</p>
 </body>
-
 </html>
