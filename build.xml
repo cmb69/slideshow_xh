@@ -80,11 +80,12 @@
         </jsMin>
         <move todir="dist">
             <fileset dir="export">
+                <exclude name="tests/**"/>
                 <exclude name="build.xml"/>
                 <exclude name="composer.*"/>
                 <exclude name="coverage.xml"/>
                 <exclude name="phpcompatinfo.*"/>
-                <exclude name="tests/**"/>
+                <exclude name="teplad.xml"/>
             </fileset>
         </move>
         <delete dir="export"/>
