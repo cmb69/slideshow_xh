@@ -98,5 +98,3 @@ class ImageTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('bar', $this->subject->getName());
     }
 }
-
-?>

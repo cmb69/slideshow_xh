@@ -58,7 +58,7 @@ class Controller
      *
      * @staticvar int $run The number of times the function has been called.
      */
-    static function main($path, $options = '')
+    public static function main($path, $options = '')
     {
         global $bjs, $pth, $plugin_cf, $plugin_tx;
         static $run = 0;
@@ -73,16 +73,10 @@ class Controller
             : false;
         $imgs = Image::findAll($path, $opts['order'], $current);
         if (count($imgs) < 2) {
-            return XH_message(
-                'fail', $plugin_tx['slideshow']['message_insufficient_images'],
-                $path
-            );
+            return XH_message('fail', $plugin_tx['slideshow']['message_insufficient_images'], $path);
         }
         if ($plugin_cf['slideshow']['cookie_use']) {
-            setcookie(
-                'slideshow_current',
-                basename($imgs[1]->getFilename()), 0, CMSIMPLE_URL
-            );
+            setcookie('slideshow_current', basename($imgs[1]->getFilename()), 0, CMSIMPLE_URL);
         }
         if (!$run) {
             $config = array(
@@ -194,11 +188,11 @@ class Controller
 
         $o .= print_plugin_admin('off');
         switch ($admin) {
-        case '':
-            $o .= self::info();
-            break;
-        default:
-            $o .= plugin_admin_common($action, $admin, 'slideshow');
+            case '':
+                $o .= self::info();
+                break;
+            default:
+                $o .= plugin_admin_common($action, $admin, 'slideshow');
         }
     }
 
@@ -218,7 +212,7 @@ class Controller
             SystemChecker::OK => 'ok',
             SystemChecker::WARN => 'warn',
             SystemChecker::FAIL => 'fail'
-        ); 
+        );
         foreach ($states as $state => $name) {
             $images[$state] = $pth['folder']['plugins'] . 'slideshow/images/'
                 . $name . '.png';
@@ -272,5 +266,3 @@ class Controller
         return $checks;
     }
 }
-
-?>

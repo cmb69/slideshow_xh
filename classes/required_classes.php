@@ -29,5 +29,3 @@ function Slideshow_autoload($className)
         include_once dirname(__FILE__) . '/' . $parts[1] . '.php';
     }
 }
-
-?>

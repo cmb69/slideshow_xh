@@ -122,5 +122,3 @@ class SystemChecker
         return is_writable($filename) ? self::OK : self::WARN;
     }
 }
-
-?>

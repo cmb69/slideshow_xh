@@ -77,9 +77,7 @@ class Image
                 } else {
                     $n = rand(0, count($images) - 1);
                 }
-                $images = array_merge(
-                    array_slice($images, $n), array_slice($images, 0, $n)
-                );
+                $images = array_merge(array_slice($images, $n), array_slice($images, 0, $n));
             }
         }
         return $images;
@@ -135,5 +133,3 @@ class Image
         return pathinfo($this->filename, PATHINFO_FILENAME);
     }
 }
-
-?>

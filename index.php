@@ -32,5 +32,3 @@ function slideshow($path, $options = '')
 }
 
 Slideshow_Controller::dispatch();
-
-?>
