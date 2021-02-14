@@ -88,16 +88,16 @@ class Controller
             $config = array(
                 'useCookie' => (bool) $plugin_cf['slideshow']['cookie_use']
             );
-            $bjs .= '<script type="text/javascript">var slideshow = {config: '
+            $bjs .= '<script>var slideshow = {config: '
                 . json_encode($config) . '};</script>'
-                . '<script type="text/javascript" src="'
+                . '<script src="'
                 . $pth['folder']['plugins'] . 'slideshow/slideshow.min.js'
                 . '"></script>';
         }
         $run++;
         $id = "slideshow_$run";
         $o = self::view('slideshow', array('id' => $id, 'imgs' => $imgs));
-        $bjs .= "<script type=\"text/javascript\">new slideshow.Show('$id'"
+        $bjs .= "<script>new slideshow.Show('$id'"
             . ",'$opts[effect]','$opts[easing]',$opts[delay],$opts[pause]"
             . ",$opts[duration]);</script>";
         return $o;
@@ -143,24 +143,18 @@ class Controller
      * @return string
      *
      * @global array The paths of system files and folders.
-     * @global array The configuration of the core.
      */
     protected static function view($_template, $_bag)
     {
-        global $pth, $cf;
+        global $pth;
 
         $_template = $pth['folder']['plugins'] . 'slideshow/views/' . $_template
             . '.htm';
-        $_xhtml = strtolower($cf['xhtml']['endtags']) == 'true';
-        unset($pth, $cf);
+        unset($pth);
         extract($_bag);
         ob_start();
         include $_template;
-        $view = ob_get_clean();
-        if (!$_xhtml) {
-            $view = str_replace(' />', '>', $view);
-        }
-        return $view;
+        return ob_get_clean();
     }
 
     /**
