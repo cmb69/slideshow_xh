@@ -2,11 +2,6 @@
 
 <project name="Slideshow" default="help">
 
-    <fileset id="php-sources" dir=".">
-        <include name="classes/*.php"/>
-        <include name="index.php"/>
-    </fileset>
-
     <fileset id="js-sources" dir=".">
         <include name="*.js"/>
     </fileset>
@@ -35,10 +30,9 @@
     </target>
 
     <target name="mess" description="detects code flaws">
-        <phpmd>
-            <fileset refid="php-sources"/>
-            <fileset refid="unit-tests"/>
-         </phpmd>
+        <exec executable="phpmd" passthru="true" checkreturn="true">
+            <arg line="classes,index.php,tests/unit ansi codesize,unusedcode"/>
+        </exec>
     </target>
 
     <target name="compat" description="checks PHP requirements">
@@ -46,12 +40,9 @@
     </target>
 
     <target name="unit-tests" description="runs all unit tests">
-        <phpunit haltonerror="true" haltonfailure="true">
-            <formatter type="plain" usefile="false"/>
-            <batchtest>
-                <fileset refid="unit-tests"/>
-            </batchtest>
-        </phpunit>
+        <exec executable="phpunit" passthru="true" checkreturn="true">
+            <arg file="tests/unit"/>
+        </exec>
     </target>
 
     <target name="attack-tests" description="runs all attack tests">
@@ -115,6 +106,7 @@
         </jsMin>
         <move todir="dist">
             <fileset dir="export">
+                <exclude name=".phive/**"/>
                 <exclude name="help/template.htm"/>
                 <exclude name="tests/**"/>
                 <exclude name="README*.md"/>
