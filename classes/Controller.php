@@ -244,7 +244,7 @@ class Slideshow_Controller
         global $pth, $plugin_tx;
 
         $ptx = $plugin_tx['slideshow'];
-        $phpVersion = '5.2.0';
+        $phpVersion = '5.4.0';
         $xhVersion = '1.6';
         $checker = new Slideshow_SystemChecker();
         $checks = array();
