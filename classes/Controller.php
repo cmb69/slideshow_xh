@@ -252,8 +252,6 @@ class Controller
             $checks[sprintf($ptx['syscheck_extension'], $ext)]
                 = $checker->checkExtension($ext);
         }
-        $checks[$ptx['syscheck_magic_quotes']]
-            = $checker->checkMagicQuotes();
         $checks[$ptx['syscheck_encoding']]
             = $checker->checkEncoding();
         foreach (array('config/', 'languages/') as $folder) {

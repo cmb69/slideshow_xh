@@ -91,16 +91,6 @@ class SystemChecker
     }
     
     /**
-     * Checks, that magic quotes are off.
-     *
-     * @return int The status code.
-     */
-    public function checkMagicQuotes()
-    {
-        return !get_magic_quotes_runtime() ? self::OK : self::FAIL;
-    }
-    
-    /**
      * Checks whether UTF-8 encoding is configured.
      *
      * @return int The status code.

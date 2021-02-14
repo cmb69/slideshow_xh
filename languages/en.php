@@ -15,7 +15,6 @@ $plugin_tx['slideshow']['syscheck_phpversion']="PHP version ≥ %s";
 $plugin_tx['slideshow']['syscheck_xhversion']="CMSimple_XH version ≥ %s";
 $plugin_tx['slideshow']['syscheck_extension']="Extension '%s' loaded";
 $plugin_tx['slideshow']['syscheck_encoding']="Encoding 'UTF-8' configured";
-$plugin_tx['slideshow']['syscheck_magic_quotes']="Magic quotes runtime off";
 $plugin_tx['slideshow']['syscheck_writable']="Folder '%s' writable";
 
 $plugin_tx['slideshow']['about']="About Slideshow_XH";

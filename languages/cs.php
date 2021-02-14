@@ -9,7 +9,6 @@ $plugin_tx['slideshow']['syscheck']="Kontrola systému";
 $plugin_tx['slideshow']['syscheck_phpversion']="PHP verze ≥ %s";
 $plugin_tx['slideshow']['syscheck_extension']="Rozšíření '%s' načteno";
 $plugin_tx['slideshow']['syscheck_encoding']="Kodování 'UTF-8' nastaveno";
-$plugin_tx['slideshow']['syscheck_magic_quotes']="Magic quotes runtime off";
 $plugin_tx['slideshow']['syscheck_writable']="Adresář '%s' je zapisovatelný";
 $plugin_tx['slideshow']['about']="O Slideshow_XH";
 $plugin_tx['slideshow']['cf_default_order']="Pořadí obrázků: \"fixed\" (abecedně seřazené, od prvního snímku), \"sorted\" (abecedně seřazeny; začít u náhodně vybraného snímku) nebo \"random\" (náhodně vybranét).";
