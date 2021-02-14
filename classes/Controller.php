@@ -91,7 +91,7 @@ class Controller
             $bjs .= '<script type="text/javascript">var slideshow = {config: '
                 . json_encode($config) . '};</script>'
                 . '<script type="text/javascript" src="'
-                . $pth['folder']['plugins'] . 'slideshow/slideshow.js'
+                . $pth['folder']['plugins'] . 'slideshow/slideshow.min.js'
                 . '"></script>';
         }
         $run++;

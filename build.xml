@@ -75,7 +75,7 @@
         <delete file="export.zip"/>
         <jsMin targetDir="dist" suffix="" failonerror="true">
             <fileset dir="export">
-                <include name="*.js"/>
+                <include name="*.min.js"/>
             </fileset>
         </jsMin>
         <move todir="dist">
