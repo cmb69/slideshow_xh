@@ -213,7 +213,6 @@ class Controller
             'tx' => $plugin_tx['slideshow'],
             'images' => $images,
             'checks' => self::getSystemChecks(),
-            'icon' => $pth['folder']['plugins'] . 'slideshow/slideshow.png',
             'version' => SLIDESHOW_VERSION
         );
         return self::view('info', $bag);
