@@ -19,24 +19,22 @@
  * along with Slideshow_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * The version number of the plugin.
- */
-define('SLIDESHOW_VERSION', '1beta3');
+namespace Slideshow;
 
-/**
- * Returns the slideshow.
- *
- * @param string $path    The path of the image folder.
- * @param string $options The options in form of a query string.
- *
- * @return string (X)HTML.
- */
-function slideshow($path, $options = '')
+class Command
 {
-    ob_start();
-    (new Slideshow\MainCommand)($path, $options);
-    return ob_get_clean();
-}
+    /**
+     * @param string $_template
+     * @return void
+     */
+    protected function view($_template, array $_bag)
+    {
+        global $pth;
 
-Slideshow_Controller::dispatch();
+        $_template = $pth['folder']['plugins'] . 'slideshow/views/' . $_template
+            . '.htm';
+        unset($pth);
+        extract($_bag);
+        include $_template;
+    }
+}
