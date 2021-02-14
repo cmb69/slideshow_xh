@@ -13,6 +13,8 @@
  * @link      http://3-magi.net/?CMSimple_XH/Slideshow_XH
  */
 
+namespace Slideshow;
+
 /**
  * The plugin controller.
  *
@@ -22,7 +24,7 @@
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://3-magi.net/?CMSimple_XH/Slideshow_XH
  */
-class Slideshow_Controller
+class Controller
 {
     /**
      * Dispatches on plugin related requests.
@@ -69,7 +71,7 @@ class Slideshow_Controller
         $current = isset($_COOKIE['slideshow_current'])
             ? $_COOKIE['slideshow_current']
             : false;
-        $imgs = Slideshow_Image::findAll($path, $opts['order'], $current);
+        $imgs = Image::findAll($path, $opts['order'], $current);
         if (count($imgs) < 2) {
             return XH_message(
                 'fail', $plugin_tx['slideshow']['message_insufficient_images'],
@@ -213,9 +215,9 @@ class Slideshow_Controller
         global $pth, $plugin_tx;
 
         $states = array(
-            Slideshow_SystemChecker::OK => 'ok',
-            Slideshow_SystemChecker::WARN => 'warn',
-            Slideshow_SystemChecker::FAIL => 'fail'
+            SystemChecker::OK => 'ok',
+            SystemChecker::WARN => 'warn',
+            SystemChecker::FAIL => 'fail'
         ); 
         foreach ($states as $state => $name) {
             $images[$state] = $pth['folder']['plugins'] . 'slideshow/images/'
@@ -246,7 +248,7 @@ class Slideshow_Controller
         $ptx = $plugin_tx['slideshow'];
         $phpVersion = '5.4.0';
         $xhVersion = '1.6';
-        $checker = new Slideshow_SystemChecker();
+        $checker = new SystemChecker();
         $checks = array();
         $checks[sprintf($ptx['syscheck_phpversion'], $phpVersion)]
             = $checker->checkPHPVersion($phpVersion);

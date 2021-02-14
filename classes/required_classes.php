@@ -24,7 +24,7 @@ spl_autoload_register('Slideshow_autoload');
  */
 function Slideshow_autoload($className)
 {
-    $parts = explode('_', $className);
+    $parts = explode('\\', $className);
     if ($parts[0] == 'Slideshow') {
         include_once dirname(__FILE__) . '/' . $parts[1] . '.php';
     }

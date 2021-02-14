@@ -13,9 +13,12 @@
  * @link      http://3-magi.net/?CMSimple_XH/Slideshow_XH
  */
 
+namespace Slideshow;
+
 require_once './vendor/autoload.php';
 require_once './classes/required_classes.php';
 
+use PHPUnit_Framework_TestCase;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
@@ -60,7 +63,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
         touch($this->foldername . 'foo.jpeg');
         touch($this->foldername . 'foo.jpg');
         touch($this->foldername . 'foo.gif');
-        $this->subject = new Slideshow_Image('./foo/bar.jpg');
+        $this->subject = new Image('./foo/bar.jpg');
     }
 
     /**
@@ -70,9 +73,9 @@ class ImageTest extends PHPUnit_Framework_TestCase
      */
     public function testFindsFourImages()
     {
-        $images = Slideshow_Image::findAll($this->foldername, 'fixed');
+        $images = Image::findAll($this->foldername, 'fixed');
         $this->assertCount(4, $images);
-        $this->assertContainsOnlyInstancesOf('Slideshow_Image', $images);
+        $this->assertContainsOnlyInstancesOf('Slideshow\\Image', $images);
     }
 
     /**

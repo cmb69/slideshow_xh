@@ -13,6 +13,8 @@
  * @link      http://3-magi.net/?CMSimple_XH/Slideshow_XH
  */
 
+namespace Slideshow;
+
 /**
  * The system checkers.
  *
@@ -22,7 +24,7 @@
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://3-magi.net/?CMSimple_XH/Slideshow_XH
  */
-class Slideshow_SystemChecker
+class SystemChecker
 {
     const OK = 0;
     

@@ -13,6 +13,8 @@
  * @link      http://3-magi.net/?CMSimple_XH/Slideshow_XH
  */
 
+namespace Slideshow;
+
 /**
  * The images.
  *
@@ -22,7 +24,7 @@
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://3-magi.net/?CMSimple_XH/Slideshow_XH
  */
-class Slideshow_Image
+class Image
 {
     /**
      * Returns the list of image files in the given folder.
@@ -86,8 +88,8 @@ class Slideshow_Image
     /**
      * Compares two image filenames.
      *
-     * @param Slideshow_Image $image An image.
-     * @param Slideshow_Image $other Another image.
+     * @param Image $image An image.
+     * @param Image $other Another image.
      *
      * @return int
      */
