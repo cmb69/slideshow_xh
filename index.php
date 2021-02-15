@@ -38,5 +38,3 @@ function slideshow($path, $options = '')
     (new Slideshow\MainCommand)($path, $options);
     return ob_get_clean();
 }
-
-Slideshow_Controller::dispatch();
