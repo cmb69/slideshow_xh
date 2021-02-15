@@ -30,6 +30,7 @@ if (XH_wantsPluginAdministration('slideshow')) {
     $o .= print_plugin_admin('off');
     switch ($admin) {
         case '':
+            $title = 'Slideshow ' . SLIDESHOW_VERSION;
             ob_start();
             (new InfoCommand)();
             $o .= ob_get_clean();
