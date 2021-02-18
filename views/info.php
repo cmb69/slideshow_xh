@@ -1,4 +1,11 @@
-<!-- Slideshow: info -->
+<?php
+if (!isset($this)) {
+    header('HTTP/1.0 404 Not Found');
+    exit;
+}
+?>
+
+<!-- Slideshow_XH info -->
 <h1>Slideshow <?php echo $version?></h1>
 <h4><?php echo $tx['synopsis']?></h4>
 <pre>&lt;php echo slideshow('<?php echo $tx['synopsis_folder']?>', '<?php echo

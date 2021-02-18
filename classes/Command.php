@@ -32,7 +32,7 @@ class Command
         global $pth;
 
         $_template = $pth['folder']['plugins'] . 'slideshow/views/' . $_template
-            . '.htm';
+            . '.php';
         unset($pth);
         extract($_bag);
         include $_template;
