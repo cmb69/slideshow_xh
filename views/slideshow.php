@@ -6,7 +6,9 @@ if (!isset($this)) {
 ?>
 
 <!-- Slideshow_XH slideshow -->
-<div id="<?=$id?>" class="slideshow" style="position: relative; width: 100%; overflow: hidden">
+<div class="slideshow" style="position: relative; width: 100%; overflow: hidden"
+        data-id="<?=$id?>" data-effect="<?=$opts['effect']?>" data-easing="<?=$opts['easing']?>"
+        data-delay="<?=$opts['delay']?>" data-pause="<?=$opts['pause']?>" data-duration="<?=$opts['duration']?>">
 <?php foreach ($imgs as $i => $img):?>
     <img src="<?=$img->getFilename()?>" alt="<?=$img->getName()?>" style="<?=$imagestyle($i)?>">
 <?php endforeach?>

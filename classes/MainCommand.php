@@ -59,7 +59,7 @@ class MainCommand extends Command
                 . '"></script>';
         }
         $run++;
-        $id = "slideshow_$run";
+        $id = $run;
         $bag = [
             'id' => $id,
             'imgs' => $imgs,
@@ -69,11 +69,9 @@ class MainCommand extends Command
                 }
                 return "position: absolute; display: none; width: 100%";
             },
+            'opts' => $opts,
         ];
         $this->view('slideshow', $bag);
-        $bjs .= "<script>new slideshow.Show('$id'"
-            . ",'$opts[effect]','$opts[easing]',$opts[delay],$opts[pause]"
-            . ",$opts[duration]);</script>";
     }
 
     /**
