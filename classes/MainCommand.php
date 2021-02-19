@@ -60,7 +60,17 @@ class MainCommand extends Command
         }
         $run++;
         $id = "slideshow_$run";
-        $this->view('slideshow', array('id' => $id, 'imgs' => $imgs));
+        $bag = [
+            'id' => $id,
+            'imgs' => $imgs,
+            'imagestyle' => function ($index) {
+                if ($index === 0) {
+                    return "position: static; display: block; z-index: 1; width: 100%";
+                }
+                return "position: absolute; display: none; width: 100%";
+            },
+        ];
+        $this->view('slideshow', $bag);
         $bjs .= "<script>new slideshow.Show('$id'"
             . ",'$opts[effect]','$opts[easing]',$opts[delay],$opts[pause]"
             . ",$opts[duration]);</script>";
