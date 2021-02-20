@@ -21,7 +21,7 @@
 
 namespace Slideshow;
 
-class InfoCommand extends Command
+class InfoCommand
 {
     /**
      * @return void
@@ -35,7 +35,7 @@ class InfoCommand extends Command
             'checks' => $this->getSystemChecks(),
             'version' => SLIDESHOW_VERSION
         );
-        $this->view('info', $bag);
+        (new View)->render('info', $bag);
     }
 
     /**

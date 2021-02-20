@@ -21,7 +21,7 @@
 
 namespace Slideshow;
 
-class MainCommand extends Command
+class MainCommand
 {
     /**
      * @param string $path
@@ -61,7 +61,7 @@ class MainCommand extends Command
         }
         $run++;
         $id = $run;
-        $this->view('slideshow', compact('id', 'imgs', 'opts'));
+        (new View)->render('slideshow', compact('id', 'imgs', 'opts'));
     }
 
     /**

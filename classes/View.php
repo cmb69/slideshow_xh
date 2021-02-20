@@ -21,26 +21,41 @@
 
 namespace Slideshow;
 
-class Command
+class View
 {
-    /**
-     * @param string $_template
-     * @return void
-     */
-    protected function view($_template, array $_bag)
+
+    /** @var string */
+    private $dir;
+
+    /** @var string */
+    private $template;
+
+    /** @var array */
+    private $data;
+
+    public function __construct()
     {
         global $pth;
 
-        $_template = $pth['folder']['plugins'] . 'slideshow/views/' . $_template
-            . '.php';
-        unset($pth);
+        $this->dir = "{$pth['folder']['plugins']}slideshow/views/";
+    }
+
+    /**
+     * @param string $template
+     * @return void
+     */
+    public function render($template, array $bag)
+    {
+        $this->template = "{$this->dir}$template.php";
+        $this->data = $bag;
+        unset($template, $bag);
         array_walk_recursive(
-            $_bag,
+            $this->data,
             function (&$elt) {
                 $elt = XH_hsc($elt);
             }
         );
-        extract($_bag);
-        include $_template;
+        extract($this->data);
+        include $this->template;
     }
 }
