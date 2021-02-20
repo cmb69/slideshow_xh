@@ -21,9 +21,6 @@
 
 namespace Slideshow;
 
-require_once './vendor/autoload.php';
-require_once './classes/Image.php';
-
 use PHPUnit\Framework\TestCase;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
