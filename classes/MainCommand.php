@@ -39,7 +39,7 @@ class MainCommand
     public function __invoke($path, $options = '')
     {
         global $bjs, $pth, $plugin_tx;
-        static $run = 0;
+        static $run = false;
 
         $opts = $this->getOptions($options);
         $path = $pth['folder']['images'] . rtrim($path, '/') . '/';
@@ -67,8 +67,8 @@ class MainCommand
                 . $pth['folder']['plugins'] . 'slideshow/slideshow.min.js'
                 . '"></script>';
         }
-        $run++;
-        $id = $run;
+        $run = true;
+        $id = uniqid();
         $this->view->render('slideshow', compact('id', 'imgs', 'opts'));
     }
 
