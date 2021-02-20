@@ -119,7 +119,8 @@ To show appropriate images in a flip-book style:
 ## Limitations
 
 The slideshows can only be played,
-when JS is enabled in the browser of the visitor.
+when JS is enabled in the browser of the visitors,
+and they are using somewhat contemporary browsers,
 Otherwise only the first image will be shown.
 The transition effects are CPU-intensive,
 particularly for large images,
