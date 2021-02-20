@@ -30,7 +30,7 @@ class MainCommand extends Command
      */
     public function __invoke($path, $options = '')
     {
-        global $bjs, $pth, $plugin_cf, $plugin_tx;
+        global $bjs, $pth, $plugin_tx;
         static $run = 0;
 
         $opts = $this->getOpts(
@@ -38,23 +38,12 @@ class MainCommand extends Command
             array('order', 'effect', 'easing', 'delay', 'pause', 'duration')
         );
         $path = $pth['folder']['images'] . rtrim($path, '/') . '/';
-        $current = isset($_COOKIE['slideshow_current'])
-            ? $_COOKIE['slideshow_current']
-            : false;
-        $imgs = Image::findAll($path, $opts['order'], $current);
+        $imgs = Image::findAll($path, $opts['order']);
         if (count($imgs) < 2) {
             return XH_message('fail', $plugin_tx['slideshow']['message_insufficient_images'], $path);
         }
-        if ($plugin_cf['slideshow']['cookie_use']) {
-            setcookie('slideshow_current', basename($imgs[1]->getFilename()), 0, CMSIMPLE_URL);
-        }
         if (!$run) {
-            $config = array(
-                'useCookie' => (bool) $plugin_cf['slideshow']['cookie_use']
-            );
-            $bjs .= '<script>var slideshow = {config: '
-                . json_encode($config) . '};</script>'
-                . '<script src="'
+            $bjs .= '<script src="'
                 . $pth['folder']['plugins'] . 'slideshow/slideshow.min.js'
                 . '"></script>';
         }
@@ -82,8 +71,7 @@ class MainCommand extends Command
     {
         global $plugin_cf;
 
-        $map = array('&lt;' => '<', '&gt;' => '>', '&amp;' => '&', '&quot;' => '"');
-        $query = strtr($query, $map);
+        $query = html_entity_decode($query, ENT_QUOTES|ENT_HTML5, 'UTF-8');
         parse_str($query, $opts);
 
         $res = array();

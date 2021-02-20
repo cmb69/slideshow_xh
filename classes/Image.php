@@ -37,11 +37,10 @@ class Image
      *
      * @param string $path    The path of the folder.
      * @param string $order   `fixed'/`sorted'/`random'.
-     * @param string $current The basename of an image file.
      *
      * @return array
      */
-    public static function findAll($path, $order, $current = false)
+    public static function findAll($path, $order)
     {
         $images = array();
         if (is_dir($path) && $dir = opendir($path)) {
@@ -52,7 +51,7 @@ class Image
             }
             closedir($dir);
         }
-        return self::sort($images, $order, $current);
+        return self::sort($images, $order);
     }
 
     /**
@@ -60,29 +59,17 @@ class Image
      *
      * @param array  $images  An array of images.
      * @param string $order   A sort order.
-     * @param int    $current The basename of an image file.
      *
      * @return array
      */
-    protected static function sort($images, $order, $current)
+    protected static function sort($images, $order)
     {
         if ($order == 'random') {
             shuffle($images);
         } else {
             usort($images, array(get_class(), 'compareFilenames'));
-            if ($order == 'sorted') {
-                if ($current !== false) {
-                    // if not found, take first image!
-                    $n = 0;
-                    foreach ($images as $i => $image) {
-                        if (basename($image->getFilename()) == $current) {
-                            $n = $i;
-                            break;
-                        }
-                    }
-                } else {
-                    $n = rand(0, count($images) - 1);
-                }
+            if ($order === 'sorted') {
+                $n = rand(0, count($images) - 1);
                 $images = array_merge(array_slice($images, $n), array_slice($images, 0, $n));
             }
         }
