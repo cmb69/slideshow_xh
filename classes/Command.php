@@ -34,6 +34,12 @@ class Command
         $_template = $pth['folder']['plugins'] . 'slideshow/views/' . $_template
             . '.php';
         unset($pth);
+        array_walk_recursive(
+            $_bag,
+            function (&$elt) {
+                $elt = XH_hsc($elt);
+            }
+        );
         extract($_bag);
         include $_template;
     }

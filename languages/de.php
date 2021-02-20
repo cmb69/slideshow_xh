@@ -8,7 +8,7 @@ $plugin_tx['slideshow']['synopsis']="Kurzfassung";
 $plugin_tx['slideshow']['synopsis_folder']="ORDNER";
 $plugin_tx['slideshow']['synopsis_folder_desc']="Der Pfad eines Ordners relativ zu CMSimple_XHs Bilderordner.";
 $plugin_tx['slideshow']['synopsis_options']="OPTIONEN";
-$plugin_tx['slideshow']['synopsis_options_desc']="Optionale Einstellungen in Form eines Query-Strings (option1=wert1&amp;option2=wert2). Die folgenden Optionen sind verfügbar:";
+$plugin_tx['slideshow']['synopsis_options_desc']="Optionale Einstellungen in Form eines Query-Strings (option1=wert1&option2=wert2). Die folgenden Optionen sind verfügbar:";
 
 $plugin_tx['slideshow']['syscheck']="Systemprüfung";
 $plugin_tx['slideshow']['syscheck_phpversion']="PHP-Version ≥ %s";

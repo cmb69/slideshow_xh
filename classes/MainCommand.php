@@ -42,6 +42,21 @@ class MainCommand extends Command
         if (count($imgs) < 2) {
             return XH_message('fail', $plugin_tx['slideshow']['message_insufficient_images'], $path);
         }
+        $imgs = array_map(
+            function ($img) {
+                static $first = true;
+                $res = [
+                    'filename' => $img->getFilename(),
+                    'name' => $img->getName(),
+                    'style' => $first
+                        ? "position: static; display: block; z-index: 1; width: 100%"
+                        : "position: absolute; display: none; width: 100%",
+                ];
+                $first = false;
+                return $res;
+            },
+            $imgs
+        );
         if (!$run) {
             $bjs .= '<script src="'
                 . $pth['folder']['plugins'] . 'slideshow/slideshow.min.js'
@@ -49,18 +64,7 @@ class MainCommand extends Command
         }
         $run++;
         $id = $run;
-        $bag = [
-            'id' => $id,
-            'imgs' => $imgs,
-            'imagestyle' => function ($index) {
-                if ($index === 0) {
-                    return "position: static; display: block; z-index: 1; width: 100%";
-                }
-                return "position: absolute; display: none; width: 100%";
-            },
-            'opts' => $opts,
-        ];
-        $this->view('slideshow', $bag);
+        $this->view('slideshow', compact('id', 'imgs', 'opts'));
     }
 
     /**
