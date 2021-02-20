@@ -22,8 +22,11 @@
 namespace Slideshow;
 
 use PHPUnit\Framework\TestCase;
+use org\bovigo\vfs\vfsStreamWrapper;
+use org\bovigo\vfs\vfsStreamDirectory;
+use org\bovigo\vfs\vfsStream;
 
-class ImageTest extends TestCase
+class ImageRepoTest extends TestCase
 {
     /**
      * The foldername.
@@ -41,26 +44,25 @@ class ImageTest extends TestCase
 
     public function setUp(): void
     {
-        $this->subject = new Image('./foo/bar.jpg');
+        vfsStreamWrapper::register();
+        vfsStreamWrapper::setRoot(new vfsStreamDirectory('test'));
+        $this->foldername = vfsStream::url('test/');
+        touch($this->foldername . 'foo.png');
+        touch($this->foldername . 'foo.txt');
+        touch($this->foldername . 'foo.jpeg');
+        touch($this->foldername . 'foo.jpg');
+        touch($this->foldername . 'foo.gif');
     }
 
     /**
-     * Tests that it has the proper filename.
+     * Tests that four images are found.
      *
      * @return void
      */
-    public function testHasProperFilename()
+    public function testFindsFourImages()
     {
-        $this->assertEquals('./foo/bar.jpg', $this->subject->getFilename());
-    }
-
-    /**
-     * Tests the it has the proper name.
-     *
-     * @return void
-     */
-    public function testHasProperName()
-    {
-        $this->assertEquals('bar', $this->subject->getName());
+        $images = (new ImageRepo)->findAll($this->foldername, 'fixed');
+        $this->assertCount(4, $images);
+        $this->assertContainsOnlyInstancesOf(Image::class, $images);
     }
 }

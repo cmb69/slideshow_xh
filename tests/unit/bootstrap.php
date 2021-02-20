@@ -21,6 +21,7 @@
 
 require_once './vendor/autoload.php';
 require_once './classes/Image.php';
+require_once './classes/ImageRepo.php';
 require_once './classes/MainCommand.php';
 require_once './classes/InfoCommand.php';
 require_once './classes/SystemChecker.php';

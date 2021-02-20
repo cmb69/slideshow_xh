@@ -43,7 +43,7 @@ class MainCommand
 
         $opts = $this->getOptions($options);
         $path = $pth['folder']['images'] . rtrim($path, '/') . '/';
-        $imgs = Image::findAll($path, $opts['order']);
+        $imgs = (new ImageRepo)->findAll($path, $opts['order']);
         if (count($imgs) < 2) {
             return XH_message('fail', $plugin_tx['slideshow']['message_insufficient_images'], $path);
         }
