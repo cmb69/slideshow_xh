@@ -33,10 +33,7 @@ class MainCommand extends Command
         global $bjs, $pth, $plugin_tx;
         static $run = 0;
 
-        $opts = $this->getOpts(
-            $options,
-            array('order', 'effect', 'easing', 'delay', 'pause', 'duration')
-        );
+        $opts = $this->getOptions($options);
         $path = $pth['folder']['images'] . rtrim($path, '/') . '/';
         $imgs = Image::findAll($path, $opts['order']);
         if (count($imgs) < 2) {
@@ -71,9 +68,11 @@ class MainCommand extends Command
      * @param string $query
      * @return array
      */
-    private function getOpts($query, array $validOpts)
+    private function getOptions($query)
     {
         global $plugin_cf;
+
+        $validOpts = ['order', 'effect', 'easing', 'delay', 'pause', 'duration'];
 
         $query = html_entity_decode($query, ENT_QUOTES|ENT_HTML5, 'UTF-8');
         parse_str($query, $opts);
