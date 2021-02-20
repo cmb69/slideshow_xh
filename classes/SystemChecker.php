@@ -61,7 +61,7 @@ class SystemChecker
      */
     public function checkXHVersion($version)
     {
-        return self::hasXhVersion($version) ? self::OK : self::FAIL;
+        return $this->hasXhVersion($version) ? self::OK : self::FAIL;
     }
     
     /**
