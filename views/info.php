@@ -31,12 +31,6 @@ if (!isset($this)) {
     </dl></dd>
 </dl>
 <h4><?=$tx['syscheck']?></h4>
-<ul style="list-style: none">
-<?php foreach ($checks as $check => $state):?>
-    <li>
-        <img src="<?=$images[$state]?>" alt="<?=$images[$state]?>"
-                style="margin: 0; height: 1em; padding-right: 1em">
-        <span><?=$check?></span>
-    </li>
+<?php foreach ($checks as $check):?>
+<p class="<?=$check['class']?>"><?=$check['message']?></p>
 <?php endforeach?>
-</ul>

@@ -28,20 +28,10 @@ class InfoCommand extends Command
      */
     public function __invoke()
     {
-        global $pth, $plugin_tx;
+        global $plugin_tx;
 
-        $states = array(
-            SystemChecker::OK => 'ok',
-            SystemChecker::WARN => 'warn',
-            SystemChecker::FAIL => 'fail'
-        );
-        foreach ($states as $state => $name) {
-            $images[$state] = $pth['folder']['plugins'] . 'slideshow/images/'
-                . $name . '.png';
-        }
         $bag = array(
             'tx' => $plugin_tx['slideshow'],
-            'images' => $images,
             'checks' => $this->getSystemChecks(),
             'version' => SLIDESHOW_VERSION
         );
@@ -59,21 +49,27 @@ class InfoCommand extends Command
         $phpVersion = '5.4.0';
         $xhVersion = '1.7.0';
         $checker = new SystemChecker();
-        $checks = array();
-        $checks[sprintf($ptx['syscheck_phpversion'], $phpVersion)]
-            = $checker->checkPHPVersion($phpVersion);
-        $checks[sprintf($ptx['syscheck_xhversion'], $xhVersion)]
-            = $checker->checkXhVersion($xhVersion);
+        $checks = [[
+            'class' => $checker->checkPHPVersion($phpVersion),
+            'message' => sprintf($ptx['syscheck_phpversion'], $phpVersion),
+        ], [
+            'class' => $checker->checkXhVersion($xhVersion),
+            'message' => sprintf($ptx['syscheck_xhversion'], $xhVersion),
+        ]];
         foreach (array() as $ext) {
-            $checks[sprintf($ptx['syscheck_extension'], $ext)]
-                = $checker->checkExtension($ext);
+            $checks[] = [
+                'class' => $checker->checkExtension($ext),
+                'message' => sprintf($ptx['syscheck_extension'], $ext),
+            ];
         }
         foreach (array('config/', 'languages/') as $folder) {
             $folders[] = $pth['folder']['plugins'] . 'slideshow/' . $folder;
         }
         foreach ($folders as $folder) {
-            $checks[sprintf($ptx['syscheck_writable'], $folder)]
-                = $checker->checkWritability($folder);
+            $checks[] = [
+                'class' => $checker->checkWritability($folder),
+                'message' => sprintf($ptx['syscheck_writable'], $folder),
+            ];
         }
         return $checks;
     }

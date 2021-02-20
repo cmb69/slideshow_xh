@@ -163,10 +163,6 @@ Slideshow\_XH was inspired by *Joe*.
 The plugin icon is designed by [Mischa McLachlan](https://twitter.com/Zyote).
 Many thanks for publishing this icon under a liberal license.
 
-This plugin uses free applications icons from
-[Aha-Soft](http://www.aha-soft.com/).
-Many thanks for making these icons freely available.
-
 Many thanks to the community at the 
 [CMSimple\_XH Forum](https://www.cmsimpleforum.com/)
 for tips, suggestions and testing.

@@ -32,11 +32,11 @@ namespace Slideshow;
  */
 class SystemChecker
 {
-    const OK = 0;
+    const OK = 'xh_success';
     
-    const WARN = 1;
+    const WARN = 'xh_warning';
     
-    const FAIL = 2;
+    const FAIL = 'xh_fail';
 
     /**
      * Checks the required PHP version.
@@ -61,19 +61,9 @@ class SystemChecker
      */
     public function checkXHVersion($version)
     {
-        return $this->hasXhVersion($version) ? self::OK : self::FAIL;
-    }
-    
-    /**
-     * Returns whether we have a certain CMSimple_XH version at least.
-     *
-     * @param string $version A version number.
-     *
-     * @return bool
-     */
-    protected function hasXhVersion($version)
-    {
-        return version_compare(CMSIMPLE_XH_VERSION, "CMSimple_XH $version", 'ge');
+        return version_compare(CMSIMPLE_XH_VERSION, "CMSimple_XH $version") >= 0
+            ? self::OK
+            : self::FAIL;
     }
 
     /**
