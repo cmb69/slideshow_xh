@@ -20,6 +20,8 @@
  */
 
 use Slideshow\InfoCommand;
+use Slideshow\SystemChecker;
+use Slideshow\View;
 
 if (!defined('CMSIMPLE_XH_VERSION')) {
     exit;
@@ -32,7 +34,7 @@ if (XH_wantsPluginAdministration('slideshow')) {
         case '':
             $title = 'Slideshow ' . SLIDESHOW_VERSION;
             ob_start();
-            (new InfoCommand)();
+            (new InfoCommand(new View, new SystemChecker))();
             $o .= ob_get_clean();
             break;
         default:

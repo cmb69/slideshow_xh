@@ -23,6 +23,18 @@ namespace Slideshow;
 
 class InfoCommand
 {
+    /** @var View */
+    private $view;
+
+    /** @var SystemChecker */
+    private $systemChecker;
+
+    public function __construct(View $view, SystemChecker $systemChecker)
+    {
+        $this->view = $view;
+        $this->systemChecker = $systemChecker;
+    }
+
     /**
      * @return void
      */
@@ -35,7 +47,7 @@ class InfoCommand
             'checks' => $this->getSystemChecks(),
             'version' => SLIDESHOW_VERSION
         );
-        (new View)->render('info', $bag);
+        $this->view->render('info', $bag);
     }
 
     /**
@@ -48,17 +60,16 @@ class InfoCommand
         $ptx = $plugin_tx['slideshow'];
         $phpVersion = '5.4.0';
         $xhVersion = '1.7.0';
-        $checker = new SystemChecker();
         $checks = [[
-            'class' => $checker->checkPHPVersion($phpVersion),
+            'class' => $this->systemChecker->checkPHPVersion($phpVersion),
             'message' => sprintf($ptx['syscheck_phpversion'], $phpVersion),
         ], [
-            'class' => $checker->checkXhVersion($xhVersion),
+            'class' => $this->systemChecker->checkXhVersion($xhVersion),
             'message' => sprintf($ptx['syscheck_xhversion'], $xhVersion),
         ]];
         foreach (array() as $ext) {
             $checks[] = [
-                'class' => $checker->checkExtension($ext),
+                'class' => $this->systemChecker->checkExtension($ext),
                 'message' => sprintf($ptx['syscheck_extension'], $ext),
             ];
         }
@@ -67,7 +78,7 @@ class InfoCommand
         }
         foreach ($folders as $folder) {
             $checks[] = [
-                'class' => $checker->checkWritability($folder),
+                'class' => $this->systemChecker->checkWritability($folder),
                 'message' => sprintf($ptx['syscheck_writable'], $folder),
             ];
         }

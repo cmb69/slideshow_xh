@@ -19,6 +19,9 @@
  * along with Slideshow_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use Slideshow\MainCommand;
+use Slideshow\View;
+
 /**
  * The version number of the plugin.
  */
@@ -35,6 +38,6 @@ define('SLIDESHOW_VERSION', '1beta3');
 function slideshow($path, $options = '')
 {
     ob_start();
-    (new Slideshow\MainCommand)($path, $options);
+    (new MainCommand(new View))($path, $options);
     return ob_get_clean();
 }

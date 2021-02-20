@@ -23,6 +23,14 @@ namespace Slideshow;
 
 class MainCommand
 {
+    /** @var View */
+    private $view;
+
+    public function __construct(View $view)
+    {
+        $this->view = $view;
+    }
+
     /**
      * @param string $path
      * @param string $options
@@ -61,7 +69,7 @@ class MainCommand
         }
         $run++;
         $id = $run;
-        (new View)->render('slideshow', compact('id', 'imgs', 'opts'));
+        $this->view->render('slideshow', compact('id', 'imgs', 'opts'));
     }
 
     /**
