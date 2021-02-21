@@ -27,4 +27,4 @@ require_once './classes/InfoCommand.php';
 require_once './classes/SystemChecker.php';
 require_once './classes/View.php';
 
-const SLIDESHOW_VERSION = '1.0';
+const SLIDESHOW_VERSION = '1.1';
