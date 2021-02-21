@@ -23,11 +23,15 @@ namespace Slideshow;
 
 class MainCommand
 {
+    /** @var ImageRepo */
+    private $imageRepo;
+
     /** @var View */
     private $view;
 
-    public function __construct(View $view)
+    public function __construct(ImageRepo $imageRepo, View $view)
     {
+        $this->imageRepo = $imageRepo;
         $this->view = $view;
     }
 
@@ -40,8 +44,9 @@ class MainCommand
     {
         global $pth, $plugin_tx;
 
+        $opts = $this->getOptions($options);
         $path = $pth['folder']['images'] . rtrim($path, '/') . '/';
-        $imgs = (new ImageRepo)->findAll($path, $opts['order']);
+        $imgs = $this->imageRepo->findAll($path, $opts['order']);
         if (count($imgs) < 2) {
             return XH_message('fail', $plugin_tx['slideshow']['message_insufficient_images'], $path);
         }
@@ -51,7 +56,7 @@ class MainCommand
             [
                 'id' => uniqid(),
                 'imgs' => $this->getImageData($imgs),
-                'opts' => $this->getOptions($options),
+                'opts' => $opts,
             ]
         );
     }

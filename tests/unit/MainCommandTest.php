@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2012-2021 Christoph M. Becker
+ * Copyright 2021 Christoph M. Becker
  *
  * This file is part of Slideshow_XH.
  *
@@ -19,26 +19,21 @@
  * along with Slideshow_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-use Slideshow\ImageRepo;
-use Slideshow\MainCommand;
-use Slideshow\View;
+namespace Slideshow;
 
-/**
- * The version number of the plugin.
- */
-define('SLIDESHOW_VERSION', '1beta3');
+use PHPUnit\Framework\TestCase;
 
-/**
- * Returns the slideshow.
- *
- * @param string $path    The path of the image folder.
- * @param string $options The options in form of a query string.
- *
- * @return string (X)HTML.
- */
-function slideshow($path, $options = '')
+class MainCommandTest extends TestCase
 {
-    ob_start();
-    (new MainCommand(new ImageRepo, new View))($path, $options);
-    return ob_get_clean();
+    public function testRendersView()
+    {
+        $imageRepo = $this->createStub(ImageRepo::class);
+        $imageRepo->method('findAll')
+            ->willReturn([new Image("pics/foo.jpg"), new Image("pics/bar.jpg")]);
+        $view = $this->createMock(View::class);
+        $view->expects($this->once())
+            ->method('render');
+        $sut = new MainCommand($imageRepo, $view);
+        $sut("pics");
+    }
 }
