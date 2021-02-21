@@ -45,11 +45,11 @@
   <!-- the name of the Plugin -->
   <name type="plugin">Slideshow_XH</name>
   <!-- Date this xml-file was updated, yyyy.mm.dd -->
-  <date_update>2021.01.23</date_update>
+  <date_update>2021.02.21</date_update>
   <!-- version of Plugin -->
-  <version>1beta3</version>
+  <version>1.0</version>
   <!-- date of publication, yyyy.mm.dd -->
-  <date_version>2014.12.21</date_version>
+  <date_version>2021.02.21</date_version>
   <!-- the name of the programmer -->
   <coder>Christoph M. Becker</coder>
   <!-- Categories must be written in lower case. More than one possible, separated by comma without spaces. -->
@@ -62,34 +62,37 @@
   <url>
     <!-- URL where you can download the plugin -->
     <!-- If there no Download-URL, enter this follows! - <download_url></download_url> -->
-    <download_url>https://github.com/cmb69/slideshow_xh/releases/1beta3</download_url>
+    <download_url>https://github.com/cmb69/slideshow_xh/releases/1.0</download_url>
     <!-- URL of the programmer's website -->
     <!-- If there no Website, enter this follows! - <coder_url></coder_url> -->
-    <coder_url>https://3-magi.net</coder_url>
+    <coder_url>https://3-magi.net/</coder_url>
     <!-- URL where find a demo -->
     <!-- If there no Demo-Website, enter this follows! - <demo_url></demo_url> -->
     <demo_url></demo_url>
   </url>
   <!-- compatibility with versions of XH, i.e. 1.6, 1.6.7 - 1.7.2, ≥ 1.7, ... -->
-  <compatibility>≥ 1.6</compatibility>
+  <compatibility>≥ 1.7.0</compatibility>
   <!-- minimum version of PHP that is required, i.e. 5.3, 5.6, 7, ≥ 5.6, ... -->
   <!-- If there no specification, e.g. for templates, enter this follows! - <php_ver></php_ver> -->
-  <php_ver>≥ 5.2.0</php_ver>
+  <php_ver>≥ 5.4.0</php_ver>
   <!-- the License for the Plugin, GPLv3, AGPL, LGPL, GPLv2 ... -->
   <license>GPLv3</license>
   <!-- Description in English is mandatory -->
   <descriptions>
     <!-- description of the plugin, ca. 200 characters, you can use <br/>, <ol></ol>, <ul></ul>, <li></li>, <b></b>, <i></i>. -->
     <description lang="en">
-      Slideshow_XH facilitates displaying all images in a given folder as a slideshow.
-      The slideshows do not allow any interaction of the visitor.
+      Slideshow_XH facilitates to display all images
+      in a given folder as a slideshow.
+      The slideshows do not support any interaction of the visitor.
       Multiple slideshows with different effects and timings are possible.
     </description>
     <!-- Beschreibung des Plugins, ca. 200 Zeichen, es können <br/>, <ol></ol>, <ul></ul>, <li></li>, <b></b>, <i></i> genutzt werden. -->
     <description lang="de">
-      Slideshow_XH ermöglicht die Anzeige aller Bilder in einem angegeben Ordner als Diashow.
+      Slideshow_XH ermöglicht die Anzeige aller Bilder
+      in einem angegeben Ordner als Diashow.
       Diese Diashows erlauben keinerlei Interaktion durch den Benutzer.
-      Mehrere Diashows mit unterschiedlichen Effekten und Zeitabläufen sind möglich.
+      Mehrere Diashows mit unterschiedlichen Effekten
+      und Zeitabläufen sind möglich.
    </description>
     <!-- additional languages are possible, i.e. da, fr, pl, ... -->
     <description lang="cs">

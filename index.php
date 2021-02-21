@@ -26,7 +26,7 @@ use Slideshow\View;
 /**
  * The version number of the plugin.
  */
-define('SLIDESHOW_VERSION', '1beta3');
+const SLIDESHOW_VERSION = '1.0';
 
 /**
  * Returns the slideshow.
