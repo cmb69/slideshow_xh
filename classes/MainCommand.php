@@ -40,30 +40,20 @@ class MainCommand
     {
         global $pth, $plugin_tx;
 
-        $opts = $this->getOptions($options);
         $path = $pth['folder']['images'] . rtrim($path, '/') . '/';
         $imgs = (new ImageRepo)->findAll($path, $opts['order']);
         if (count($imgs) < 2) {
             return XH_message('fail', $plugin_tx['slideshow']['message_insufficient_images'], $path);
         }
-        $imgs = array_map(
-            function ($img) {
-                static $first = true;
-                $res = [
-                    'filename' => $img->getFilename(),
-                    'name' => $img->getName(),
-                    'style' => $first
-                        ? "position: static; display: block; z-index: 1; width: 100%"
-                        : "position: absolute; display: none; width: 100%",
-                ];
-                $first = false;
-                return $res;
-            },
-            $imgs
-        );
         $this->includeJsOnce();
-        $id = uniqid();
-        $this->view->render('slideshow', compact('id', 'imgs', 'opts'));
+        $this->view->render(
+            'slideshow',
+            [
+                'id' => uniqid(),
+                'imgs' => $this->getImageData($imgs),
+                'opts' => $this->getOptions($options),
+            ]
+        );
     }
 
     /**
@@ -86,6 +76,25 @@ class MainCommand
                 : $plugin_cf['slideshow']["default_$key"];
         }
 
+        return $res;
+    }
+
+    /**
+     * @param Image[] $images
+     * @return array
+     */
+    private function getImageData(array $images)
+    {
+        $res = [];
+        foreach ($images as $i => $image) {
+            $res[] = [
+                'filename' => $image->getFilename(),
+                'name' => $image->getName(),
+                'style' => $i === 0
+                    ? "position: static; display: block; z-index: 1; width: 100%"
+                    : "position: absolute; display: none; width: 100%",
+            ];
+        }
         return $res;
     }
 
