@@ -38,8 +38,7 @@ class MainCommand
      */
     public function __invoke($path, $options = '')
     {
-        global $bjs, $pth, $plugin_tx;
-        static $run = false;
+        global $pth, $plugin_tx;
 
         $opts = $this->getOptions($options);
         $path = $pth['folder']['images'] . rtrim($path, '/') . '/';
@@ -62,12 +61,7 @@ class MainCommand
             },
             $imgs
         );
-        if (!$run) {
-            $bjs .= '<script src="'
-                . $pth['folder']['plugins'] . 'slideshow/slideshow.min.js'
-                . '"></script>';
-        }
-        $run = true;
+        $this->includeJsOnce();
         $id = uniqid();
         $this->view->render('slideshow', compact('id', 'imgs', 'opts'));
     }
@@ -93,5 +87,18 @@ class MainCommand
         }
 
         return $res;
+    }
+
+    /** @return void */
+    private function includeJsOnce()
+    {
+        global $bjs, $pth;
+        static $run = false;
+
+        if ($run) {
+            return;
+        }
+        $bjs .= "<script src=\"{$pth['folder']['plugins']}slideshow/slideshow.min.js\"></script>";
+        $run = true;
     }
 }
