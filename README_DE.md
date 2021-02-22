@@ -169,6 +169,7 @@ Vielen Dank für die Veröffentlichung unter einer freien Lizenz.
 Many thanks to the community at the
 [CMSimple\_XH Forum](https://www.cmsimpleforum.com/)
 for tips, suggestions and testing.
+Insbesondere vielen Dank an *Caravaner* für das zeitnahe Melden von Fehlern.
 
 Und zu guter letzt vielen Dank an
 [Peter Harteg](https://www.harteg.dk/), den „Vater“ von CMSimple,

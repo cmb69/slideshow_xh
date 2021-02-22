@@ -158,6 +158,7 @@ Many thanks for publishing this icon under a liberal license.
 Many thanks to the community at the 
 [CMSimple\_XH Forum](https://www.cmsimpleforum.com/)
 for tips, suggestions and testing.
+Particularly, many thanks to *Caravaner* for the prompt reporting of bugs.
 
 And last but not least many thanks to
 [Peter Harteg](https://www.harteg.dk/), the “father” of CMSimple,
