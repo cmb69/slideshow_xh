@@ -48,6 +48,13 @@
         <exec command="phpunit --configuration coverage.xml" logoutput="true"/>
     </target>
 
+    <target name="ts-check" description="">
+        <exec executable="tsc" passthru="true" checkreturn="true">
+            <arg line="--allowJs --lib es5,dom --noEmit"/>
+            <arg file="slideshow.min.js"/>
+        </exec>
+    </target>
+
     <target name="gen-help" description="builds help.htm from README.md">
         <exec executable="pandoc" passthru="true" checkreturn="true">
             <arg value="-s"/>
