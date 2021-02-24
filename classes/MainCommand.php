@@ -54,7 +54,6 @@ class MainCommand
         $this->view->render(
             'slideshow',
             [
-                'id' => uniqid(),
                 'imgs' => $this->getImageData($imgs),
                 'opts' => $opts,
             ]
