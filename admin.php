@@ -38,6 +38,6 @@ if (XH_wantsPluginAdministration('slideshow')) {
             $o .= ob_get_clean();
             break;
         default:
-            $o .= plugin_admin_common($action, $admin, 'slideshow');
+            $o .= plugin_admin_common();
     }
 }

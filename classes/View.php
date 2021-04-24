@@ -27,11 +27,11 @@ class View
     /** @var string */
     private $dir;
 
-    /** @var string */
-    private $template;
+    /** @var string|null */
+    private $template = null;
 
     /** @var array */
-    private $data;
+    private $data = [];
 
     public function __construct()
     {
@@ -51,11 +51,13 @@ class View
         unset($template, $bag);
         array_walk_recursive(
             $this->data,
+            /** @param mixed $elt */
             function (&$elt) {
                 $elt = XH_hsc($elt);
             }
         );
         extract($this->data);
+        /** @psalm-suppress UnresolvableInclude */
         include $this->template;
     }
 }

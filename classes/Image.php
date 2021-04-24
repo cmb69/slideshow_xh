@@ -57,6 +57,8 @@ class Image
      */
     public function getName()
     {
-        return pathinfo($this->filename, PATHINFO_FILENAME);
+        $name = pathinfo($this->filename, PATHINFO_FILENAME);
+        assert(is_string($name));
+        return $name;
     }
 }

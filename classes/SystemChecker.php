@@ -43,7 +43,7 @@ class SystemChecker
      *
      * @param string $version A minimum version.
      *
-     * @return int The status code.
+     * @return string
      */
     public function checkPHPVersion($version)
     {
@@ -57,7 +57,7 @@ class SystemChecker
      *
      * @param string $version A minimum version.
      *
-     * @return int The status code.
+     * @return string
      */
     public function checkXHVersion($version)
     {
@@ -71,7 +71,7 @@ class SystemChecker
      *
      * @param string $name An extension name.
      *
-     * @return int The status code.
+     * @return string
      */
     public function checkExtension($name)
     {
@@ -83,7 +83,7 @@ class SystemChecker
      *
      * @param string $filename A filename.
      *
-     * @return int The status code.
+     * @return string
      */
     public function checkWritability($filename)
     {

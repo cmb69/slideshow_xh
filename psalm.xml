@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<psalm errorLevel="2">
+  <projectFiles>
+    <directory name="classes"/>
+    <file name="admin.php"/>
+    <file name="index.php"/>
+  </projectFiles>
+  <stubs>
+    <file name="stubs.php"/>
+  </stubs>
+  <globals>
+    <var name="admin" type="string"/>
+    <var name="o" type="string"/>
+  </globals>
+</psalm>

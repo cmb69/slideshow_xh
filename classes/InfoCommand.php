@@ -73,6 +73,7 @@ class InfoCommand
                 'message' => sprintf($ptx['syscheck_extension'], $ext),
             ];
         }
+        $folders = [];
         foreach (array('config/', 'languages/') as $folder) {
             $folders[] = $pth['folder']['plugins'] . 'slideshow/' . $folder;
         }
