@@ -48,7 +48,10 @@ class MainCommand
         $path = $pth['folder']['images'] . rtrim($path, '/') . '/';
         $imgs = $this->imageRepo->findAll($path, $opts['order']);
         if (count($imgs) < 2) {
-            return XH_message('fail', $plugin_tx['slideshow']['message_insufficient_images'], $path);
+            if (XH_ADM) {
+                echo XH_message('fail', $plugin_tx['slideshow']['message_insufficient_images'], $path);
+            }
+            return;
         }
         $this->includeJsOnce();
         $this->view->render(
