@@ -27,6 +27,25 @@ class InfoCommandTest extends TestCase
 {
     public function testRendersView()
     {
+        global $pth, $plugin_cf, $plugin_tx;
+
+        $pth['folder'] = [
+            'images' => '',
+            'plugins' => '',
+        ];
+        $plugin_tx['slideshow'] = [
+            'syscheck_phpversion' => '',
+            'syscheck_xhversion' => '',
+            'syscheck_writable' => '',
+        ];
+        $plugin_cf['slideshow'] = [
+            'default_order' => '',
+            'default_effect' => '',
+            'default_easing' => '',
+            'default_delay' => '',
+            'default_pause' => '',
+            'default_duration' => '',
+        ];
         $view = $this->createMock(View::class);
         $view->expects($this->once())
             ->method('render');
