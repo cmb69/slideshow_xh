@@ -7,9 +7,9 @@ if (!isset($this)) {
 
 <!-- Slideshow_XH slideshow -->
 <div class="slideshow" style="position: relative; width: 100%; overflow: hidden"
-        data-effect="<?=$opts['effect']?>" data-easing="<?=$opts['easing']?>"
-        data-delay="<?=$opts['delay']?>" data-pause="<?=$opts['pause']?>" data-duration="<?=$opts['duration']?>">
-<?php foreach ($imgs as $img):?>
-    <img src="<?=$img['filename']?>" alt="<?=$img['name']?>" style="<?=$img['style']?>">
+        data-effect="<?=$this->option('effect')?>" data-easing="<?=$this->option('easing')?>"
+        data-delay="<?=$this->option('delay')?>" data-pause="<?=$this->option('pause')?>" data-duration="<?=$this->option('duration')?>">
+<?php foreach ($this->imgs as $i => $img):?>
+    <img src="<?=$this->escape($img->getFilename())?>" alt="<?=$this->escape($img->getName())?>" style="<?=$this->style($i)?>">
 <?php endforeach?>
 </div>

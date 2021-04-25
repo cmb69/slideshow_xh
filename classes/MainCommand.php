@@ -55,18 +55,22 @@ class MainCommand
             return;
         }
         $this->includeJsOnce();
-        $this->view->render(
-            'slideshow',
-            [
-                'imgs' => $this->getImageData($imgs),
-                'opts' => $opts,
-            ]
-        );
+        $this->view->render('slideshow', [
+            'imgs' => $imgs,
+            'style' => /** @param int $i */ function ($i) {
+                return $i === 0
+                    ? "position: static; display: block; z-index: 1; width: 100%"
+                    : "position: absolute; display: none; width: 100%";
+            },
+            'option' => /** @param string $name */ function ($name) use ($opts) {
+                return $opts[$name];
+            }
+        ]);
     }
 
     /**
      * @param string $query
-     * @return array
+     * @return array<string,string>
      */
     private function getOptions($query)
     {
@@ -84,25 +88,6 @@ class MainCommand
                 : $plugin_cf['slideshow']["default_$key"];
         }
 
-        return $res;
-    }
-
-    /**
-     * @param Image[] $images
-     * @return array
-     */
-    private function getImageData(array $images)
-    {
-        $res = [];
-        foreach ($images as $i => $image) {
-            $res[] = [
-                'filename' => $image->getFilename(),
-                'name' => $image->getName(),
-                'style' => $i === 0
-                    ? "position: static; display: block; z-index: 1; width: 100%"
-                    : "position: absolute; display: none; width: 100%",
-            ];
-        }
         return $res;
     }
 

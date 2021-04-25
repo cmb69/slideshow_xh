@@ -41,6 +41,47 @@ class View
     }
 
     /**
+     * @param string $name
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        return $this->data[$name];
+    }
+
+    /**
+     * @param string $name
+     * @return bool
+     */
+    public function __isset($name)
+    {
+        return isset($this->data[$name]);
+    }
+
+    /**
+     * @param string $name
+     * @return string
+     */
+    public function __call($name, array $args)
+    {
+        if (is_callable($this->data[$name])) {
+            return $this->escape(call_user_func_array($this->data[$name], $args));
+        }
+        return $this->escape($this->data[$name]);
+    }
+
+    /**
+     * @param string $key
+     * @return string
+     */
+    protected function text(string $key)
+    {
+        global $plugin_tx;
+
+        return $this->escape(vsprintf($plugin_tx['slideshow'][$key], func_get_args()));
+    }
+
+    /**
      * @param string $template
      * @return void
      */
@@ -49,15 +90,16 @@ class View
         $this->template = "{$this->dir}$template.php";
         $this->data = $bag;
         unset($template, $bag);
-        array_walk_recursive(
-            $this->data,
-            /** @param mixed $elt */
-            function (&$elt) {
-                $elt = XH_hsc($elt);
-            }
-        );
-        extract($this->data);
         /** @psalm-suppress UnresolvableInclude */
         include $this->template;
+    }
+
+    /**
+     * @param mixed $value
+     * @return string
+     */
+    protected function escape($value)
+    {
+        return XH_hsc((string) $value);
     }
 }

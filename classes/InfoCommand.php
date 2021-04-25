@@ -40,10 +40,7 @@ class InfoCommand
      */
     public function __invoke()
     {
-        global $plugin_tx;
-
         $bag = array(
-            'tx' => $plugin_tx['slideshow'],
             'checks' => $this->getSystemChecks(),
             'version' => SLIDESHOW_VERSION
         );
