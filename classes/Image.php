@@ -30,14 +30,19 @@ class Image
      */
     private $filename;
 
+    /** @var string|null */
+    private $webp;
+
     /**
      * Initializes a new instance.
      *
      * @param string $filename A filename.
+     * @param string|null $webp
      */
-    public function __construct($filename)
+    public function __construct($filename, $webp = null)
     {
         $this->filename = $filename;
+        $this->webp = $webp;
     }
 
     /**
@@ -48,6 +53,23 @@ class Image
     public function getFilename()
     {
         return $this->filename;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasWebp()
+    {
+        return $this->webp !== null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getWebp()
+    {
+        assert($this->webp !== null);
+        return $this->webp;
     }
 
     /**

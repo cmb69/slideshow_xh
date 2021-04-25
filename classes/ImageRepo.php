@@ -37,7 +37,11 @@ class ImageRepo
         if (is_dir($path) && $dir = opendir($path)) {
             while (($entry = readdir($dir)) !== false) {
                 if (preg_match('/\.(gif|jpg|jpeg|png)$/i', $entry)) {
-                    $images[] = new Image($path . $entry);
+                    $webp = $path . preg_replace('/\.[^.]+$/', ".webp", $entry);
+                    if (!is_file($webp)) {
+                        $webp = null;
+                    }
+                    $images[] = new Image($path . $entry, $webp);
                 }
             }
             closedir($dir);

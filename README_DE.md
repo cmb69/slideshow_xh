@@ -72,6 +72,8 @@ Die Parameter haben die folgende Bedeutung:
   Alle JPEG, PNG und GIF Bilder in diesem Ordner
   werden für die Diashow verwendet;
   es müssen sich mindestens zwei Bilder in diesem Ordner befinden.
+  Existieren ebenfalls `*.webp` Bilder mit demselben Basisnamen wie ein erkanntes Bild,
+  werden diese statt dessen verwendet, falls der Browser WebP unterstützt.
   Alle Bilder sollten das gleiche Seitenverhältnis aufweisen.
 - `OPTIONEN`:
   Jede angegebene Option überschreibt die entsprechende Voreinstellung
@@ -169,7 +171,8 @@ Vielen Dank für die Veröffentlichung unter einer freien Lizenz.
 Many thanks to the community at the
 [CMSimple\_XH Forum](https://www.cmsimpleforum.com/)
 for tips, suggestions and testing.
-Insbesondere vielen Dank an *Caravaner* für das zeitnahe Melden von Fehlern.
+Insbesondere vielen Dank an *Caravaner* für das zeitnahe Melden von Fehlern,
+und *olape* für das Vorschlagen der progressiven WebP Verbesserung.
 
 Und zu guter letzt vielen Dank an
 [Peter Harteg](https://www.harteg.dk/), den „Vater“ von CMSimple,

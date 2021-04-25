@@ -66,6 +66,8 @@ Tyto parametry mají následující význam:
   Cesta k adresáři relativní k adresáři images v CMSimple\_XH.
   Všechny JPEG, PNG a GIF obrázky uvnitř této složky budou použity pro prezentaci;
   there must be at least two images inside this folder.
+  If there are also `*.webp` images with the same basename as a recognized image,
+  this are used instead, if WebP is supported by the browser.
   All images should have the same aspect ratio.
 - `NASTAVENÍ`:
   Jakákoli volba přepíše odpovídající hodnotu ve `Default` části konfigurace pluginu.
@@ -158,7 +160,8 @@ Many thanks for publishing this icon under a liberal license.
 Many thanks to the community at the 
 [CMSimple\_XH Forum](https://www.cmsimpleforum.com/)
 for tips, suggestions and testing.
-Particularly, many thanks to *Caravaner* for the prompt reporting of bugs.
+Particularly, many thanks to *Caravaner* for the prompt reporting of bugs,
+and *olape* for suggesting the progressive WebP enhancement.
 
 And last but not least many thanks to
 [Peter Harteg](https://www.harteg.dk/), the “father” of CMSimple,

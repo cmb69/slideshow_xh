@@ -69,7 +69,7 @@
 <pre><code>{{{slideshow(&#39;FOLDER&#39;, &#39;OPTIONS&#39;)}}}</code></pre>
 <p>The parameters have the following meaning:</p>
 <ul>
-<li><code>FOLDER</code>: The path of a folder relative to the image folder of CMSimple_XH. All JPEG, PNG and GIF images inside this folder will be used for the slideshow; there must be at least two images inside this folder. All images should have the same aspect ratio.</li>
+<li><code>FOLDER</code>: The path of a folder relative to the image folder of CMSimple_XH. All JPEG, PNG and GIF images inside this folder will be used for the slideshow; there must be at least two images inside this folder. If there are also <code>*.webp</code> images with the same basename as a recognized image, this are used instead, if WebP is supported by the browser. All images should have the same aspect ratio.</li>
 <li><code>OPTIONS</code>: Any given option will override the respective value in the <code>Default</code> section of the plugin configuration. The format of this parameter is the same as a “query string” (see the examples below). The options can be given in any order. If you want to stick with the defaults, you can omit this parameter. The following options are available:
 <ul>
 <li><code>order</code>: The order of the images: <code>fixed</code> (alphabetically ordered; start with first image), <code>sorted</code> (alphabetically sorted; start with randomly chosen image) or <code>random</code> (randomly ordered).</li>
@@ -105,7 +105,7 @@ French translation © 2014 Patrick Varlet</p>
 <h2 id="credits">Credits</h2>
 <p>Slideshow_XH was inspired by <em>Joe</em>.</p>
 <p>The plugin icon is designed by <a href="https://twitter.com/Zyote">Mischa McLachlan</a>. Many thanks for publishing this icon under a liberal license.</p>
-<p>Many thanks to the community at the <a href="https://www.cmsimpleforum.com/">CMSimple_XH Forum</a> for tips, suggestions and testing.</p>
+<p>Many thanks to the community at the <a href="https://www.cmsimpleforum.com/">CMSimple_XH Forum</a> for tips, suggestions and testing. Particularly, many thanks to <em>Caravaner</em> for the prompt reporting of bugs, and <em>olape</em> for suggesting the progressive WebP enhancement.</p>
 <p>And last but not least many thanks to <a href="https://www.harteg.dk/">Peter Harteg</a>, the “father” of CMSimple, and all developers of <a href="https://www.cmsimple-xh.org/">CMSimple_XH</a> without whom this amazing CMS would not exist.</p>
 </body>
 </html>
