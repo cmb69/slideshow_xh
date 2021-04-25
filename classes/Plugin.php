@@ -49,7 +49,8 @@ class Plugin
     /** @return void */
     private static function registerUserFunctions()
     {
-        $rc = new ReflectionClass(self::class);
+        /** @psalm-suppress ArgumentTypeCoercion */
+        $rc = new ReflectionClass("\\Slideshow\\Plugin");
         foreach ($rc->getMethods(ReflectionMethod::IS_PUBLIC) as $rm) {
             if (substr_compare($rm->getName(), "Command", -strlen("Command")) === 0) {
                 $name = $rm->getName();
@@ -74,7 +75,11 @@ class Plugin
         }
     }
 
-    private static function admin(string $admin): string
+    /**
+     * @param string $admin
+     * @return string
+     */
+    private static function admin($admin)
     {
         switch ($admin) {
             case "":
@@ -84,7 +89,10 @@ class Plugin
         }
     }
 
-    private static function info(): string
+    /**
+     * @return string
+     */
+    private static function info()
     {
         global $title;
 

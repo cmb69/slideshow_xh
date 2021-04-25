@@ -74,7 +74,7 @@ class View
      * @param string $key
      * @return string
      */
-    protected function text(string $key)
+    protected function text($key)
     {
         global $plugin_tx;
 
