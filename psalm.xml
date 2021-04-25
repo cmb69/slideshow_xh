@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<psalm errorLevel="2">
+<psalm errorLevel="1">
   <projectFiles>
     <directory name="classes"/>
   </projectFiles>
@@ -8,6 +8,10 @@
   </stubs>
   <globals>
     <var name="admin" type="string"/>
+    <var name="bjs" type="string"/>
     <var name="o" type="string"/>
+    <var name="plugin_cf" type="array&lt;string,array&lt;string,string&gt;&gt;"/>
+    <var name="plugin_tx" type="array&lt;string,array&lt;string,string&gt;&gt;"/>
+    <var name="pth" type="array{folder:array&lt;string,string&gt;,files:array}"/>
   </globals>
 </psalm>

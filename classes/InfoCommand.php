@@ -64,12 +64,6 @@ class InfoCommand
             'class' => $this->systemChecker->checkXhVersion($xhVersion),
             'message' => sprintf($ptx['syscheck_xhversion'], $xhVersion),
         ]];
-        foreach (array() as $ext) {
-            $checks[] = [
-                'class' => $this->systemChecker->checkExtension($ext),
-                'message' => sprintf($ptx['syscheck_extension'], $ext),
-            ];
-        }
         $folders = [];
         foreach (array('config/', 'languages/') as $folder) {
             $folders[] = $pth['folder']['plugins'] . 'slideshow/' . $folder;

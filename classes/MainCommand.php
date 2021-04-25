@@ -83,7 +83,7 @@ class MainCommand
 
         $res = array();
         foreach ($validOpts as $key) {
-            $res[$key] = isset($opts[$key]) && $opts[$key] !== ""
+            $res[$key] = isset($opts[$key]) && is_string($opts[$key]) && $opts[$key] !== ""
                 ? $opts[$key]
                 : $plugin_cf['slideshow']["default_$key"];
         }
