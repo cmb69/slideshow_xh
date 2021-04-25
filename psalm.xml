@@ -2,8 +2,6 @@
 <psalm errorLevel="2">
   <projectFiles>
     <directory name="classes"/>
-    <file name="admin.php"/>
-    <file name="index.php"/>
   </projectFiles>
   <stubs>
     <file name="stubs.php"/>

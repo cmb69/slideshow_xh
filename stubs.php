@@ -2,8 +2,6 @@
 
 const CMSIMPLE_XH_VERSION = "1.7.4";
 
-const SLIDESHOW_VERSION = "1.2";
-
 /**
  * @param string $string
  * @return string

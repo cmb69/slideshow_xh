@@ -42,7 +42,7 @@ class InfoCommand
     {
         $bag = array(
             'checks' => $this->getSystemChecks(),
-            'version' => SLIDESHOW_VERSION
+            'version' => Plugin::VERSION
         );
         $this->view->render('info', $bag);
     }
