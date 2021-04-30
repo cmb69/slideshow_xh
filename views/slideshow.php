@@ -14,7 +14,7 @@ if (!isset($this)) {
 <?php   if ($img->hasWebp()):?>
         <source srcset="<?=$this->escape($img->getWebp())?>" type="image/webp">
 <?php   endif?>
-        <img src="<?=$this->escape($img->getFilename())?>" alt="<?=$this->escape($img->getName())?>">
+        <img src="<?=$this->escape($img->getFilename())?>" alt="<?=$this->escape($img->getName())?>" loading="<?=$this->loading($i)?>">
     </picture>
 <?php endforeach?>
 </div>

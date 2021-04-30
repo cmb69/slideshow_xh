@@ -62,6 +62,9 @@ class MainCommand
                     ? "position: static; display: block; z-index: 1; width: 100%"
                     : "position: absolute; display: none; width: 100%";
             },
+            'loading' => /** @param int $i */ function ($i) {
+                return $i === 0 ? "eager" : "lazy";
+            },
             'option' => /** @param string $name */ function ($name) use ($opts) {
                 return $opts[$name];
             }
