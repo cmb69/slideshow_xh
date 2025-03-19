@@ -155,12 +155,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Slideshow\_XH.  If not, see <https://www.gnu.org/licenses/>.
 
-Copyright 2012-2021 Christoph M. Becker
+Copyright © Christoph M. Becker
 
-Danish translation © 2012 Jens Maegard  
-Czech translation © 2012-2013 Josef Němec  
-Slovak translation © 2013 Dr. Martin Sereday  
-French translation © 2014 Patrick Varlet
+Danish translation © Jens Maegard<br>
+Czech translation © Josef Němec<br>
+Slovak translation © Dr. Martin Sereday<br>
+French translation © Patrick Varlet
 
 ## Credits
 
