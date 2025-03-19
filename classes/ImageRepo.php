@@ -55,17 +55,14 @@ class ImageRepo
         if ($order == 'random') {
             shuffle($images);
         } else {
-            usort($images, [$this, 'compareFilenames']);
+            usort($images, function (Image $image, Image $other) {
+                return strnatcasecmp($image->getFilename(), $other->getFilename());
+            });
             if ($order === 'sorted') {
                 $n = rand(0, count($images) - 1);
                 $images = array_merge(array_slice($images, $n), array_slice($images, 0, $n));
             }
         }
         return $images;
-    }
-
-    protected function compareFilenames(Image $image, Image $other): int
-    {
-        return strnatcasecmp($image->getFilename(), $other->getFilename());
     }
 }
