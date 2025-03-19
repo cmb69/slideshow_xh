@@ -21,6 +21,7 @@
 
 namespace Slideshow;
 
+use Plib\Request;
 use Plib\View;
 
 class MainCommand
@@ -54,13 +55,13 @@ class MainCommand
      * @param string $path
      * @param string $options
      */
-    public function __invoke($path, $options = ''): string
+    public function __invoke(Request $request, $path, $options = ''): string
     {
         $opts = $this->getOptions($options);
         $path = $this->imageFolder . rtrim($path, '/') . '/';
         $imgs = $this->imageRepo->findAll($path, $opts['order']);
         if (count($imgs) < 2) {
-            if (XH_ADM) { // @phpstan-ignore-line
+            if ($request->admin()) {
                 return $this->view->message("fail", "message_insufficient_images", $path);
             }
             return "";

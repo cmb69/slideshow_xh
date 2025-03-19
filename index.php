@@ -1,5 +1,6 @@
 <?php
 
+use Plib\Request;
 use Slideshow\Dic;
 
 const SLIDESHOW_VERSION = "1.3";
@@ -14,5 +15,5 @@ const SLIDESHOW_VERSION = "1.3";
  */
 function slideshow($path, $options = '')
 {
-    return Dic::mainCommand()($path, $options);
+    return Dic::mainCommand()(Request::current(), $path, $options);
 }
