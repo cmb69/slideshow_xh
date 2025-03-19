@@ -22,6 +22,7 @@
 namespace Slideshow;
 
 use PHPUnit\Framework\TestCase;
+use Plib\FakeSystemChecker;
 use Plib\View;
 
 class InfoCommandTest extends TestCase
@@ -50,8 +51,7 @@ class InfoCommandTest extends TestCase
         $view = $this->createMock(View::class);
         $view->expects($this->once())
             ->method('render');
-        $systemChecker = $this->createStub(SystemChecker::class);
-        $sut = new InfoCommand($view, $systemChecker);
+        $sut = new InfoCommand($view, new FakeSystemChecker());
         $sut();
     }
 }

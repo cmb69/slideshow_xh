@@ -21,6 +21,7 @@
 
 namespace Slideshow;
 
+use Plib\SystemChecker;
 use Plib\View;
 use ReflectionClass;
 use ReflectionMethod;

@@ -21,6 +21,7 @@
 
 namespace Slideshow;
 
+use Plib\SystemChecker;
 use Plib\View;
 
 class InfoCommand
@@ -57,10 +58,10 @@ class InfoCommand
         $phpVersion = '7.1.0';
         $xhVersion = '1.7.0';
         $checks = [[
-            'class' => $this->systemChecker->checkPHPVersion($phpVersion),
+            'class' => $this->systemChecker->checkVersion(PHP_VERSION, $phpVersion) ? "xh_success" : "xh_fail",
             'message' => sprintf($ptx['syscheck_phpversion'], $phpVersion),
         ], [
-            'class' => $this->systemChecker->checkXhVersion($xhVersion),
+            'class' => $this->systemChecker->checkVersion(CMSIMPLE_XH_VERSION, "CMSimple_XH $xhVersion") ? "xh_success" : "xh_fail",
             'message' => sprintf($ptx['syscheck_xhversion'], $xhVersion),
         ]];
         $folders = [];
@@ -69,7 +70,7 @@ class InfoCommand
         }
         foreach ($folders as $folder) {
             $checks[] = [
-                'class' => $this->systemChecker->checkWritability($folder),
+                'class' => $this->systemChecker->checkWritability($folder) ? "xh_success" : "xh_warning",
                 'message' => sprintf($ptx['syscheck_writable'], $folder),
             ];
         }
