@@ -79,6 +79,7 @@ class MainCommand
         ]));
     }
 
+    /** @return array<string,string> */
     private function getOptions(string $query): array
     {
         $validOpts = ['order', 'effect', 'easing', 'delay', 'pause', 'duration'];
