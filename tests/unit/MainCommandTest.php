@@ -21,6 +21,7 @@
 
 namespace Slideshow;
 
+use ApprovalTests\Approvals;
 use PHPUnit\Framework\TestCase;
 use Plib\View;
 
@@ -31,10 +32,8 @@ class MainCommandTest extends TestCase
         $imageRepo = $this->createStub(ImageRepo::class);
         $imageRepo->method('findAll')
             ->willReturn([new Image("pics/foo.jpg"), new Image("pics/bar.jpg")]);
-        $view = $this->createMock(View::class);
-        $view->expects($this->once())
-            ->method('render');
+        $view = new View("./views/", XH_includeVar("./languages/en.php", "plugin_tx")["slideshow"]);
         $sut = new MainCommand($imageRepo, $view);
-        $sut("pics");
+        Approvals::verifyHtml($sut("pics"));
     }
 }
