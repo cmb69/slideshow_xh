@@ -57,14 +57,23 @@ class InfoCommand
     private function getSystemChecks(): array
     {
         $phpVersion = '7.1.0';
-        $xhVersion = '1.7.0';
-        $checks = [[
+        $checks = [];
+        $checks[] = [
             'class' => $this->systemChecker->checkVersion(PHP_VERSION, $phpVersion) ? "xh_success" : "xh_fail",
             'message' => $this->view->text("syscheck_phpversion", $phpVersion),
-        ], [
-            'class' => $this->systemChecker->checkVersion(CMSIMPLE_XH_VERSION, "CMSimple_XH $xhVersion") ? "xh_success" : "xh_fail",
+        ];
+        $xhVersion = '1.7.0';
+        $checks[] = [
+            'class' => $this->systemChecker->checkVersion(CMSIMPLE_XH_VERSION, "CMSimple_XH $xhVersion")
+                ? "xh_success"
+                : "xh_fail",
             'message' => $this->view->text("syscheck_xhversion", $xhVersion),
-        ]];
+        ];
+        $plibVersion = "1.2";
+        $checks[] = [
+            'class' => $this->systemChecker->checkPlugin("plib", $plibVersion) ? "xh_success" : "xh_fail",
+            'message' => $this->view->text("syscheck_plibversion", $plibVersion),
+        ];
         $folders = [];
         foreach (array('config/', 'languages/') as $folder) {
             $folders[] = $this->pluginFolder . $folder;

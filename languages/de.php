@@ -12,6 +12,7 @@ $plugin_tx['slideshow']['synopsis_options_desc']="Optionale Einstellungen in For
 
 $plugin_tx['slideshow']['syscheck']="Systemprüfung";
 $plugin_tx['slideshow']['syscheck_phpversion']="PHP-Version ≥ %s";
+$plugin_tx['slideshow']['syscheck_plibversion']="Plib_XH-Version ≥ %s";
 $plugin_tx['slideshow']['syscheck_xhversion']="CMSimple_XH-Version ≥ %s";
 $plugin_tx['slideshow']['syscheck_extension']="Erweiterung '%s' geladen";
 $plugin_tx['slideshow']['syscheck_writable']="Ordner '%s' beschreibbar";
