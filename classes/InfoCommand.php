@@ -21,6 +21,8 @@
 
 namespace Slideshow;
 
+use Plib\View;
+
 class InfoCommand
 {
     /** @var View */
@@ -35,16 +37,13 @@ class InfoCommand
         $this->systemChecker = $systemChecker;
     }
 
-    /**
-     * @return void
-     */
-    public function __invoke()
+    public function __invoke(): string
     {
         $bag = array(
             'checks' => $this->getSystemChecks(),
             'version' => Plugin::VERSION
         );
-        $this->view->render('info', $bag);
+        return $this->view->render('info', $bag);
     }
 
     /**

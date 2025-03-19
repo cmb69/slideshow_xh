@@ -7,14 +7,14 @@ if (!isset($this)) {
 
 <!-- Slideshow_XH slideshow -->
 <div class="slideshow" style="position: relative; width: 100%; overflow: hidden"
-        data-effect="<?=$this->option('effect')?>" data-easing="<?=$this->option('easing')?>"
-        data-delay="<?=$this->option('delay')?>" data-pause="<?=$this->option('pause')?>" data-duration="<?=$this->option('duration')?>">
-<?php foreach ($this->imgs as $i => $img):?>
-    <picture style="<?=$this->style($i)?>">
+        data-effect="<?=$this->esc($opts['effect'])?>" data-easing="<?=$this->esc($opts['easing'])?>"
+        data-delay="<?=$this->esc($opts['delay'])?>" data-pause="<?=$this->esc($opts['pause'])?>" data-duration="<?=$this->esc($opts['duration'])?>">
+<?php foreach ($imgs as $i => $img):?>
+    <picture style="<?=$this->esc($styles[$i])?>">
 <?php   if ($img->hasWebp()):?>
-        <source srcset="<?=$this->escape($img->getWebp())?>" type="image/webp">
+        <source srcset="<?=$this->esc($img->getWebp())?>" type="image/webp">
 <?php   endif?>
-        <img src="<?=$this->escape($img->getFilename())?>" alt="<?=$this->escape($img->getName())?>" loading="<?=$this->loading($i)?>">
+        <img src="<?=$this->esc($img->getFilename())?>" alt="<?=$this->esc($img->getName())?>" loading="<?=$this->esc($loading[$i])?>">
     </picture>
 <?php endforeach?>
 </div>

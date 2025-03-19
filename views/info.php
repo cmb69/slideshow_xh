@@ -6,7 +6,7 @@ if (!isset($this)) {
 ?>
 
 <!-- Slideshow_XH info -->
-<h1>Slideshow <?=$this->version()?></h1>
+<h1>Slideshow <?=$this->esc($version)?></h1>
 <h4><?=$this->text('synopsis')?></h4>
 <pre>&lt;?=slideshow('<?=$this->text('synopsis_folder')?>', '<?=$this->text('synopsis_options')?>')?&gt;
 {{{slideshow('<?=$this->text('synopsis_folder')?>', '<?=$this->text('synopsis_options')?>')}}}</pre>
@@ -31,6 +31,6 @@ if (!isset($this)) {
     </dl></dd>
 </dl>
 <h4><?=$this->text('syscheck')?></h4>
-<?php foreach ($this->checks as $check):?>
-<p class="<?=$this->escape($check['class'])?>"><?=$this->escape($check['message'])?></p>
+<?php foreach ($checks as $check):?>
+<p class="<?=$this->esc($check['class'])?>"><?=$this->esc($check['message'])?></p>
 <?php endforeach?>

@@ -21,6 +21,7 @@
 
 namespace Slideshow;
 
+use Plib\View;
 use ReflectionClass;
 use ReflectionMethod;
 
@@ -63,11 +64,10 @@ class Plugin
      */
     private static function info()
     {
-        global $title;
+        global $title, $pth, $plugin_tx;
 
         $title = 'Slideshow ' . self::VERSION;
-        ob_start();
-        (new InfoCommand(new View(), new SystemChecker()))();
-        return ob_get_clean();
+        $view = new View($pth["folder"]["plugins"] . "slideshow/views/", $plugin_tx["slideshow"]);
+        return (new InfoCommand($view, new SystemChecker()))();
     }
 }

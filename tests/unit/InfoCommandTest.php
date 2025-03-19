@@ -22,6 +22,7 @@
 namespace Slideshow;
 
 use PHPUnit\Framework\TestCase;
+use Plib\View;
 
 class InfoCommandTest extends TestCase
 {

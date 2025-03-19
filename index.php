@@ -1,9 +1,9 @@
 <?php
 
+use Plib\View;
 use Slideshow\ImageRepo;
 use Slideshow\MainCommand;
 use Slideshow\Plugin;
-use Slideshow\View;
 
 /**
  * Returns the slideshow.
@@ -15,9 +15,10 @@ use Slideshow\View;
  */
 function slideshow($path, $options = '')
 {
-    ob_start();
-    (new MainCommand(new ImageRepo(), new View()))($path, $options);
-    return ob_get_clean();
+    global $pth, $plugin_tx;
+
+    $view = new View($pth["folder"]["plugins"] . "slideshow/views/", $plugin_tx["slideshow"]);
+    return (new MainCommand(new ImageRepo(), $view))($path, $options);
 }
 
 Plugin::run();

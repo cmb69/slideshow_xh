@@ -21,6 +21,8 @@
 
 namespace Slideshow;
 
+use Plib\View;
+
 class MainCommand
 {
     /** @var ImageRepo */
@@ -38,9 +40,8 @@ class MainCommand
     /**
      * @param string $path
      * @param string $options
-     * @return void
      */
-    public function __invoke($path, $options = '')
+    public function __invoke($path, $options = ''): string
     {
         global $pth, $plugin_tx;
 
@@ -49,24 +50,23 @@ class MainCommand
         $imgs = $this->imageRepo->findAll($path, $opts['order']);
         if (count($imgs) < 2) {
             if (XH_ADM) { // @phpstan-ignore-line
-                echo XH_message('fail', $plugin_tx['slideshow']['message_insufficient_images'], $path);
+                return XH_message('fail', $plugin_tx['slideshow']['message_insufficient_images'], $path);
             }
-            return;
+            return "";
         }
         $this->includeJsOnce();
-        $this->view->render('slideshow', [
+        $styles = $loading = [];
+        foreach ($imgs as $i => $img) {
+            $styles[] = $i === 0
+                ? "position: static; display: block; z-index: 1; width: 100%"
+                : "position: absolute; display: none; width: 100%";
+            $loading[] = $i === 0 ? "eager" : "lazy";
+        }
+        return $this->view->render('slideshow', [
             'imgs' => $imgs,
-            'style' => /** @param int $i */ function ($i) {
-                return $i === 0
-                    ? "position: static; display: block; z-index: 1; width: 100%"
-                    : "position: absolute; display: none; width: 100%";
-            },
-            'loading' => /** @param int $i */ function ($i) {
-                return $i === 0 ? "eager" : "lazy";
-            },
-            'option' => /** @param string $name */ function ($name) use ($opts) {
-                return $opts[$name];
-            }
+            'styles' => $styles,
+            'loading' => $loading,
+            'opts' => $opts,
         ]);
     }
 
