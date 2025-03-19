@@ -2,147 +2,147 @@
 
 <project name="Slideshow" default="help">
 
-    <fileset id="js-sources" dir=".">
-        <include name="*.js"/>
-    </fileset>
+  <fileset id="js-sources" dir=".">
+    <include name="*.js"/>
+  </fileset>
 
-    <target name="help" description="lists available targets">
-        <exec executable="phing" outputProperty="help">
-            <arg value="-l"/>
-        </exec>
-        <echo>${help}</echo>
-    </target>
+  <target name="help" description="lists available targets">
+    <exec executable="phing" outputProperty="help">
+      <arg value="-l"/>
+    </exec>
+    <echo>${help}</echo>
+  </target>
 
-    <target name="sniff" description="checks adherence to coding standard">
-        <exec executable="phpcs" passthru="true" checkreturn="true">
-            <arg value="--standard=PSR12"/>
-            <arg line="--runtime-set ignore_warnings_on_exit true"/>
-            <arg file="classes"/>
-            <arg file="tests/unit"/>
-        </exec>
-    </target>
+  <target name="sniff" description="checks adherence to coding standard">
+    <exec executable="phpcs" passthru="true" checkreturn="true">
+      <arg value="--standard=PSR12"/>
+      <arg line="--runtime-set ignore_warnings_on_exit true"/>
+      <arg file="classes"/>
+      <arg file="tests/unit"/>
+    </exec>
+  </target>
 
-    <target name="stan" description="run static analysis">
-        <exec executable="phpstan" passthru="true" checkreturn="true">
-            <arg value="--ansi"/>
-            <arg value="analyze"/>
-        </exec>
-    </target>
+  <target name="stan" description="run static analysis">
+    <exec executable="phpstan" passthru="true" checkreturn="true">
+      <arg value="--ansi"/>
+      <arg value="analyze"/>
+    </exec>
+  </target>
 
-    <target name="test" description="runs all tests">
-        <exec executable="phpunit" passthru="true" checkreturn="true">
-            <arg value="--bootstrap"/>
-            <arg file="tests/bootstrap.php"/>
-            <arg file="tests"/>
-        </exec>
-    </target>
+  <target name="test" description="runs all tests">
+    <exec executable="phpunit" passthru="true" checkreturn="true">
+      <arg value="--bootstrap"/>
+      <arg file="tests/bootstrap.php"/>
+      <arg file="tests"/>
+    </exec>
+  </target>
 
-    <target name="check" description="runs all checks" depends="sniff,stan,test"/>
+  <target name="check" description="runs all checks" depends="sniff,stan,test"/>
 
-    <target name="coverage" description="generates coverage report">
-        <exec executable="phpunit" logoutput="true">
-            <arg line="--configuration coverage.xml"/>
-        </exec>
-    </target>
+  <target name="coverage" description="generates coverage report">
+    <exec executable="phpunit" logoutput="true">
+      <arg line="--configuration coverage.xml"/>
+    </exec>
+  </target>
 
-    <target name="ts-check" description="">
-        <exec executable="tsc" passthru="true" checkreturn="true">
-            <arg line="--allowJs --lib es5,dom --noEmit"/>
-            <arg file="slideshow.min.js"/>
-        </exec>
-    </target>
+  <target name="ts-check" description="">
+    <exec executable="tsc" passthru="true" checkreturn="true">
+      <arg line="--allowJs --lib es5,dom --noEmit"/>
+      <arg file="slideshow.min.js"/>
+    </exec>
+  </target>
 
-    <target name="gen-help" description="builds help.htm from README.md">
-        <exec executable="pandoc" passthru="true" checkreturn="true">
-            <arg value="-s"/>
-            <arg value="--eol=lf"/>
-            <arg value="--template=help/template.htm"/>
-            <arg value="-Vlang=en"/>
-            <arg line="-Vpagetitle=&quot;User Manual&quot;"/>
-            <arg value="-o"/>
-            <arg file="help/help.htm"/>
-            <arg file="README.md"/>
-            <arg line="-t html"/>
-        </exec>
-        <exec executable="pandoc" passthru="true" checkreturn="true">
-            <arg value="-s"/>
-            <arg value="--eol=lf"/>
-            <arg value="--template=help/template.htm"/>
-            <arg value="-Vlang=de"/>
-            <arg line="-Vpagetitle=&quot;Benutzerhandbuch&quot;"/>
-            <arg value="-o"/>
-            <arg file="help/help_de.htm"/>
-            <arg file="README_DE.md"/>
-            <arg line="-t html"/>
-        </exec>
-        <exec executable="pandoc" passthru="true" checkreturn="true">
-            <arg value="-s"/>
-            <arg value="--eol=lf"/>
-            <arg value="--template=help/template.htm"/>
-            <arg value="-Vlang=cs"/>
-            <arg line="-Vpagetitle=&quot;Uživatelský manuál&quot;"/>
-            <arg value="-o"/>
-            <arg file="help/help_cs.htm"/>
-            <arg file="README_CS.md"/>
-            <arg line="-t html"/>
-        </exec>
-    </target>
+  <target name="gen-help" description="builds help.htm from README.md">
+    <exec executable="pandoc" passthru="true" checkreturn="true">
+      <arg value="-s"/>
+      <arg value="--eol=lf"/>
+      <arg value="--template=help/template.htm"/>
+      <arg value="-Vlang=en"/>
+      <arg line="-Vpagetitle=&quot;User Manual&quot;"/>
+      <arg value="-o"/>
+      <arg file="help/help.htm"/>
+      <arg file="README.md"/>
+      <arg line="-t html"/>
+    </exec>
+    <exec executable="pandoc" passthru="true" checkreturn="true">
+      <arg value="-s"/>
+      <arg value="--eol=lf"/>
+      <arg value="--template=help/template.htm"/>
+      <arg value="-Vlang=de"/>
+      <arg line="-Vpagetitle=&quot;Benutzerhandbuch&quot;"/>
+      <arg value="-o"/>
+      <arg file="help/help_de.htm"/>
+      <arg file="README_DE.md"/>
+      <arg line="-t html"/>
+    </exec>
+    <exec executable="pandoc" passthru="true" checkreturn="true">
+      <arg value="-s"/>
+      <arg value="--eol=lf"/>
+      <arg value="--template=help/template.htm"/>
+      <arg value="-Vlang=cs"/>
+      <arg line="-Vpagetitle=&quot;Uživatelský manuál&quot;"/>
+      <arg value="-o"/>
+      <arg file="help/help_cs.htm"/>
+      <arg file="README_CS.md"/>
+      <arg line="-t html"/>
+    </exec>
+  </target>
 
-    <target name="build" description="builds a distributable ZIP archive">
-        <exec executable="git" checkreturn="true">
-            <arg line="archive -o export.zip HEAD"/>
-        </exec>
-        <unzip file="export.zip" todir="export"/>
-        <delete file="export.zip"/>
-        <exec executable="closure-compiler" passthru="true">
-            <arg value="--language_in"/>
-            <arg value="ECMASCRIPT5"/>
-            <arg value="--language_out"/>
-            <arg value="ECMASCRIPT5"/>
-            <arg value="--js_output_file"/>
-            <arg file="dist/slideshow.min.js"/>
-            <arg file="export/slideshow.min.js"/>
-        </exec>
-        <move todir="dist">
-            <fileset dir="export">
-                <exclude name=".phive/**"/>
-                <exclude name="help/template.htm"/>
-                <exclude name="tests/**"/>
-                <exclude name="README*.md"/>
-                <exclude name="build.xml"/>
-                <exclude name="composer.*"/>
-                <exclude name="coverage.xml"/>
-                <exclude name="phpstan.*"/>
-                <exclude name="teplad.xml"/>
-            </fileset>
-        </move>
-        <delete dir="export"/>
-        <copy file="dist/config/config.php" tofile="dist/config/defaultconfig.php"/>
-        <copy file="dist/languages/en.php" tofile="dist/languages/default.php"/>
-        <zip destfile="Slideshow_XH-1.3.zip" basedir="dist" prefix="slideshow/"/>
-        <delete dir="dist"/>
-    </target>
+  <target name="build" description="builds a distributable ZIP archive">
+    <exec executable="git" checkreturn="true">
+      <arg line="archive -o export.zip HEAD"/>
+    </exec>
+    <unzip file="export.zip" todir="export"/>
+    <delete file="export.zip"/>
+    <exec executable="closure-compiler" passthru="true">
+      <arg value="--language_in"/>
+      <arg value="ECMASCRIPT5"/>
+      <arg value="--language_out"/>
+      <arg value="ECMASCRIPT5"/>
+      <arg value="--js_output_file"/>
+      <arg file="dist/slideshow.min.js"/>
+      <arg file="export/slideshow.min.js"/>
+    </exec>
+    <move todir="dist">
+      <fileset dir="export">
+        <exclude name=".phive/**"/>
+        <exclude name="help/template.htm"/>
+        <exclude name="tests/**"/>
+        <exclude name="README*.md"/>
+        <exclude name="build.xml"/>
+        <exclude name="composer.*"/>
+        <exclude name="coverage.xml"/>
+        <exclude name="phpstan.*"/>
+        <exclude name="teplad.xml"/>
+      </fileset>
+    </move>
+    <delete dir="export"/>
+    <copy file="dist/config/config.php" tofile="dist/config/defaultconfig.php"/>
+    <copy file="dist/languages/en.php" tofile="dist/languages/default.php"/>
+    <zip destfile="Slideshow_XH-1.3.zip" basedir="dist" prefix="slideshow/"/>
+    <delete dir="dist"/>
+  </target>
 
-    <target name="build-patch" description="builds a distributable update package">
-        <fail unless="patchee" message="patchee is not defined!"/>
-        <unzip file="Slideshow_XH-1.3.zip" todir="current"/>
-        <unzip file="${patchee}" todir="patchee"/>
-        <copy todir="dist">
-            <fileset dir="current">
-                <different targetdir="patchee" ignoreFileTimes="true"/>
-            </fileset>
-        </copy>
-        <delete>
-            <fileset dir="dist/slideshow">
-                <include name="config/config.php"/>
-                <include name="languages/??.php"/>
-                <include name="css/stylesheet.css"/>
-            </fileset>
-        </delete>
-        <zip destfile="Slideshow_XH-1.3-PATCH.zip" basedir="dist"
-             includeemptydirs="false"/>
-        <delete dir="patchee" quiet="true"/>
-        <delete dir="current" quiet="true"/>
-        <delete dir="dist" quiet="true"/>
-    </target>
+  <target name="build-patch" description="builds a distributable update package">
+    <fail unless="patchee" message="patchee is not defined!"/>
+    <unzip file="Slideshow_XH-1.3.zip" todir="current"/>
+    <unzip file="${patchee}" todir="patchee"/>
+    <copy todir="dist">
+      <fileset dir="current">
+        <different targetdir="patchee" ignoreFileTimes="true"/>
+      </fileset>
+    </copy>
+    <delete>
+      <fileset dir="dist/slideshow">
+        <include name="config/config.php"/>
+        <include name="languages/??.php"/>
+        <include name="css/stylesheet.css"/>
+      </fileset>
+    </delete>
+    <zip destfile="Slideshow_XH-1.3-PATCH.zip" basedir="dist"
+       includeemptydirs="false"/>
+    <delete dir="patchee" quiet="true"/>
+    <delete dir="current" quiet="true"/>
+    <delete dir="dist" quiet="true"/>
+  </target>
 </project>
