@@ -37,6 +37,6 @@ if (!isset($this)) {http_response_code(403); exit;}
   </dl></dd>
 </dl>
 <h2><?=$this->text('syscheck')?></h2>
-<?php foreach ($checks as $check):?>
+<?foreach ($checks as $check):?>
 <p class="<?=$this->esc($check['class'])?>"><?=$this->esc($check['message'])?></p>
-<?php endforeach?>
+<?endforeach?>
