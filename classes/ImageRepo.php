@@ -52,7 +52,7 @@ class ImageRepo
     /**
      * Sorts an array of images.
      *
-     * @param array  $images  An array of images.
+     * @param array<Image>  $images  An array of images.
      * @param string $order   A sort order.
      *
      * @return array

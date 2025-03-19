@@ -78,6 +78,7 @@ class View
     {
         global $plugin_tx;
 
+        /** @psalm-suppress MixedArgumentTypeCoercion */
         return $this->escape(vsprintf($plugin_tx['slideshow'][$key], func_get_args()));
     }
 

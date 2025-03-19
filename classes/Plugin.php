@@ -63,7 +63,6 @@ class Plugin
                     $param = $arg = "\${$rp->getName()}";
                     if ($rp->isOptional()) {
                         $default = var_export($rp->getDefaultValue(), true);
-                        assert($default !== null);
                         $param .= " = " . $default;
                     }
                     $params[] = $param;
