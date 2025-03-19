@@ -42,7 +42,7 @@ class MainCommandTest extends TestCase
             $imageRepo,
             $this->view()
         );
-        Approvals::verifyHtml($sut(new FakeRequest(), "pics"));
+        Approvals::verifyHtml($sut(new FakeRequest(), "pics")->output());
     }
 
     public function testShowsNothingIfTooFewImages()
@@ -58,7 +58,7 @@ class MainCommandTest extends TestCase
             $imageRepo,
             $this->view()
         );
-        $this->assertSame("", $sut(new FakeRequest(), "pics"));
+        $this->assertSame("", $sut(new FakeRequest(), "pics")->output());
     }
 
     public function testWarnsAboutTooFewImagesIfAdmin()
@@ -76,7 +76,7 @@ class MainCommandTest extends TestCase
         );
         $this->assertStringContainsString(
             "The folder &quot;./userfiles/images/pics/&quot; has to contain two images at least!",
-            $sut(new FakeRequest(["admin" => true]), "pics")
+            $sut(new FakeRequest(["admin" => true]), "pics")->output()
         );
     }
 

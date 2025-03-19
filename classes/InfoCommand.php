@@ -21,6 +21,7 @@
 
 namespace Slideshow;
 
+use Plib\Response;
 use Plib\SystemChecker;
 use Plib\View;
 
@@ -42,13 +43,14 @@ class InfoCommand
         $this->systemChecker = $systemChecker;
     }
 
-    public function __invoke(): string
+    public function __invoke(): Response
     {
         $bag = array(
             'checks' => $this->getSystemChecks(),
             'version' => SLIDESHOW_VERSION
         );
-        return $this->view->render('info', $bag);
+        return Response::create($this->view->render('info', $bag))
+            ->withTitle($this->view->esc("Slideshow " . SLIDESHOW_VERSION));
     }
 
     /** @return list<array{class:string,message:string}> */

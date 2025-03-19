@@ -36,8 +36,7 @@ if (XH_wantsPluginAdministration("slideshow")) {
     $o .= print_plugin_admin("off");
     switch ($admin) {
         case "":
-            $title = "Slideshow " . SLIDESHOW_VERSION;
-            $o .= Dic::infoCommand()();
+            $o .= Dic::infoCommand()()();
             break;
         default:
             $o .= plugin_admin_common();

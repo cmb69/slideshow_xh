@@ -7,5 +7,5 @@ const SLIDESHOW_VERSION = "1.4-dev";
 
 function slideshow(string $path, string $options = ''): string
 {
-    return Dic::mainCommand()(Request::current(), $path, $options);
+    return Dic::mainCommand()(Request::current(), $path, $options)();
 }

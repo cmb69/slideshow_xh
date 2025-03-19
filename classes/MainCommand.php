@@ -22,6 +22,7 @@
 namespace Slideshow;
 
 use Plib\Request;
+use Plib\Response;
 use Plib\View;
 
 class MainCommand
@@ -51,16 +52,16 @@ class MainCommand
         $this->view = $view;
     }
 
-    public function __invoke(Request $request, string $path, string $options = ''): string
+    public function __invoke(Request $request, string $path, string $options = ''): Response
     {
         $opts = $this->getOptions($options);
         $path = $this->imageFolder . rtrim($path, '/') . '/';
         $imgs = $this->imageRepo->findAll($path, $opts['order']);
         if (count($imgs) < 2) {
             if ($request->admin()) {
-                return $this->view->message("fail", "message_insufficient_images", $path);
+                return Response::create($this->view->message("fail", "message_insufficient_images", $path));
             }
-            return "";
+            return Response::create();
         }
         $styles = $loading = [];
         foreach ($imgs as $i => $img) {
@@ -69,13 +70,13 @@ class MainCommand
                 : "position: absolute; display: none; width: 100%";
             $loading[] = $i === 0 ? "eager" : "lazy";
         }
-        return $this->view->render('slideshow', [
+        return Response::create($this->view->render('slideshow', [
             'imgs' => $imgs,
             'styles' => $styles,
             'loading' => $loading,
             'opts' => $opts,
             "script" => $this->pluginFolder . "slideshow.min.js",
-        ]);
+        ]));
     }
 
     private function getOptions(string $query): array
