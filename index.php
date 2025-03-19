@@ -1,8 +1,6 @@
 <?php
 
-use Plib\View;
-use Slideshow\ImageRepo;
-use Slideshow\MainCommand;
+use Slideshow\Dic;
 use Slideshow\Plugin;
 
 /**
@@ -15,17 +13,7 @@ use Slideshow\Plugin;
  */
 function slideshow($path, $options = '')
 {
-    global $pth, $plugin_cf, $plugin_tx;
-
-    $view = new View($pth["folder"]["plugins"] . "slideshow/views/", $plugin_tx["slideshow"]);
-    $command = new MainCommand(
-        $pth["folder"]["plugins"] . "slideshow/",
-        $pth["folder"]["images"],
-        $plugin_cf["slideshow"],
-        new ImageRepo(),
-        $view
-    );
-    return $command($path, $options);
+    return Dic::mainCommand()($path, $options);
 }
 
 Plugin::run();

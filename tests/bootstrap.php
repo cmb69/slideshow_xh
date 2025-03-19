@@ -27,6 +27,7 @@ require_once '../plib/classes/SystemChecker.php';
 require_once '../plib/classes/View.php';
 require_once '../plib/classes/FakeSystemChecker.php';
 
+require_once './classes/Dic.php';
 require_once './classes/Image.php';
 require_once './classes/ImageRepo.php';
 require_once './classes/MainCommand.php';

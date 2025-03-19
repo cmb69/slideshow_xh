@@ -21,11 +21,6 @@
 
 namespace Slideshow;
 
-use Plib\SystemChecker;
-use Plib\View;
-use ReflectionClass;
-use ReflectionMethod;
-
 class Plugin
 {
     public const VERSION = "1.3";
@@ -65,10 +60,9 @@ class Plugin
      */
     private static function info()
     {
-        global $title, $pth, $plugin_tx;
+        global $title;
 
         $title = 'Slideshow ' . self::VERSION;
-        $view = new View($pth["folder"]["plugins"] . "slideshow/views/", $plugin_tx["slideshow"]);
-        return (new InfoCommand($pth["folder"]["plugins"] . "slideshow/", $view, new SystemChecker()))();
+        return Dic::infoCommand()();
     }
 }
