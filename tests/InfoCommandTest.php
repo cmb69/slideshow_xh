@@ -21,6 +21,7 @@
 
 namespace Slideshow;
 
+use ApprovalTests\Approvals;
 use PHPUnit\Framework\TestCase;
 use Plib\FakeSystemChecker;
 use Plib\View;
@@ -48,10 +49,8 @@ class InfoCommandTest extends TestCase
             'default_pause' => '',
             'default_duration' => '',
         ];
-        $view = $this->createMock(View::class);
-        $view->expects($this->once())
-            ->method('render');
+        $view = new View("./views/", XH_includeVar("./languages/en.php", "plugin_tx")["slideshow"]);
         $sut = new InfoCommand($view, new FakeSystemChecker());
-        $sut();
+        Approvals::verifyHtml($sut());
     }
 }
