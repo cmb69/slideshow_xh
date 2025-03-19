@@ -1,7 +1,7 @@
 <?php
 
 use Plib\View;
-use Slideshow\Image;
+use Slideshow\Model\Image;
 
 if (!isset($this)) {http_response_code(403); exit;}
 

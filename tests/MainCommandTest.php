@@ -6,6 +6,8 @@ use ApprovalTests\Approvals;
 use PHPUnit\Framework\TestCase;
 use Plib\FakeRequest;
 use Plib\View;
+use Slideshow\Model\Image;
+use Slideshow\Model\ImageRepo;
 
 class MainCommandTest extends TestCase
 {

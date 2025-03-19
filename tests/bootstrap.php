@@ -12,9 +12,9 @@ require_once '../plib/classes/View.php';
 require_once '../plib/classes/FakeRequest.php';
 require_once '../plib/classes/FakeSystemChecker.php';
 
+require_once './classes/model/Image.php';
+require_once './classes/model/ImageRepo.php';
 require_once './classes/Dic.php';
-require_once './classes/Image.php';
-require_once './classes/ImageRepo.php';
 require_once './classes/MainCommand.php';
 require_once './classes/InfoCommand.php';
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Slideshow;
+namespace Slideshow\Model;
 
 use PHPUnit\Framework\TestCase;
 use org\bovigo\vfs\vfsStreamWrapper;

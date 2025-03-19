@@ -19,7 +19,7 @@
  * along with Slideshow_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Slideshow;
+namespace Slideshow\Model;
 
 class ImageRepo
 {

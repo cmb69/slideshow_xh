@@ -24,6 +24,7 @@ namespace Slideshow;
 use Plib\Request;
 use Plib\Response;
 use Plib\View;
+use Slideshow\Model\ImageRepo;
 
 class MainCommand
 {
@@ -43,8 +44,13 @@ class MainCommand
     private $view;
 
     /** @param array<string,string> $conf */
-    public function __construct(string $pluginFolder, string $imageFolder, array $conf, ImageRepo $imageRepo, View $view)
-    {
+    public function __construct(
+        string $pluginFolder,
+        string $imageFolder,
+        array $conf,
+        ImageRepo $imageRepo,
+        View $view
+    ) {
         $this->pluginFolder = $pluginFolder;
         $this->imageFolder = $imageFolder;
         $this->conf = $conf;

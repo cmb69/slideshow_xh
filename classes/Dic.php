@@ -23,6 +23,7 @@ namespace Slideshow;
 
 use Plib\SystemChecker;
 use Plib\View;
+use Slideshow\Model\ImageRepo;
 
 class Dic
 {
