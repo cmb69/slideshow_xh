@@ -9,18 +9,10 @@ use org\bovigo\vfs\vfsStream;
 
 class ImageRepoTest extends TestCase
 {
-    /**
-     * The foldername.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $foldername;
 
-    /**
-     * The test subject.
-     *
-     * @var Slideshow_Image
-     */
+    /** @var Image  */
     protected $subject;
 
     public function setUp(): void
@@ -35,12 +27,7 @@ class ImageRepoTest extends TestCase
         touch($this->foldername . 'foo.gif');
     }
 
-    /**
-     * Tests that four images are found.
-     *
-     * @return void
-     */
-    public function testFindsFourImages()
+    public function testFindsFourImages(): void
     {
         $images = (new ImageRepo())->findAll($this->foldername, 'fixed');
         $this->assertCount(4, $images);

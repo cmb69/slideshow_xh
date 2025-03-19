@@ -6,18 +6,10 @@ use PHPUnit\Framework\TestCase;
 
 class ImageTest extends TestCase
 {
-    /**
-     * The foldername.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $foldername;
 
-    /**
-     * The test subject.
-     *
-     * @var Slideshow_Image
-     */
+    /** @var Image */
     protected $subject;
 
     public function setUp(): void
@@ -25,22 +17,12 @@ class ImageTest extends TestCase
         $this->subject = new Image('./foo/bar.jpg');
     }
 
-    /**
-     * Tests that it has the proper filename.
-     *
-     * @return void
-     */
-    public function testHasProperFilename()
+    public function testHasProperFilename(): void
     {
         $this->assertEquals('./foo/bar.jpg', $this->subject->getFilename());
     }
 
-    /**
-     * Tests the it has the proper name.
-     *
-     * @return void
-     */
-    public function testHasProperName()
+    public function testHasProperName(): void
     {
         $this->assertEquals('bar', $this->subject->getName());
     }
