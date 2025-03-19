@@ -44,7 +44,8 @@ jobs:
         run: cd cmsimplexh/plugins/slideshow && composer install
       - name: phing sniff
         run: cd cmsimplexh/plugins/slideshow && PATH=tools:vendor/bin:$PATH phing sniff
-      - name: phing stan
+      - name: phing psalm
+        if: ${{matrix.version < '8.4'}}
         run: cd cmsimplexh/plugins/slideshow && PATH=tools:vendor/bin:$PATH phing psalm
       - name: phing test
         run: cd cmsimplexh/plugins/slideshow && PATH=tools:vendor/bin:$PATH phing unit-tests
