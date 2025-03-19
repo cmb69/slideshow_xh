@@ -26,14 +26,18 @@ use Plib\View;
 
 class InfoCommand
 {
+    /** @var string */
+    private $pluginFolder;
+
     /** @var View */
     private $view;
 
     /** @var SystemChecker */
     private $systemChecker;
 
-    public function __construct(View $view, SystemChecker $systemChecker)
+    public function __construct(string $pluginFolder, View $view, SystemChecker $systemChecker)
     {
+        $this->pluginFolder = $pluginFolder;
         $this->view = $view;
         $this->systemChecker = $systemChecker;
     }
@@ -52,8 +56,6 @@ class InfoCommand
      */
     private function getSystemChecks()
     {
-        global $pth;
-
         $phpVersion = '7.1.0';
         $xhVersion = '1.7.0';
         $checks = [[
@@ -65,7 +67,7 @@ class InfoCommand
         ]];
         $folders = [];
         foreach (array('config/', 'languages/') as $folder) {
-            $folders[] = $pth['folder']['plugins'] . 'slideshow/' . $folder;
+            $folders[] = $this->pluginFolder . $folder;
         }
         foreach ($folders as $folder) {
             $checks[] = [

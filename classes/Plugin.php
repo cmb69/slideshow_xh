@@ -69,6 +69,6 @@ class Plugin
 
         $title = 'Slideshow ' . self::VERSION;
         $view = new View($pth["folder"]["plugins"] . "slideshow/views/", $plugin_tx["slideshow"]);
-        return (new InfoCommand($view, new SystemChecker()))();
+        return (new InfoCommand($pth["folder"]["plugins"] . "slideshow/", $view, new SystemChecker()))();
     }
 }

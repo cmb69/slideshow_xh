@@ -30,14 +30,8 @@ class InfoCommandTest extends TestCase
 {
     public function testRendersView()
     {
-        global $pth;
-
-        $pth['folder'] = [
-            'images' => '',
-            'plugins' => '',
-        ];
         $view = new View("./views/", XH_includeVar("./languages/en.php", "plugin_tx")["slideshow"]);
-        $sut = new InfoCommand($view, new FakeSystemChecker());
+        $sut = new InfoCommand("./plugins/slideshow/", $view, new FakeSystemChecker());
         Approvals::verifyHtml($sut());
     }
 }

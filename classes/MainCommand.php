@@ -25,6 +25,12 @@ use Plib\View;
 
 class MainCommand
 {
+    /** @var string */
+    private $imageFolder;
+
+    /** @var string */
+    private $pluginFolder;
+
     /** @var array<string,string> */
     private $conf;
 
@@ -35,8 +41,10 @@ class MainCommand
     private $view;
 
     /** @param array<string,string> $conf */
-    public function __construct(array $conf, ImageRepo $imageRepo, View $view)
+    public function __construct(string $pluginFolder, string $imageFolder, array $conf, ImageRepo $imageRepo, View $view)
     {
+        $this->pluginFolder = $pluginFolder;
+        $this->imageFolder = $imageFolder;
         $this->conf = $conf;
         $this->imageRepo = $imageRepo;
         $this->view = $view;
@@ -48,10 +56,8 @@ class MainCommand
      */
     public function __invoke($path, $options = ''): string
     {
-        global $pth;
-
         $opts = $this->getOptions($options);
-        $path = $pth['folder']['images'] . rtrim($path, '/') . '/';
+        $path = $this->imageFolder . rtrim($path, '/') . '/';
         $imgs = $this->imageRepo->findAll($path, $opts['order']);
         if (count($imgs) < 2) {
             if (XH_ADM) { // @phpstan-ignore-line
@@ -99,13 +105,13 @@ class MainCommand
     /** @return void */
     private function includeJsOnce()
     {
-        global $bjs, $pth;
+        global $bjs;
         static $run = false;
 
         if ($run) {
             return;
         }
-        $bjs .= "<script src=\"{$pth['folder']['plugins']}slideshow/slideshow.min.js\"></script>";
+        $bjs .= "<script src=\"{$this->pluginFolder}slideshow.min.js\"></script>";
         $run = true;
     }
 }

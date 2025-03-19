@@ -34,6 +34,8 @@ class MainCommandTest extends TestCase
             ->willReturn([new Image("pics/foo.jpg"), new Image("pics/bar.jpg")]);
         $view = new View("./views/", XH_includeVar("./languages/en.php", "plugin_tx")["slideshow"]);
         $sut = new MainCommand(
+            "./plugins/slideshow/",
+            "./userfiles/images/",
             XH_includeVar("./config/config.php", "plugin_cf")["slideshow"],
             $imageRepo,
             $view
