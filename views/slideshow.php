@@ -1,8 +1,18 @@
 <?php
-if (!isset($this)) {
-    header('HTTP/1.0 404 Not Found');
-    exit;
-}
+
+use Plib\View;
+use Slideshow\Image;
+
+if (!isset($this)) {http_response_code(403); exit;}
+
+/**
+ * @var View $this
+ * @var string $script
+ * @var array<string,string> $opts
+ * @var list<Image> $imgs
+ * @var list<string> $styles
+ * @var list<string> $loading
+ */
 ?>
 
 <!-- Slideshow_XH slideshow -->

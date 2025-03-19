@@ -1,8 +1,14 @@
 <?php
-if (!isset($this)) {
-    header('HTTP/1.0 404 Not Found');
-    exit;
-}
+
+use Plib\View;
+
+if (!isset($this)) {http_response_code(403); exit;}
+
+/**
+ * @var View $this
+ * @var string $version
+ * @var list<array{class:string,message:string}> $checks
+ */
 ?>
 
 <!-- Slideshow_XH info -->
