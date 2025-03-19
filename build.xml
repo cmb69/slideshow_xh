@@ -76,7 +76,7 @@
       <arg value="--eol=lf"/>
       <arg value="--template=help/template.htm"/>
       <arg value="-Vlang=cs"/>
-      <arg line="-Vpagetitle=&quot;Uživatelský manuál&quot;"/>
+      <arg line="-Vpagetitle=&quot;U&amp;#x17E;ivatelsk&amp;#xFD; manu&amp;#xE1;l&quot;"/>
       <arg value="-o"/>
       <arg file="help/help_cs.htm"/>
       <arg file="README_CS.md"/>
