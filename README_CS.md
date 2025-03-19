@@ -18,7 +18,7 @@ Použití více prezentací s různými efekty a časováním je možné.
 ## Požadavky
 
 Slideshow\_XH je plugin pro CMSimple\_XH Omezení 1.7.0.
-It requires PHP Omezení 5.4.0.
+It requires PHP Omezení 7.1.0.
 
 ## Download
 

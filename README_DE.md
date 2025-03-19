@@ -20,7 +20,7 @@ und Zeitabläufen sind möglich.
 ## Voraussetzungen
 
 Slideshow\_XH ist ein Plugin für CMSimple\_XH ≥ 1.7.0.
-Es benötigt PHP ≥ 5.4.0.
+Es benötigt PHP ≥ 7.1.0.
 
 ## Download
 

@@ -55,7 +55,7 @@ class InfoCommand
         global $pth, $plugin_tx;
 
         $ptx = $plugin_tx['slideshow'];
-        $phpVersion = '5.4.0';
+        $phpVersion = '7.1.0';
         $xhVersion = '1.7.0';
         $checks = [[
             'class' => $this->systemChecker->checkPHPVersion($phpVersion),
