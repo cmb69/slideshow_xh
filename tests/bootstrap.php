@@ -37,4 +37,4 @@ require_once './classes/MainCommand.php';
 require_once './classes/InfoCommand.php';
 
 const CMSIMPLE_XH_VERSION = "CMSimple_XH 1.7.6";
-const SLIDESHOW_VERSION = "1.3";
+const SLIDESHOW_VERSION = "1.4-dev";
