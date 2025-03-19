@@ -37,7 +37,7 @@ Instalace se provádí stejně jako u ostatních pluginů CMSimple\_XH.
 1. Rozbalte distribuční balíček ve svém počítači.
 1. Nahrajte celý adresář `slideshow/` na váš server do adresáře `plugins/`
    CMSimple\_XH.
-1. Nastavte práva k zápisu pro podadresáře `config/` a `languages/`.
+1. Nastavte práva k zápisu pro podadresáře `config/`, `css/` a `languages/`.
 1. Zkontrolujte `Pluginy` → `Slideshow` v režimu administrace zda jsou všechny
    požadavky splněny.
 
@@ -54,6 +54,8 @@ Lokalizace se provádí v nastavení `Jazyk`.
 Můžete přeložit řetězce znaků ve vašem vlastním jazyce
 if there is no appropriate language file available,
 nebo je upravit podle vašich potřeb.
+
+The look of Slideshow_XH can be customized under `Stylesheet`.
 
 ## Použití
 

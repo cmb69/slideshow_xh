@@ -75,7 +75,7 @@ class InfoCommand
             'message' => $this->view->text("syscheck_plibversion", $plibVersion),
         ];
         $folders = [];
-        foreach (array('config/', 'languages/') as $folder) {
+        foreach (array('config/', 'css/', 'languages/') as $folder) {
             $folders[] = $this->pluginFolder . $folder;
         }
         foreach ($folders as $folder) {

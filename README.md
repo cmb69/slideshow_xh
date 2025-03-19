@@ -39,7 +39,7 @@ The installation is done as with many other CMSimple\_XH plugins.
 1. Upload the whole directory `slideshow/` to your server
    into the `plugins/` directory of CMSimple\_XH.
 1. Set write permissions for the subdirectories
-   `config/` and `languages/`.
+   `config/`, `css/` and `languages/`.
 1. Navigate to `Plugins` → `Slideshow` in the back-end
    to check if all requirements are fulfilled.
 
@@ -57,6 +57,8 @@ Localization is done under `Language`.
 You can translate the character strings to your own language,
 if there is no appropriate language file available,
 or customize them according to your needs.
+
+The look of Slideshow_XH can be customized under `Stylesheet`.
 
 ## Usage
 
