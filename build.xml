@@ -6,10 +6,6 @@
         <include name="*.js"/>
     </fileset>
 
-    <fileset id="unit-tests" dir="tests/unit">
-        <include name="*Test.php"/>
-    </fileset>
-
     <target name="help" description="lists available targets">
         <exec executable="phing" outputProperty="help">
             <arg value="-l"/>
@@ -33,11 +29,11 @@
         </exec>
     </target>
 
-    <target name="unit-tests" description="runs all unit tests">
+    <target name="test" description="runs all tests">
         <exec executable="phpunit" passthru="true" checkreturn="true">
             <arg value="--bootstrap"/>
-            <arg file="tests/unit/bootstrap.php"/>
-            <arg file="tests/unit"/>
+            <arg file="tests/bootstrap.php"/>
+            <arg file="tests"/>
         </exec>
     </target>
 
