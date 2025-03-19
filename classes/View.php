@@ -77,7 +77,6 @@ class View
     {
         global $plugin_tx;
 
-        /** @psalm-suppress MixedArgumentTypeCoercion */
         return $this->escape(vsprintf($plugin_tx['slideshow'][$key], func_get_args()));
     }
 
@@ -90,7 +89,6 @@ class View
         $this->template = "{$this->dir}$template.php";
         $this->data = $bag;
         unset($template, $bag);
-        /** @psalm-suppress UnresolvableInclude */
         include $this->template;
     }
 

@@ -48,8 +48,7 @@ class MainCommand
         $path = $pth['folder']['images'] . rtrim($path, '/') . '/';
         $imgs = $this->imageRepo->findAll($path, $opts['order']);
         if (count($imgs) < 2) {
-            /** @psalm-suppress UndefinedConstant */
-            if (XH_ADM) {
+            if (XH_ADM) { // @phpstan-ignore-line
                 echo XH_message('fail', $plugin_tx['slideshow']['message_insufficient_images'], $path);
             }
             return;

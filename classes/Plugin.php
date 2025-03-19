@@ -36,8 +36,7 @@ class Plugin
         global $admin, $o;
 
         self::registerUserFunctions();
-        /** @psalm-suppress UndefinedConstant */
-        if (XH_ADM) {
+        if (XH_ADM) { // @phpstan-ignore-line
             XH_registerStandardPluginMenuItems(false);
             if (XH_wantsPluginAdministration('slideshow')) {
                 $o .= print_plugin_admin('off')
@@ -48,11 +47,9 @@ class Plugin
 
     /**
      * @return void
-     * @psalm-suppress UnusedVariable
      */
     private static function registerUserFunctions()
     {
-        /** @psalm-suppress ArgumentTypeCoercion */
         $rc = new ReflectionClass("\\Slideshow\\Plugin");
         foreach ($rc->getMethods(ReflectionMethod::IS_PUBLIC) as $rm) {
             if (substr_compare($rm->getName(), "Command", -strlen("Command")) === 0) {
