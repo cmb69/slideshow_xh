@@ -25,14 +25,19 @@ use Plib\View;
 
 class MainCommand
 {
+    /** @var array<string,string> */
+    private $conf;
+
     /** @var ImageRepo */
     private $imageRepo;
 
     /** @var View */
     private $view;
 
-    public function __construct(ImageRepo $imageRepo, View $view)
+    /** @param array<string,string> $conf */
+    public function __construct(array $conf, ImageRepo $imageRepo, View $view)
     {
+        $this->conf = $conf;
         $this->imageRepo = $imageRepo;
         $this->view = $view;
     }
@@ -76,8 +81,6 @@ class MainCommand
      */
     private function getOptions($query)
     {
-        global $plugin_cf;
-
         $validOpts = ['order', 'effect', 'easing', 'delay', 'pause', 'duration'];
 
         $query = html_entity_decode($query, ENT_QUOTES | ENT_HTML5, 'UTF-8');
@@ -87,7 +90,7 @@ class MainCommand
         foreach ($validOpts as $key) {
             $res[$key] = isset($opts[$key]) && is_string($opts[$key]) && $opts[$key] !== ""
                 ? $opts[$key]
-                : $plugin_cf['slideshow']["default_$key"];
+                : $this->conf["default_$key"];
         }
 
         return $res;

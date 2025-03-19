@@ -30,19 +30,11 @@ class InfoCommandTest extends TestCase
 {
     public function testRendersView()
     {
-        global $pth, $plugin_cf;
+        global $pth;
 
         $pth['folder'] = [
             'images' => '',
             'plugins' => '',
-        ];
-        $plugin_cf['slideshow'] = [
-            'default_order' => '',
-            'default_effect' => '',
-            'default_easing' => '',
-            'default_delay' => '',
-            'default_pause' => '',
-            'default_duration' => '',
         ];
         $view = new View("./views/", XH_includeVar("./languages/en.php", "plugin_tx")["slideshow"]);
         $sut = new InfoCommand($view, new FakeSystemChecker());

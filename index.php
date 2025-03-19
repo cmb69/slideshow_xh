@@ -15,10 +15,10 @@ use Slideshow\Plugin;
  */
 function slideshow($path, $options = '')
 {
-    global $pth, $plugin_tx;
+    global $pth, $plugin_cf, $plugin_tx;
 
     $view = new View($pth["folder"]["plugins"] . "slideshow/views/", $plugin_tx["slideshow"]);
-    return (new MainCommand(new ImageRepo(), $view))($path, $options);
+    return (new MainCommand($plugin_cf["slideshow"], new ImageRepo(), $view))($path, $options);
 }
 
 Plugin::run();
