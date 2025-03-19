@@ -1,7 +1,8 @@
 <?php
 
 use Slideshow\Dic;
-use Slideshow\Plugin;
+
+const SLIDESHOW_VERSION = "1.3";
 
 /**
  * Returns the slideshow.
@@ -15,5 +16,3 @@ function slideshow($path, $options = '')
 {
     return Dic::mainCommand()($path, $options);
 }
-
-Plugin::run();
