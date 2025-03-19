@@ -51,11 +51,7 @@ class MainCommand
         $this->view = $view;
     }
 
-    /**
-     * @param string $path
-     * @param string $options
-     */
-    public function __invoke(Request $request, $path, $options = ''): string
+    public function __invoke(Request $request, string $path, string $options = ''): string
     {
         $opts = $this->getOptions($options);
         $path = $this->imageFolder . rtrim($path, '/') . '/';
@@ -82,11 +78,7 @@ class MainCommand
         ]);
     }
 
-    /**
-     * @param string $query
-     * @return array<string,string>
-     */
-    private function getOptions($query)
+    private function getOptions(string $query): array
     {
         $validOpts = ['order', 'effect', 'easing', 'delay', 'pause', 'duration'];
 

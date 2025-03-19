@@ -23,61 +23,35 @@ namespace Slideshow;
 
 class Image
 {
-    /**
-     * The filename.
-     *
-     * @var string
-     */
+    /** @var string */
     private $filename;
 
     /** @var string|null */
     private $webp;
 
-    /**
-     * Initializes a new instance.
-     *
-     * @param string $filename A filename.
-     * @param string|null $webp
-     */
-    public function __construct($filename, $webp = null)
+    public function __construct(string $filename, ?string $webp = null)
     {
         $this->filename = $filename;
         $this->webp = $webp;
     }
 
-    /**
-     * Returns the filename.
-     *
-     * @return string
-     */
-    public function getFilename()
+    public function getFilename(): string
     {
         return $this->filename;
     }
 
-    /**
-     * @return bool
-     */
-    public function hasWebp()
+    public function hasWebp(): bool
     {
         return $this->webp !== null;
     }
 
-    /**
-     * @return string
-     */
-    public function getWebp()
+    public function getWebp(): string
     {
         assert($this->webp !== null);
         return $this->webp;
     }
 
-    /**
-     * Returns the name (i.e. the basename without the extension).
-     *
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         $name = pathinfo($this->filename, PATHINFO_FILENAME);
         return $name;

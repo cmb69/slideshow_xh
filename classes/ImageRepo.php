@@ -24,14 +24,10 @@ namespace Slideshow;
 class ImageRepo
 {
     /**
-     * Returns the list of image files in the given folder.
-     *
-     * @param string $path    The path of the folder.
-     * @param string $order   `fixed'/`sorted'/`random'.
-     *
-     * @return array
+     * @param string $order `fixed'/`sorted'/`random'
+     * @return list<Image>
      */
-    public function findAll($path, $order)
+    public function findAll(string $path, string $order): array
     {
         $images = array();
         if (is_dir($path) && $dir = opendir($path)) {
@@ -50,14 +46,11 @@ class ImageRepo
     }
 
     /**
-     * Sorts an array of images.
-     *
-     * @param array<Image>  $images  An array of images.
-     * @param string $order   A sort order.
-     *
-     * @return array
+     * @param list<Image> $images
+     * @param string $order `fixed'/`sorted'/`random'
+     * @return list<Image>
      */
-    private function sort($images, $order)
+    private function sort(array $images, string $order): array
     {
         if ($order == 'random') {
             shuffle($images);
@@ -71,15 +64,7 @@ class ImageRepo
         return $images;
     }
 
-    /**
-     * Compares two image filenames.
-     *
-     * @param Image $image An image.
-     * @param Image $other Another image.
-     *
-     * @return int
-     */
-    protected function compareFilenames($image, $other)
+    protected function compareFilenames(Image $image, Image $other): int
     {
         return strnatcasecmp($image->getFilename(), $other->getFilename());
     }

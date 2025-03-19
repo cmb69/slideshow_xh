@@ -51,10 +51,8 @@ class InfoCommand
         return $this->view->render('info', $bag);
     }
 
-    /**
-     * @return array
-     */
-    private function getSystemChecks()
+    /** @return list<array{class:string,message:string}> */
+    private function getSystemChecks(): array
     {
         $phpVersion = '7.1.0';
         $xhVersion = '1.7.0';
