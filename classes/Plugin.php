@@ -46,7 +46,10 @@ class Plugin
         }
     }
 
-    /** @return void */
+    /**
+     * @return void
+     * @psalm-suppress UnusedVariable
+     */
     private static function registerUserFunctions()
     {
         /** @psalm-suppress ArgumentTypeCoercion */
