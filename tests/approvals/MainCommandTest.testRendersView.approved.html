@@ -5,9 +5,11 @@
      data-effect="fade" data-easing="easeInOut"
      data-delay="0" data-pause="2000" data-duration="1000">
   <picture style="position: static; display: block; z-index: 1; width: 100%">
+    <source srcset="pics/foo.webp" type="image/webp">
     <img src="pics/foo.jpg" alt="foo" loading="eager">
   </picture>
   <picture style="position: absolute; display: none; width: 100%">
+    <source srcset="pics/bar.avif" type="image/avif">
     <img src="pics/bar.jpg" alt="bar" loading="lazy">
   </picture>
 </div>

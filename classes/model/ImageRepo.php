@@ -37,7 +37,11 @@ class ImageRepo
                     if (!is_file($webp)) {
                         $webp = null;
                     }
-                    $images[] = new Image($path . $entry, $webp);
+                    $avif = $path . preg_replace('/\.[^.]+$/', ".avif", $entry);
+                    if (!is_file($avif)) {
+                        $avif = null;
+                    }
+                    $images[] = new Image($path . $entry, $webp, $avif);
                 }
             }
             closedir($dir);

@@ -22,6 +22,9 @@ if (!isset($this)) {http_response_code(403); exit;}
      data-delay="<?=$this->esc($opts['delay'])?>" data-pause="<?=$this->esc($opts['pause'])?>" data-duration="<?=$this->esc($opts['duration'])?>">
 <?foreach ($imgs as $i => $img):?>
   <picture style="<?=$this->esc($styles[$i])?>">
+<?  if ($img->hasAvif()):?>
+    <source srcset="<?=$this->esc($img->getAvif())?>" type="image/avif">
+<?  endif?>
 <?  if ($img->hasWebp()):?>
     <source srcset="<?=$this->esc($img->getWebp())?>" type="image/webp">
 <?  endif?>

@@ -76,8 +76,8 @@ Die Parameter haben die folgende Bedeutung:
   Alle JPEG, PNG und GIF Bilder in diesem Ordner
   werden für die Diashow verwendet;
   es müssen sich mindestens zwei Bilder in diesem Ordner befinden.
-  Existieren ebenfalls `*.webp` Bilder mit demselben Basisnamen wie ein erkanntes Bild,
-  werden diese statt dessen verwendet, falls der Browser WebP unterstützt.
+  Befinden sich ebenfalls `*.webp` und/oder `*.avif` Bilder mit demselben Basisnamen wie ein erkanntes Bild,
+  werden diese statt dessen verwendet, falls der Browser das Bildformat unterstützt.
   Alle Bilder sollten das gleiche Seitenverhältnis aufweisen.
 - `OPTIONEN`:
   Jede angegebene Option überschreibt die entsprechende Voreinstellung

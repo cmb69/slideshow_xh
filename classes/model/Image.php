@@ -26,13 +26,17 @@ class Image
     /** @var string */
     private $filename;
 
-    /** @var string|null */
+    /** @var ?string */
     private $webp;
 
-    public function __construct(string $filename, ?string $webp = null)
+    /** @var ?string */
+    private $avif;
+
+    public function __construct(string $filename, ?string $webp = null, ?string $avif = null)
     {
         $this->filename = $filename;
         $this->webp = $webp;
+        $this->avif = $avif;
     }
 
     public function getFilename(): string
@@ -49,6 +53,17 @@ class Image
     {
         assert($this->webp !== null);
         return $this->webp;
+    }
+
+    public function hasAvif(): bool
+    {
+        return $this->avif !== null;
+    }
+
+    public function getAvif(): string
+    {
+        assert($this->avif !== null);
+        return $this->avif;
     }
 
     public function getName(): string

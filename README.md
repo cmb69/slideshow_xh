@@ -75,8 +75,8 @@ The parameters have the following meaning:
   All JPEG, PNG and GIF images inside this folder
   will be used for the slideshow;
   there must be at least two images inside this folder.
-  If there are also `*.webp` images with the same basename as a recognized image,
-  this are used instead, if WebP is supported by the browser.
+  If there are also `*.webp` and/or `*.avif` images with the same basename as a recognized image,
+  these are used instead, if the image format is supported by the browser.
   All images should have the same aspect ratio.
 - `OPTIONS`:
   Any given option will override the respective value
