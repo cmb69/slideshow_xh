@@ -32,11 +32,11 @@ namespace Slideshow;
  */
 class SystemChecker
 {
-    const OK = 'xh_success';
-    
-    const WARN = 'xh_warning';
-    
-    const FAIL = 'xh_fail';
+    private const OK = 'xh_success';
+
+    private const WARN = 'xh_warning';
+
+    private const FAIL = 'xh_fail';
 
     /**
      * Checks the required PHP version.
@@ -51,7 +51,7 @@ class SystemChecker
             ? self::OK
             : self::FAIL;
     }
-    
+
     /**
      * Checks the required CMSimple_XH version.
      *

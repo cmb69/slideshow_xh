@@ -81,7 +81,7 @@ class MainCommand
 
         $validOpts = ['order', 'effect', 'easing', 'delay', 'pause', 'duration'];
 
-        $query = html_entity_decode($query, ENT_QUOTES|ENT_HTML5, 'UTF-8');
+        $query = html_entity_decode($query, ENT_QUOTES | ENT_HTML5, 'UTF-8');
         parse_str($query, $opts);
 
         $res = array();

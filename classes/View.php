@@ -23,7 +23,6 @@ namespace Slideshow;
 
 class View
 {
-
     /** @var string */
     private $dir;
 

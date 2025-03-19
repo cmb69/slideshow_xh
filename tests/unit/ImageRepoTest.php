@@ -61,7 +61,7 @@ class ImageRepoTest extends TestCase
      */
     public function testFindsFourImages()
     {
-        $images = (new ImageRepo)->findAll($this->foldername, 'fixed');
+        $images = (new ImageRepo())->findAll($this->foldername, 'fixed');
         $this->assertCount(4, $images);
         $this->assertContainsOnlyInstancesOf(Image::class, $images);
     }

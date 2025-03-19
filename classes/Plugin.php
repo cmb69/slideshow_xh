@@ -26,7 +26,7 @@ use ReflectionMethod;
 
 class Plugin
 {
-    const VERSION = "1.3";
+    public const VERSION = "1.3";
 
     /**
      * @return void
@@ -100,7 +100,7 @@ class Plugin
 
         $title = 'Slideshow ' . self::VERSION;
         ob_start();
-        (new InfoCommand(new View, new SystemChecker))();
+        (new InfoCommand(new View(), new SystemChecker()))();
         return ob_get_clean();
     }
 
@@ -115,7 +115,7 @@ class Plugin
     public static function slideshowCommand($path, $options = '')
     {
         ob_start();
-        (new MainCommand(new ImageRepo, new View))($path, $options);
+        (new MainCommand(new ImageRepo(), new View()))($path, $options);
         return ob_get_clean();
     }
 }
