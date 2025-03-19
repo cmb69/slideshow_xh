@@ -27,10 +27,38 @@ class ImageRepoTest extends TestCase
         touch($this->foldername . 'foo.gif');
     }
 
-    public function testFindsFourImages(): void
+    public function testFindsFixedImages(): void
     {
         $images = (new ImageRepo())->findAll($this->foldername, 'fixed');
-        $this->assertCount(4, $images);
-        $this->assertContainsOnlyInstancesOf(Image::class, $images);
+        $this->assertEquals([
+            new Image($this->foldername . "foo.gif"),
+            new Image($this->foldername . "foo.jpeg"),
+            new Image($this->foldername . "foo.jpg"),
+            new Image($this->foldername . "foo.png"),
+        ], $images);
+    }
+
+    public function testFindsSortedImages(): void
+    {
+        mt_srand(174);
+        $images = (new ImageRepo())->findAll($this->foldername, 'sorted');
+        $this->assertEquals([
+            new Image($this->foldername . "foo.jpeg"),
+            new Image($this->foldername . "foo.jpg"),
+            new Image($this->foldername . "foo.png"),
+            new Image($this->foldername . "foo.gif"),
+        ], $images);
+    }
+
+    public function testFindsRandomImages(): void
+    {
+        mt_srand(174);
+        $images = (new ImageRepo())->findAll($this->foldername, 'random');
+        $this->assertEquals([
+            new Image($this->foldername . "foo.gif"),
+            new Image($this->foldername . "foo.png"),
+            new Image($this->foldername . "foo.jpg"),
+            new Image($this->foldername . "foo.jpeg"),
+        ], $images);
     }
 }
