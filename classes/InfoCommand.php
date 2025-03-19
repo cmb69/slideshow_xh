@@ -52,17 +52,16 @@ class InfoCommand
      */
     private function getSystemChecks()
     {
-        global $pth, $plugin_tx;
+        global $pth;
 
-        $ptx = $plugin_tx['slideshow'];
         $phpVersion = '7.1.0';
         $xhVersion = '1.7.0';
         $checks = [[
             'class' => $this->systemChecker->checkVersion(PHP_VERSION, $phpVersion) ? "xh_success" : "xh_fail",
-            'message' => sprintf($ptx['syscheck_phpversion'], $phpVersion),
+            'message' => $this->view->text("syscheck_phpversion", $phpVersion),
         ], [
             'class' => $this->systemChecker->checkVersion(CMSIMPLE_XH_VERSION, "CMSimple_XH $xhVersion") ? "xh_success" : "xh_fail",
-            'message' => sprintf($ptx['syscheck_xhversion'], $xhVersion),
+            'message' => $this->view->text("syscheck_xhversion", $xhVersion),
         ]];
         $folders = [];
         foreach (array('config/', 'languages/') as $folder) {
@@ -71,7 +70,7 @@ class InfoCommand
         foreach ($folders as $folder) {
             $checks[] = [
                 'class' => $this->systemChecker->checkWritability($folder) ? "xh_success" : "xh_warning",
-                'message' => sprintf($ptx['syscheck_writable'], $folder),
+                'message' => $this->view->text("syscheck_writable", $folder),
             ];
         }
         return $checks;

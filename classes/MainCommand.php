@@ -43,14 +43,14 @@ class MainCommand
      */
     public function __invoke($path, $options = ''): string
     {
-        global $pth, $plugin_tx;
+        global $pth;
 
         $opts = $this->getOptions($options);
         $path = $pth['folder']['images'] . rtrim($path, '/') . '/';
         $imgs = $this->imageRepo->findAll($path, $opts['order']);
         if (count($imgs) < 2) {
             if (XH_ADM) { // @phpstan-ignore-line
-                return XH_message('fail', $plugin_tx['slideshow']['message_insufficient_images'], $path);
+                return $this->view->message("fail", "message_insufficient_images", $path);
             }
             return "";
         }

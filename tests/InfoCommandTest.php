@@ -30,16 +30,11 @@ class InfoCommandTest extends TestCase
 {
     public function testRendersView()
     {
-        global $pth, $plugin_cf, $plugin_tx;
+        global $pth, $plugin_cf;
 
         $pth['folder'] = [
             'images' => '',
             'plugins' => '',
-        ];
-        $plugin_tx['slideshow'] = [
-            'syscheck_phpversion' => '',
-            'syscheck_xhversion' => '',
-            'syscheck_writable' => '',
         ];
         $plugin_cf['slideshow'] = [
             'default_order' => '',
