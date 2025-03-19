@@ -65,7 +65,6 @@ class MainCommand
             }
             return "";
         }
-        $this->includeJsOnce();
         $styles = $loading = [];
         foreach ($imgs as $i => $img) {
             $styles[] = $i === 0
@@ -78,6 +77,7 @@ class MainCommand
             'styles' => $styles,
             'loading' => $loading,
             'opts' => $opts,
+            "script" => $this->pluginFolder . "slideshow.min.js",
         ]);
     }
 
@@ -100,18 +100,5 @@ class MainCommand
         }
 
         return $res;
-    }
-
-    /** @return void */
-    private function includeJsOnce()
-    {
-        global $bjs;
-        static $run = false;
-
-        if ($run) {
-            return;
-        }
-        $bjs .= "<script src=\"{$this->pluginFolder}slideshow.min.js\"></script>";
-        $run = true;
     }
 }

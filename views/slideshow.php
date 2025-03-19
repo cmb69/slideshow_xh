@@ -6,6 +6,7 @@ if (!isset($this)) {
 ?>
 
 <!-- Slideshow_XH slideshow -->
+<script type="module" src="<?=$this->esc($script)?>"></script>
 <div class="slideshow" style="position: relative; width: 100%; overflow: hidden"
         data-effect="<?=$this->esc($opts['effect'])?>" data-easing="<?=$this->esc($opts['easing'])?>"
         data-delay="<?=$this->esc($opts['delay'])?>" data-pause="<?=$this->esc($opts['pause'])?>" data-duration="<?=$this->esc($opts['duration'])?>">
