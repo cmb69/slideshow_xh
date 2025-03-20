@@ -3,7 +3,7 @@
 use Plib\Request;
 use Slideshow\Dic;
 
-const SLIDESHOW_VERSION = "1.4-dev";
+const SLIDESHOW_VERSION = "1.4";
 
 function slideshow(string $path, string $options = ''): string
 {

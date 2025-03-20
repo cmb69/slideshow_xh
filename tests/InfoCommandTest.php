@@ -14,7 +14,7 @@ class InfoCommandTest extends TestCase
         $view = new View("./views/", XH_includeVar("./languages/en.php", "plugin_tx")["slideshow"]);
         $sut = new InfoCommand("./plugins/slideshow/", $view, new FakeSystemChecker());
         $response = $sut();
-        $this->assertSame("Slideshow 1.4-dev", $response->title());
+        $this->assertSame("Slideshow 1.4", $response->title());
         Approvals::verifyHtml($response->output());
     }
 }
