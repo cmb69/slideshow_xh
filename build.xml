@@ -111,6 +111,7 @@
     </move>
     <move todir="dist">
       <fileset dir="export">
+        <exclude name=".github/**"/>
         <exclude name=".phive/**"/>
         <exclude name="help/template.htm"/>
         <exclude name="tests/**"/>
@@ -118,8 +119,8 @@
         <exclude name="README*.md"/>
         <exclude name="build.xml"/>
         <exclude name="composer.*"/>
-        <exclude name="coverage.xml"/>
         <exclude name="phpstan.*"/>
+        <exclude name="phpunit.xml"/>
         <exclude name="teplad.xml"/>
       </fileset>
     </move>
