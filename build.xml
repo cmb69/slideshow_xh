@@ -41,10 +41,12 @@
     </exec>
   </target>
 
-  <target name="ts-check" description="">
+  <target name="js" description="run jshint and tsc">
+    <exec executable="jshint" passthru="true" checkreturn="true">
+      <arg line="slideshow.min.js"/>
+    </exec>
     <exec executable="tsc" passthru="true" checkreturn="true">
-      <arg line="--allowJs --lib es5,dom --noEmit"/>
-      <arg file="slideshow.min.js"/>
+      <arg line="--checkJs --lib ES6,DOM --noEmit slideshow.min.js"/>
     </exec>
   </target>
 
@@ -112,6 +114,7 @@
         <exclude name=".phive/**"/>
         <exclude name="help/template.htm"/>
         <exclude name="tests/**"/>
+        <exclude name=".jshintrc"/>
         <exclude name="README*.md"/>
         <exclude name="build.xml"/>
         <exclude name="composer.*"/>
