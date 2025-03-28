@@ -24,6 +24,7 @@ namespace Slideshow;
 use Plib\SystemChecker;
 use Plib\View;
 use Slideshow\Model\ImageRepo;
+use Slideshow\Model\MetaRepo;
 
 class Dic
 {
@@ -36,6 +37,7 @@ class Dic
             $pth["folder"]["images"],
             $plugin_cf["slideshow"],
             new ImageRepo(),
+            new MetaRepo(),
             self::view()
         );
     }

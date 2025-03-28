@@ -26,6 +26,7 @@ use Plib\Response;
 use Plib\View;
 use Slideshow\Model\Image;
 use Slideshow\Model\ImageRepo;
+use Slideshow\Model\MetaRepo;
 
 class MainCommand
 {
@@ -41,6 +42,9 @@ class MainCommand
     /** @var ImageRepo */
     private $imageRepo;
 
+    /** @var MetaRepo */
+    private $metaRepo;
+
     /** @var View */
     private $view;
 
@@ -50,12 +54,14 @@ class MainCommand
         string $imageFolder,
         array $conf,
         ImageRepo $imageRepo,
+        MetaRepo $metaRepo,
         View $view
     ) {
         $this->pluginFolder = $pluginFolder;
         $this->imageFolder = $imageFolder;
         $this->conf = $conf;
         $this->imageRepo = $imageRepo;
+        $this->metaRepo = $metaRepo;
         $this->view = $view;
     }
 
@@ -70,8 +76,9 @@ class MainCommand
             }
             return Response::create();
         }
+        $meta = $this->metaRepo->findAll($path);
         return Response::create($this->view->render('slideshow', [
-            "images" => $this->imageData($imgs),
+            "images" => $this->imageData($imgs, $meta),
             "effect" => $options["effect"],
             "easing" => $options["easing"],
             "delay" => $options["delay"],
@@ -100,16 +107,17 @@ class MainCommand
 
     /**
      * @param list<Image> $images
+     * @param array<string,string> $meta
      * @return list<object{filename:string,name:string,webp:string,avif:string,style:string,loading:string}>
      */
-    private function imageData(array $images): array
+    private function imageData(array $images, array $meta): array
     {
         $res = [];
         $first = true;
         foreach ($images as $image) {
             $res[] = (object) [
                 "filename" => $image->getFilename(),
-                "name" => $image->getName(),
+                "name" => $meta[$image->getName()] ?? $image->getName(),
                 "webp" => $image->hasWebp() ? $image->getWebp() : "",
                 "avif" => $image->hasAvif() ? $image->getAvif() : "",
                 "style" => $first

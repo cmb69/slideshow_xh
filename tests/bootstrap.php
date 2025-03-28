@@ -14,6 +14,7 @@ require_once '../plib/classes/FakeSystemChecker.php';
 
 require_once './classes/model/Image.php';
 require_once './classes/model/ImageRepo.php';
+require_once './classes/model/MetaRepo.php';
 require_once './classes/Dic.php';
 require_once './classes/MainCommand.php';
 require_once './classes/InfoCommand.php';

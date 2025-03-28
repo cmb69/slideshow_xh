@@ -8,6 +8,7 @@ use Plib\FakeRequest;
 use Plib\View;
 use Slideshow\Model\Image;
 use Slideshow\Model\ImageRepo;
+use Slideshow\Model\MetaRepo;
 
 class MainCommandTest extends TestCase
 {
@@ -18,11 +19,17 @@ class MainCommandTest extends TestCase
             new Image("pics/foo.jpg", "pics/foo.webp"),
             new Image("pics/bar.jpg", null, "pics/bar.avif"),
         ]);
+        $metaRepo = $this->createStub(MetaRepo::class);
+        $metaRepo->method("findAll")->willReturn([
+            "foo" => "foo description",
+            "bar" => "bar description",
+        ]);
         $sut = new MainCommand(
             "./plugins/slideshow/",
             "./userfiles/images/",
             $this->conf(),
             $imageRepo,
+            $metaRepo,
             $this->view()
         );
         Approvals::verifyHtml($sut(new FakeRequest(), "pics")->output());
@@ -34,11 +41,13 @@ class MainCommandTest extends TestCase
         $imageRepo->method('findAll')->willReturn([
             new Image("pics/foo.jpg"),
         ]);
+        $metaRepo = $this->createStub(MetaRepo::class);
         $sut = new MainCommand(
             "./plugins/slideshow/",
             "./userfiles/images/",
             $this->conf(),
             $imageRepo,
+            $metaRepo,
             $this->view()
         );
         $this->assertSame("", $sut(new FakeRequest(), "pics")->output());
@@ -50,11 +59,13 @@ class MainCommandTest extends TestCase
         $imageRepo->method('findAll')->willReturn([
             new Image("pics/foo.jpg"),
         ]);
+        $metaRepo = $this->createStub(MetaRepo::class);
         $sut = new MainCommand(
             "./plugins/slideshow/",
             "./userfiles/images/",
             $this->conf(),
             $imageRepo,
+            $metaRepo,
             $this->view()
         );
         $this->assertStringContainsString(
