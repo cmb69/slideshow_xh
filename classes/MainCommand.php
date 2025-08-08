@@ -77,7 +77,7 @@ class MainCommand
             "delay" => $options["delay"],
             "pause" => $options["pause"],
             "duration" => $options["duration"],
-            "script" => $this->pluginFolder . "slideshow.min.js",
+            "script" => $this->script(),
         ]));
     }
 
@@ -120,5 +120,14 @@ class MainCommand
             $first = false;
         }
         return $res;
+    }
+
+    private function script(): string
+    {
+        $filename = $this->pluginFolder . "slideshow.min.js";
+        if (!is_file($filename)) {
+            $filename = $this->pluginFolder . "slideshow.js";
+        }
+        return $filename;
     }
 }

@@ -2,9 +2,7 @@
 
 <project name="Slideshow" default="help">
 
-  <fileset id="js-sources" dir=".">
-    <include name="*.js"/>
-  </fileset>
+  <property name="dir" value="${project.basedir}"/>
 
   <target name="help" description="lists available targets">
     <exec executable="phing" outputProperty="help">
@@ -43,10 +41,16 @@
 
   <target name="js" description="run jshint and tsc">
     <exec executable="jshint" passthru="true" checkreturn="true">
-      <arg line="slideshow.min.js"/>
+      <arg line="slideshow.js"/>
     </exec>
     <exec executable="tsc" passthru="true" checkreturn="true">
-      <arg line="--checkJs --lib ES6,DOM --noEmit slideshow.min.js"/>
+      <arg line="--checkJs --lib ES6,DOM --noEmit slideshow.js"/>
+    </exec>
+  </target>
+
+  <target name="minify" description="minifies JS">
+    <exec executable="uglifyjs" checkreturn="true" dir="${dir}">
+      <arg line="slideshow.js --module --compress --mangle --output slideshow.min.js"/>
     </exec>
   </target>
 
@@ -92,13 +96,9 @@
     </exec>
     <unzip file="export.zip" todir="export"/>
     <delete file="export.zip"/>
-    <exec executable="uglifyjs" checkreturn="true">
-      <arg file="export/slideshow.min.js"/>
-      <arg value="--compress"/>
-      <arg value="--mangle"/>
-      <arg value="--output"/>
-      <arg file="export/slideshow.min.js"/>
-    </exec>
+    <phingcall target="minify">
+      <property name="dir" value="export/"/>
+    </phingcall>
     <move todir="dist">
       <fileset dir="export">
         <include name="views/*.php"/>
