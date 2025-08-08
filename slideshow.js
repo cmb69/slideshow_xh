@@ -39,11 +39,11 @@ var MAX_DELTA_T = 10 * FRAME_DURATION;
  * @constructor
  *
  * @param {HTMLElement} element
- * @param {String} effect
- * @param {String} easing
- * @param {Number} delay
- * @param {Number} pause
- * @param {Number} duration
+ * @param {string} effect
+ * @param {string} easing
+ * @param {number} delay
+ * @param {number} pause
+ * @param {number} duration
  */
 var Show = function(element, effect, easing, delay, pause, duration) {
     this.elt = element;
@@ -159,7 +159,7 @@ Show.prototype.animate = function() {
 /**
  * Renders the animation.
  *
- * @param   {Number} deltaT
+ * @param   {number} deltaT
  * @returns {void}
  */
 Show.prototype.render = function(deltaT) {
@@ -214,7 +214,7 @@ Fader.prototype.prepare = function() {
  *
  * @public
  *
- * @param   {Number} progress
+ * @param   {number} progress
  * @returns {void}
  */
 Fader.prototype.step = function(progress) {
@@ -255,7 +255,7 @@ Slider.prototype.prepare = function() {
  *
  * @public
  *
- * @param   {Number} progress
+ * @param   {number} progress
  * @returns {void}
  */
 Slider.prototype.step = function(progress) {
@@ -300,7 +300,7 @@ Curtain.prototype.prepare = function() {
  *
  * @public
  *
- * @param   {Number} progress
+ * @param   {number} progress
  * @returns {void}
  */
 Curtain.prototype.step = function(progress) {
@@ -346,7 +346,7 @@ Random.prototype.prepare = function() {
  *
  * @public
  *
- * @param   {Number} progress
+ * @param   {number} progress
  * @returns {void}
  */
 Random.prototype.step = function(progress) {
@@ -365,8 +365,8 @@ var easings = {};
 /**
  * Returns a linear easing value.
  *
- * @param   {Number} progress
- * @returns {Number}
+ * @param   {number} progress
+ * @returns {number}
  */
 easings.linear = function(progress) {
     return progress;
@@ -376,8 +376,8 @@ easings.linear = function(progress) {
 /**
  * Returns an ease in easing value.
  *
- * @param   {Number} progress
- * @returns {Number}
+ * @param   {number} progress
+ * @returns {number}
  */
 easings.easeIn = function(progress) {
     return progress * progress;
@@ -387,8 +387,8 @@ easings.easeIn = function(progress) {
 /**
  * Returns an ease out easing value.
  *
- * @param   {Number} progress
- * @returns {Number}
+ * @param   {number} progress
+ * @returns {number}
  */
 easings.easeOut = function(progress) {
     return - progress * (progress - 2);
@@ -398,8 +398,8 @@ easings.easeOut = function(progress) {
 /**
  * Returns an ease in-out easing value.
  *
- * @param   {Number} progress
- * @returns {Number}
+ * @param   {number} progress
+ * @returns {number}
  */
 easings.easeInOut = function(progress) {
     progress *= 2;
