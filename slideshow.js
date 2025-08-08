@@ -49,16 +49,16 @@ var Show = function(element, effect, easing, delay, pause, duration) {
     this.elt = element;
     switch (effect) {
     case 'fade':
-        this.effect = new Fader(this);
+        this.effect = fader(this);
         break;
     case 'slide':
-        this.effect = new Slider(this);
+        this.effect = slider(this);
         break;
     case 'curtain':
-        this.effect = new Curtain(this);
+        this.effect = curtain(this);
         break;
     default:
-        this.effect = new Random(this);
+        this.effect = random(this);
         break;
     }
     this.easing = easings[easing] ? easings[easing] : easings.easeInOut;
@@ -185,174 +185,94 @@ Show.prototype.render = function(deltaT) {
 };
 
 
-/**
- * The `fade' effect class.
- *
- * @constructor
- *
- * @param {Show} show
- */
-var Fader = function(show) {
-    this.show = show;
-};
+/** @param {Show} show */
+function fader(show) {
+    return {
+        prepare: prepare,
+        step: step
+    };
 
+    function prepare() {
+        show.current.style.opacity = "0";
+    }
 
-/**
- * Prepares the next image.
- *
- * @public
- *
- * @returns {void}
- */
-Fader.prototype.prepare = function() {
-    this.show.current.style.opacity = "0";
-};
+    /** @param {number} progress */
+    function step(progress) {
+        show.current.style.opacity = progress.toString();
+    }
+}
 
+/** @param {Show} show */
+function slider(show) {
+    return {
+        prepare: prepare,
+        step: step
+    };
 
-/**
- * Executes the next animation step.
- *
- * @public
- *
- * @param   {number} progress
- * @returns {void}
- */
-Fader.prototype.step = function(progress) {
-    this.show.current.style.opacity = progress.toString();
-};
+    function prepare() {
+        var img;
 
+        show.getPrevious().style.left = "0px";
+        img = show.current;
+        img.style.left = - img.offsetWidth + "px";
+    }
 
-/**
- * The `slide' effect class.
- *
- * @constructor
- *
- * @param {Show} show
- */
-var Slider = function(show) {
-    this.show = show;
-};
+    /** @param {number} progress */
+    function step(progress) {
+        var img;
 
+        img = show.getPrevious();
+        img.style.left = progress * img.offsetWidth + "px";
+        img = show.current;
+        img.style.left = (progress - 1) * img.offsetWidth + "px";
+    }
+}
 
-/**
- * Prepares the next image.
- *
- * @public
- *
- * @returns {void}
- */
-Slider.prototype.prepare = function() {
-    var img;
+/** @param {Show} show */
+function curtain(show) {
+    return {
+        prepare: prepare,
+        step: step
+    };
 
-    this.show.getPrevious().style.left = "0px";
-    img = this.show.current;
-    img.style.left = - img.offsetWidth + "px";
-};
+    function prepare() {
+        var img;
 
+        img = show.current;
+        img.style.top = -img.offsetHeight + "px";
+    }
 
-/**
- * Executes the next animation step.
- *
- * @public
- *
- * @param   {number} progress
- * @returns {void}
- */
-Slider.prototype.step = function(progress) {
-    var img;
+    /** @param {number} progress */
+    function step(progress) {
+        var img;
 
-    img = this.show.getPrevious();
-    img.style.left = progress * img.offsetWidth + "px";
-    img = this.show.current;
-    img.style.left = (progress - 1) * img.offsetWidth + "px";
-};
+        img = show.current;
+        img.style.top = (progress - 1) * img.offsetHeight + "px";
+    }
+}
 
+/** @param {Show} show */
+function random(show) {
+    var effects = [fader(show),
+                    slider(show),
+                    curtain(show)];
+    var effect = -1;
 
-/**
- * The `curtain' effect class.
- *
- * @constructor
- *
- * @param {Show} show
- */
-var Curtain = function(show) {
-    this.show = show;
-};
+    return {
+        prepare: prepare,
+        step: step
+    };
 
+    function prepare() {
+        effect = Math.floor(3 * Math.random());
+        effects[effect].prepare();
+    }
 
-/**
- * Prepares the next image.
- *
- * @public
- *
- * @returns {void}
- */
-Curtain.prototype.prepare = function() {
-    var img;
-
-    img = this.show.current;
-    img.style.top = -img.offsetHeight + "px";
-};
-
-
-/**
- * Executes the next animation step.
- *
- * @public
- *
- * @param   {number} progress
- * @returns {void}
- */
-Curtain.prototype.step = function(progress) {
-    var img;
-
-    img = this.show.current;
-    img.style.top = (progress - 1) * img.offsetHeight + "px";
-};
-
-
-/**
- * The `random' effect.
- *
- * Switch randomly between all available effects.
- *
- * @constructor
- *
- * @param   {Show} show
- * @returns {void}
- */
-var Random = function(show) {
-    this.show = show;
-    this.effects = [new Fader(show),
-                    new Slider(show),
-                    new Curtain(show)];
-    this.effect = -1;
-};
-
-/**
- * Prepares the next image.
- *
- * @public
- *
- * @returns {void}
- */
-Random.prototype.prepare = function() {
-    this.effect = Math.floor(3 * Math.random());
-    this.effects[this.effect].prepare();
-};
-
-/**
- * Executes the next animation step.
- *
- * @public
- *
- * @param   {number} progress
- * @returns {void}
- */
-Random.prototype.step = function(progress) {
-    return this.effects[this.effect].step(progress);
-};
-
+    /** @param {number} progress */
+    function step(progress) {
+        return effects[effect].step(progress);
+    }
+}
 
 /**
  * The easing functions' namespace.
