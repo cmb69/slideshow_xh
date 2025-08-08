@@ -18,7 +18,7 @@ if (!isset($this)) {http_response_code(403); exit;}
 
 <!-- Slideshow_XH slideshow -->
 <script type="module" src="<?=$this->esc($script)?>"></script>
-<div class="slideshow" style="position: relative; width: 100%; overflow: hidden"
+<div class="slideshow" style="position: relative; width: 100%; height: auto; overflow: hidden"
      data-effect="<?=$this->esc($effect)?>" data-easing="<?=$this->esc($easing)?>"
      data-delay="<?=$this->esc($delay)?>" data-pause="<?=$this->esc($pause)?>" data-duration="<?=$this->esc($duration)?>">
 <?foreach ($images as $image):?>
@@ -29,7 +29,7 @@ if (!isset($this)) {http_response_code(403); exit;}
 <?  if ($image->webp):?>
     <source srcset="<?=$this->esc($image->webp)?>" type="image/webp">
 <?  endif?>
-    <img src="<?=$this->esc($image->filename)?>" alt="<?=$this->esc($image->name)?>" loading="<?=$this->esc($image->loading)?>">
+    <img src="<?=$this->esc($image->filename)?>" alt="<?=$this->esc($image->name)?>" loading="<?=$this->esc($image->loading)?>" style="width: 100%">
   </picture>
 <?endforeach?>
 </div>
