@@ -44,7 +44,7 @@
       <arg line="slideshow.js"/>
     </exec>
     <exec executable="tsc" passthru="true" checkreturn="true">
-      <arg line="--noEmit --checkJs --lib es5,dom slideshow.js"/>
+      <arg line="--noEmit --checkJs --lib es5,dom --noImplicitAny slideshow.js"/>
     </exec>
   </target>
 

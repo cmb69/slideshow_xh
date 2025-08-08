@@ -358,6 +358,7 @@ Random.prototype.step = function(progress) {
  * The easing functions' namespace.
  *
  * @see http://gizma.com/easing/
+ * @type {Object<string,function(number):number>}
  */
 var easings = {};
 
