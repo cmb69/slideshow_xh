@@ -411,18 +411,13 @@ easings.easeInOut = function(progress) {
     }
 };
 
-(function () {
-    /** @type {NodeListOf<HTMLElement>} */
-    var slideshows = document.querySelectorAll('.slideshow');
-    for (var i = 0; i < slideshows.length; i++) {
-        var show = slideshows[i];
-        new Show(
-            show,
-            show.getAttribute('data-effect') || "",
-            show.getAttribute('data-easing') || "",
-            +(show.getAttribute('data-delay') || ""),
-            +(show.getAttribute('data-pause') || ""),
-            +(show.getAttribute('data-duration') || "")
-        );
-    }
-})();
+/** @type {NodeListOf<HTMLElement>} */ (document.querySelectorAll('.slideshow')).forEach(function (show) {
+    new Show(
+        show,
+        show.getAttribute('data-effect') || "",
+        show.getAttribute('data-easing') || "",
+        +(show.getAttribute('data-delay') || ""),
+        +(show.getAttribute('data-pause') || ""),
+        +(show.getAttribute('data-duration') || "")
+    );
+});
