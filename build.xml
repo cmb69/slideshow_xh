@@ -31,20 +31,20 @@
     <exec executable="phpunit" passthru="true" checkreturn="true"/>
   </target>
 
-  <target name="check" description="runs all checks" depends="sniff,stan,test"/>
-
-  <target name="coverage" description="generates coverage report">
-    <exec executable="phpunit" passthru="true" checkreturn="true">
-      <arg line="--coverage-html coverage"/>
-    </exec>
-  </target>
-
   <target name="js" description="run jshint and tsc">
     <exec executable="jshint" passthru="true" checkreturn="true">
       <arg line="slideshow.js"/>
     </exec>
     <exec executable="tsc" passthru="true" checkreturn="true">
       <arg line="--noEmit --checkJs --lib es5,dom --noImplicitAny slideshow.js"/>
+    </exec>
+  </target>
+
+  <target name="check" description="runs all checks" depends="sniff,stan,test,js"/>
+
+  <target name="coverage" description="generates coverage report">
+    <exec executable="phpunit" passthru="true" checkreturn="true">
+      <arg line="--coverage-html coverage"/>
     </exec>
   </target>
 
