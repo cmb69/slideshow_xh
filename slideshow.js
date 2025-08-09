@@ -101,10 +101,7 @@ function widget(element, effect, easingName, delay, pause, duration) {
 
     /** @return {HTMLPictureElement} */
     function next() {
-        currentIndex++;
-        if (currentIndex >= pictures.length - 1) {
-            currentIndex = 0;
-        }
+        currentIndex = (currentIndex + 1) % (pictures.length - 1);
         current = pictures[currentIndex];
         return current;
     }
