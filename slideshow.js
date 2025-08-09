@@ -61,7 +61,7 @@ var Show = function(element, effect, easing, delay, pause, duration) {
         this.effect = random(this);
         break;
     }
-    this.easing = easings[easing] ? easings[easing] : easings.easeInOut;
+    this.easing = easingByName(easing);
     this.pause = pause;
     this.duration = duration;
 
@@ -275,62 +275,44 @@ function random(show) {
 }
 
 /**
- * The easing functions' namespace.
- *
  * @see http://gizma.com/easing/
- * @type {Object<string,function(number):number>}
+ * @param {string} name
  */
-var easings = {};
+function easingByName(name) {
+    return {
+        linear: linear,
+        easeIn: easeIn,
+        easeOut: easeOut,
+        easeInOut: easeInOut
+    }[name] || easeInOut;
 
-
-/**
- * Returns a linear easing value.
- *
- * @param   {number} progress
- * @returns {number}
- */
-easings.linear = function(progress) {
-    return progress;
-};
-
-
-/**
- * Returns an ease in easing value.
- *
- * @param   {number} progress
- * @returns {number}
- */
-easings.easeIn = function(progress) {
-    return progress * progress;
-};
-
-
-/**
- * Returns an ease out easing value.
- *
- * @param   {number} progress
- * @returns {number}
- */
-easings.easeOut = function(progress) {
-    return - progress * (progress - 2);
-};
-
-
-/**
- * Returns an ease in-out easing value.
- *
- * @param   {number} progress
- * @returns {number}
- */
-easings.easeInOut = function(progress) {
-    progress *= 2;
-    if (progress < 1) {
-        return progress * progress / 2;
-    } else {
-        progress--;
-        return -1/2 * (progress * (progress - 2) - 1);
+    /** @param {number} progress */
+    function linear(progress) {
+        return progress;
     }
-};
+
+    /** @param {number} progress */
+    function easeIn(progress) {
+        return progress * progress;
+    }
+
+    /** @param {number} progress */
+    function easeOut(progress) {
+        return - progress * (progress - 2);
+    }
+
+    /** @param {number} progress */
+    function easeInOut(progress) {
+        progress *= 2;
+        if (progress < 1) {
+            return progress * progress / 2;
+        } else {
+            progress--;
+            return -1/2 * (progress * (progress - 2) - 1);
+        }
+    }
+}
+
 
 /** @type {NodeListOf<HTMLElement>} */ (document.querySelectorAll('.slideshow')).forEach(function (show) {
     new Show(
