@@ -21,6 +21,11 @@
 // @ts-check
 
 /**
+ * @typedef {{getCurrent: () => HTMLPictureElement;getPrevious: () => HTMLPictureElement;}} Show
+ * @typedef {{prepare: () => void;step: (progress: number) => void;}} Effect
+ */
+
+/**
  * The interval in milliseconds between two animation frames.
  */
 var FRAME_DURATION = 1000 / 50;
@@ -34,156 +39,134 @@ var MAX_DELTA_T = 10 * FRAME_DURATION;
 
 
 /**
- * Main slideshow class.
- *
- * @constructor
- *
  * @param {HTMLElement} element
  * @param {string} effect
- * @param {string} easing
+ * @param {string} easingName
  * @param {number} delay
  * @param {number} pause
  * @param {number} duration
  */
-var Show = function(element, effect, easing, delay, pause, duration) {
-    this.elt = element;
+function widget(element, effect, easingName, delay, pause, duration) {
+    var self = {
+        getCurrent: getCurrent,
+        getPrevious: getPrevious
+    };
+    var /** @type {Effect} */ effectF;
     switch (effect) {
     case 'fade':
-        this.effect = fader(this);
+        effectF = fader(self);
         break;
     case 'slide':
-        this.effect = slider(this);
+        effectF = slider(self);
         break;
     case 'curtain':
-        this.effect = curtain(this);
+        effectF = curtain(self);
         break;
     default:
-        this.effect = random(this);
+        effectF = random(self);
         break;
     }
-    this.easing = easingByName(easing);
-    this.pause = pause;
-    this.duration = duration;
+    var easing = easingByName(easingName);
 
-    this.pictures = this.elt.getElementsByTagName("picture");
-    this.currentIndex = 1;
-    this.current = this.pictures[this.currentIndex];
-    this.init();
-    this.running = 0;
-    this.lastFrame = null;
-    setTimeout(this.animate.bind(this), delay + pause);
-};
+    var pictures = element.getElementsByTagName("picture");
+    var currentIndex = 1;
+    var current = pictures[currentIndex];
+    init();
+    var running = 0;
+    var /** @type {?number} */ lastFrame = null;
+    setTimeout(animate, delay + pause);
 
-
-/**
- * Returns the previous `image' element.
- *
- * @returns {HTMLPictureElement}
- */
-Show.prototype.getPrevious = function() {
-    var i = this.currentIndex - 1;
-    
-    if (i < 0) {
-        i += this.pictures.length - 1;
+    function getCurrent() {
+        return current;
     }
-    return this.pictures[i];
-};
 
-
-/**
- * Returns the next `image' element.
- *
- * @returns {HTMLPictureElement}
- */
-Show.prototype.next = function() {
-    this.currentIndex++;
-    if (this.currentIndex >= this.pictures.length - 1) {
-        this.currentIndex = 0;
-    }
-    this.current = this.pictures[this.currentIndex];
-    return this.current;
-};
-
-
-/**
- * Initializes the slideshow.
- *
- * @returns {void}
- */
-Show.prototype.init = function() {
-    // Insert a clone of the first image with static position
-    // to force height of the surrounding `div' to be greater than 0,
-    // before absolutely positioning the first image.
-    var clone = /** @type {HTMLPictureElement} */ (this.pictures[0].cloneNode(true));
-    var style = clone.style;
-    //style.position = "static";
-    style.visibility = "hidden";
-    this.elt.appendChild(clone);
-    this.pictures[0].style.position = "absolute";
-
-    style = this.current.style;
-    style.display = "block";
-    this.effect.prepare();
-};
-
-
-/**
- * Executes the next animation step.
- *
- * @returns {void}
- */
-Show.prototype.animate = function() {
-    var now, deltaT;
-
-    if (this.lastFrame === null) {
-        this.lastFrame = new Date().getTime();
-    }
-    now = new Date().getTime();
-    if (this.running < 1) {
-        if (window.requestAnimationFrame) {
-            window.requestAnimationFrame(this.animate.bind(this));
+    /** @return {HTMLPictureElement} */
+    function getPrevious() {
+        var i = currentIndex - 1;
+        
+        if (i < 0) {
+            i += pictures.length - 1;
         }
-        deltaT = now - this.lastFrame;
-        if (deltaT < MAX_DELTA_T) {
-            this.render(deltaT);
+        return pictures[i];
+    }
+
+    /** @return {HTMLPictureElement} */
+    function next() {
+        currentIndex++;
+        if (currentIndex >= pictures.length - 1) {
+            currentIndex = 0;
         }
-        this.lastFrame = now;
-    } else {
-        this.lastFrame = null;
-        this.running = 0;
-        setTimeout(this.animate.bind(this), this.pause);
+        current = pictures[currentIndex];
+        return current;
     }
-};
 
+    function init() {
+        // Insert a clone of the first image with static position
+        // to force height of the surrounding `div' to be greater than 0,
+        // before absolutely positioning the first image.
+        var clone = /** @type {HTMLPictureElement} */ (pictures[0].cloneNode(true));
+        var style = clone.style;
+        //style.position = "static";
+        style.visibility = "hidden";
+        element.appendChild(clone);
+        pictures[0].style.position = "absolute";
 
-/**
- * Renders the animation.
- *
- * @param   {number} deltaT
- * @returns {void}
- */
-Show.prototype.render = function(deltaT) {
-    var img, prev;
-
-    img = this.current;
-    img.style.zIndex = "2";
-
-    this.running += deltaT / this.duration;
-    this.running = Math.min(this.running, 1);
-
-    this.effect.step(this.easing(this.running));
-
-    if (this.running >= 1) {
-        prev = this.getPrevious();
-        prev.style.zIndex = "0";
-        prev.style.display = "none";
-        img.style.zIndex = "1";
-        img = this.next();
-        img.style.display = "block";
-        this.effect.prepare();
+        style = current.style;
+        style.display = "block";
+        effectF.prepare();
     }
-};
 
+    function animate() {
+        var now, deltaT;
+
+        if (lastFrame === null) {
+            lastFrame = new Date().getTime();
+        }
+        now = new Date().getTime();
+        if (running < 1) {
+            if (window.requestAnimationFrame) {
+                window.requestAnimationFrame(animate);
+            }
+            deltaT = now - lastFrame;
+            if (deltaT < MAX_DELTA_T) {
+                render(deltaT);
+            }
+            lastFrame = now;
+        } else {
+            lastFrame = null;
+            running = 0;
+            setTimeout(animate, pause);
+        }
+    }
+
+    /**
+     * Renders the animation.
+     *
+     * @param   {number} deltaT
+     * @returns {void}
+     */
+    function render(deltaT) {
+        var img, prev;
+
+        img = current;
+        img.style.zIndex = "2";
+
+        running += deltaT / duration;
+        running = Math.min(running, 1);
+
+        effectF.step(easing(running));
+
+        if (running >= 1) {
+            prev = getPrevious();
+            prev.style.zIndex = "0";
+            prev.style.display = "none";
+            img.style.zIndex = "1";
+            img = next();
+            img.style.display = "block";
+            effectF.prepare();
+        }
+    }
+}
 
 /** @param {Show} show */
 function fader(show) {
@@ -193,12 +176,12 @@ function fader(show) {
     };
 
     function prepare() {
-        show.current.style.opacity = "0";
+        show.getCurrent().style.opacity = "0";
     }
 
     /** @param {number} progress */
     function step(progress) {
-        show.current.style.opacity = progress.toString();
+        show.getCurrent().style.opacity = progress.toString();
     }
 }
 
@@ -213,7 +196,7 @@ function slider(show) {
         var img;
 
         show.getPrevious().style.left = "0px";
-        img = show.current;
+        img = show.getCurrent();
         img.style.left = - img.offsetWidth + "px";
     }
 
@@ -223,7 +206,7 @@ function slider(show) {
 
         img = show.getPrevious();
         img.style.left = progress * img.offsetWidth + "px";
-        img = show.current;
+        img = show.getCurrent();
         img.style.left = (progress - 1) * img.offsetWidth + "px";
     }
 }
@@ -238,7 +221,7 @@ function curtain(show) {
     function prepare() {
         var img;
 
-        img = show.current;
+        img = show.getCurrent();
         img.style.top = -img.offsetHeight + "px";
     }
 
@@ -246,7 +229,7 @@ function curtain(show) {
     function step(progress) {
         var img;
 
-        img = show.current;
+        img = show.getCurrent();
         img.style.top = (progress - 1) * img.offsetHeight + "px";
     }
 }
@@ -313,9 +296,8 @@ function easingByName(name) {
     }
 }
 
-
 /** @type {NodeListOf<HTMLElement>} */ (document.querySelectorAll('.slideshow')).forEach(function (show) {
-    new Show(
+    widget(
         show,
         show.getAttribute('data-effect') || "",
         show.getAttribute('data-easing') || "",
