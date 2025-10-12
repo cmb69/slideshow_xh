@@ -50,8 +50,7 @@
      * @param {number} duration
      */
     function widget(element, effect, easingName, delay, pause, duration) {
-        var /** @type {Show} */ show,
-            /** @type {Effect} */ effectF,
+        var /** @type {Effect} */ effectF,
             /** @type {(progress: number) => number} */ easing,
             /** @type {HTMLPictureElement[]} */ pictures,
             /** @type {number} */ currentIndex,
@@ -141,7 +140,7 @@
         }
 
         (function () {
-            show = {
+            var show = {
                 getCurrent: getCurrent,
                 getPrevious: getPrevious,
             };
