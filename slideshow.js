@@ -36,6 +36,11 @@
      */
     var MAX_DELTA_T = 10 * FRAME_DURATION;
 
+    /** @type {<T>(arrayLike: ArrayLike<T>) => T[]} */
+    function array(arrayLike) {
+        return Array.prototype.slice.call(arrayLike);
+    }
+
     /**
      * @param {HTMLElement} element
      * @param {string} effect
@@ -305,7 +310,7 @@
         }
     }
 
-    /** @type {NodeListOf<HTMLElement>} */ (document.querySelectorAll(".slideshow")).forEach(
+    /** @type {HTMLElement[]} */ (array(document.querySelectorAll(".slideshow"))).forEach(
         function (show) {
             widget(
                 show,
