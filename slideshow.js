@@ -131,9 +131,9 @@
             var /** @type {number} */ now, /** @type {number} */ deltaT;
 
             if (lastFrame === null) {
-                lastFrame = new Date().getTime();
+                lastFrame = Date.now();
             }
-            now = new Date().getTime();
+            now = Date.now();
             if (running < 1) {
                 if (window.requestAnimationFrame) {
                     window.requestAnimationFrame(animate);
