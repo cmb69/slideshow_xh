@@ -17,8 +17,6 @@
  * along with Slideshow_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* jshint browser:true,strict:implied */
-
 /**
  * @typedef {{getCurrent: () => HTMLPictureElement;getPrevious: () => HTMLPictureElement;}} Show
  * @typedef {{prepare: () => void;step: (progress: number) => void;}} Effect
