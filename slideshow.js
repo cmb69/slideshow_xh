@@ -50,12 +50,6 @@
 
     /** @type {(element: HTMLElement) => void} */
     function widget(element) {
-        /** @type {string} */
-        var effectName;
-        /** @type {string} */
-        var easingName;
-        /** @type {number} */
-        var delay;
         /** @type {number} */
         var pause;
         /** @type {number} */
@@ -151,9 +145,9 @@
         }
 
         (function () {
-            effectName = element.dataset.effect || "";
-            easingName = element.dataset.easing || "";
-            delay = +(element.dataset.delay || "");
+            var effectName = element.dataset.effect || "";
+            var easingName = element.dataset.easing || "";
+            var delay = +(element.dataset.delay || "");
             pause = +(element.dataset.pause || "");
             duration = +(element.dataset.duration || "");
             var show = {
