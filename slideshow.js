@@ -50,13 +50,20 @@
      * @param {number} duration
      */
     function widget(element, effect, easingName, delay, pause, duration) {
-        var /** @type {Effect} */ effectF,
-            /** @type {(progress: number) => number} */ easing,
-            /** @type {HTMLPictureElement[]} */ pictures,
-            /** @type {number} */ currentIndex,
-            /** @type {HTMLPictureElement} */ current,
-            /** @type {number} */ running,
-            /** @type {?number} */ lastFrame;
+        /** @type {Effect} */
+        var effectF;
+        /** @type {(progress: number) => number} */
+        var easing;
+        /** @type {HTMLPictureElement[]} */
+        var pictures;
+        /** @type {number} */
+        var currentIndex;
+        /** @type {HTMLPictureElement} */
+        var current;
+        /** @type {number} */
+        var running;
+        /** @type {?number} */
+        var lastFrame;
 
         function getCurrent() {
             return current;
@@ -230,7 +237,10 @@
 
     /** @param {Show} show */
     function random(show) {
-        var /** @type {Effect[]} */ effects, /** @type {number} */ effect;
+        /** @type {Effect[]} */
+        var effects;
+        /** @type {number} */
+        var effect;
 
         function prepare() {
             effect = Math.floor(3 * Math.random());
