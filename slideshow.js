@@ -129,9 +129,7 @@
             }
             var now = Date.now();
             if (running < 1) {
-                if (window.requestAnimationFrame) {
-                    window.requestAnimationFrame(animate);
-                }
+                window.requestAnimationFrame(animate);
                 var deltaT = now - lastFrame;
                 if (deltaT < MAX_DELTA_T) {
                     render(deltaT);

@@ -128,8 +128,7 @@ Zum Anzeigen geigneter Bilder als Daumenkino:
 ## Einschränkungen
 
 Die Diashows werden nur abgespielt,
-wenn JS im Browser der Besucher aktiviert ist,
-und sie einen zeitgemäßen Browser verwenden,
+wenn JS im Browser der Besucher aktiviert ist.
 Ansonsten wird nur das erste Bild angezeigt.
 Die Übergangseffekte sind rechenintensiv,
 besonders für große Bilder.
