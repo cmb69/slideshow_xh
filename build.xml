@@ -38,9 +38,7 @@
     <exec executable="jshint" passthru="true" checkreturn="true">
       <arg line="slideshow.js"/>
     </exec>
-    <exec executable="tsc" passthru="true" checkreturn="true">
-      <arg line="--noEmit --checkJs --lib es5,dom --noImplicitAny slideshow.js"/>
-    </exec>
+    <exec executable="tsc" passthru="true" checkreturn="true"/>
   </target>
 
   <target name="check" description="runs all checks" depends="sniff,stan,test,js"/>
@@ -125,6 +123,7 @@
         <exclude name="phpstan.*"/>
         <exclude name="phpunit.xml"/>
         <exclude name="teplad.xml"/>
+        <exclude name="tsconfig.json"/>
       </fileset>
     </move>
     <delete dir="export"/>

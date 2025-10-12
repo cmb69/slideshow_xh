@@ -18,7 +18,6 @@
  */
 
 /* jshint browser:true,strict:implied */
-// @ts-check
 
 /**
  * @typedef {{getCurrent: () => HTMLPictureElement;getPrevious: () => HTMLPictureElement;}} Show
