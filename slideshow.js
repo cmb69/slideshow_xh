@@ -21,8 +21,15 @@
     "use strict";
 
     /**
-     * @typedef {{getCurrent: () => HTMLPictureElement;getPrevious: () => HTMLPictureElement;}} Show
-     * @typedef {{prepare: () => void;step: (progress: number) => void;}} Effect
+     * @typedef {Object} Show
+     * @prop {() => HTMLPictureElement} getCurrent
+     * @prop {() => HTMLPictureElement} getPrevious
+     */
+
+    /**
+     * @typedef {Object} Effect
+     * @prop {() => void} prepare
+     * @prop {(progress: number) => void} step
      */
 
     /**
