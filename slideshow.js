@@ -107,7 +107,6 @@
             style.visibility = "hidden";
             element.appendChild(clone);
             pictures[0].style.position = "absolute";
-
             style = current.style;
             style.display = "block";
             effectF.prepare();
@@ -137,12 +136,9 @@
         function render(deltaT) {
             var img = current;
             img.style.zIndex = "2";
-
             running += deltaT / duration;
             running = Math.min(running, 1);
-
             effectF.step(easing(running));
-
             if (running >= 1) {
                 var prev = getPrevious();
                 prev.style.zIndex = "0";
@@ -179,7 +175,6 @@
                     break;
             }
             easing = easingByName(easingName);
-
             pictures = array(element.getElementsByTagName("picture"));
             currentIndex = 1;
             current = pictures[currentIndex];
