@@ -59,34 +59,6 @@
             /** @type {number} */ running,
             /** @type {?number} */ lastFrame;
 
-        show = {
-            getCurrent: getCurrent,
-            getPrevious: getPrevious,
-        };
-        switch (effect) {
-            case "fade":
-                effectF = fader(show);
-                break;
-            case "slide":
-                effectF = slider(show);
-                break;
-            case "curtain":
-                effectF = curtain(show);
-                break;
-            default:
-                effectF = random(show);
-                break;
-        }
-        easing = easingByName(easingName);
-
-        pictures = array(element.getElementsByTagName("picture"));
-        currentIndex = 1;
-        current = pictures[currentIndex];
-        init();
-        running = 0;
-        lastFrame = null;
-        setTimeout(animate, delay + pause);
-
         function getCurrent() {
             return current;
         }
@@ -167,15 +139,40 @@
                 effectF.prepare();
             }
         }
+
+        (function () {
+            show = {
+                getCurrent: getCurrent,
+                getPrevious: getPrevious,
+            };
+            switch (effect) {
+                case "fade":
+                    effectF = fader(show);
+                    break;
+                case "slide":
+                    effectF = slider(show);
+                    break;
+                case "curtain":
+                    effectF = curtain(show);
+                    break;
+                default:
+                    effectF = random(show);
+                    break;
+            }
+            easing = easingByName(easingName);
+
+            pictures = array(element.getElementsByTagName("picture"));
+            currentIndex = 1;
+            current = pictures[currentIndex];
+            init();
+            running = 0;
+            lastFrame = null;
+            setTimeout(animate, delay + pause);
+        })();
     }
 
     /** @param {Show} show */
     function fader(show) {
-        return {
-            prepare: prepare,
-            step: step,
-        };
-
         function prepare() {
             show.getCurrent().style.opacity = "0";
         }
@@ -184,15 +181,15 @@
         function step(progress) {
             show.getCurrent().style.opacity = progress.toString();
         }
-    }
 
-    /** @param {Show} show */
-    function slider(show) {
         return {
             prepare: prepare,
             step: step,
         };
+    }
 
+    /** @param {Show} show */
+    function slider(show) {
         function prepare() {
             show.getPrevious().style.left = "0px";
             var img = show.getCurrent();
@@ -206,15 +203,15 @@
             img = show.getCurrent();
             img.style.left = (progress - 1) * img.offsetWidth + "px";
         }
-    }
 
-    /** @param {Show} show */
-    function curtain(show) {
         return {
             prepare: prepare,
             step: step,
         };
+    }
 
+    /** @param {Show} show */
+    function curtain(show) {
         function prepare() {
             var img = show.getCurrent();
             img.style.top = -img.offsetHeight + "px";
@@ -225,19 +222,16 @@
             var img = show.getCurrent();
             img.style.top = (progress - 1) * img.offsetHeight + "px";
         }
-    }
-
-    /** @param {Show} show */
-    function random(show) {
-        var /** @type {Effect[]} */ effects, /** @type {number} */ effect;
-
-        effects = [fader(show), slider(show), curtain(show)];
-        effect = -1;
 
         return {
             prepare: prepare,
             step: step,
         };
+    }
+
+    /** @param {Show} show */
+    function random(show) {
+        var /** @type {Effect[]} */ effects, /** @type {number} */ effect;
 
         function prepare() {
             effect = Math.floor(3 * Math.random());
@@ -248,6 +242,16 @@
         function step(progress) {
             return effects[effect].step(progress);
         }
+
+        return (function () {
+            effects = [fader(show), slider(show), curtain(show)];
+            effect = -1;
+
+            return {
+                prepare: prepare,
+                step: step,
+            };
+        })();
     }
 
     /**
@@ -256,15 +260,6 @@
      * @return {(progress: number) => number}
      */
     function easingByName(name) {
-        return (
-            {
-                linear: linear,
-                easeIn: easeIn,
-                easeOut: easeOut,
-                easeInOut: easeInOut,
-            }[name] || easeInOut
-        );
-
         /** @param {number} progress */
         function linear(progress) {
             return progress;
@@ -290,6 +285,15 @@
                 return (-1 / 2) * (progress * (progress - 2) - 1);
             }
         }
+
+        return (
+            {
+                linear: linear,
+                easeIn: easeIn,
+                easeOut: easeOut,
+                easeInOut: easeInOut,
+            }[name] || easeInOut
+        );
     }
 
     /** @type {HTMLElement[]} */ (array(document.querySelectorAll(".slideshow"))).forEach(
