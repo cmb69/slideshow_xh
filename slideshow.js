@@ -41,9 +41,7 @@
         return Array.prototype.slice.call(arrayLike);
     }
 
-    /**
-     * @param {HTMLElement} element
-     */
+    /** @type {(element: HTMLElement) => void} */
     function widget(element) {
         /** @type {string} */
         var effect;
@@ -70,11 +68,12 @@
         /** @type {?number} */
         var lastFrame;
 
+        /** @type {() => HTMLPictureElement} */
         function getCurrent() {
             return current;
         }
 
-        /** @return {HTMLPictureElement} */
+        /** @type {() => HTMLPictureElement} */
         function getPrevious() {
             var i = currentIndex - 1;
             if (i < 0) {
@@ -83,13 +82,14 @@
             return pictures[i];
         }
 
-        /** @return {HTMLPictureElement} */
+        /** @type {() => HTMLPictureElement} */
         function next() {
             currentIndex = (currentIndex + 1) % (pictures.length - 1);
             current = pictures[currentIndex];
             return current;
         }
 
+        /** @type {() => void} */
         function init() {
             // Insert a clone of the first image with static position
             // to force height of the surrounding `div' to be greater than 0,
@@ -106,6 +106,7 @@
             effectF.prepare();
         }
 
+        /** @type {() => void} */
         function animate() {
             if (lastFrame === null) {
                 lastFrame = Date.now();
@@ -125,12 +126,7 @@
             }
         }
 
-        /**
-         * Renders the animation.
-         *
-         * @param   {number} deltaT
-         * @returns {void}
-         */
+        /** @type {(deltaT: number) => void} */
         function render(deltaT) {
             var img = current;
             img.style.zIndex = "2";
@@ -187,13 +183,14 @@
         })();
     }
 
-    /** @param {Show} show */
+    /** @type {(show: Show) => Effect} */
     function fader(show) {
+        /** @type {() => void} */
         function prepare() {
             show.getCurrent().style.opacity = "0";
         }
 
-        /** @param {number} progress */
+        /** @type {(progress: number) => void} */
         function step(progress) {
             show.getCurrent().style.opacity = progress.toString();
         }
@@ -204,15 +201,16 @@
         };
     }
 
-    /** @param {Show} show */
+    /** @type {(show: Show) => Effect} */
     function slider(show) {
+        /** @type {() => void} */
         function prepare() {
             show.getPrevious().style.left = "0px";
             var img = show.getCurrent();
             img.style.left = -img.offsetWidth + "px";
         }
 
-        /** @param {number} progress */
+        /** @type {(progress: number) => void} */
         function step(progress) {
             var img = show.getPrevious();
             img.style.left = progress * img.offsetWidth + "px";
@@ -226,14 +224,15 @@
         };
     }
 
-    /** @param {Show} show */
+    /** @type {(show: Show) => Effect} */
     function curtain(show) {
+        /** @type {() => void} */
         function prepare() {
             var img = show.getCurrent();
             img.style.top = -img.offsetHeight + "px";
         }
 
-        /** @param {number} progress */
+        /** @type {(progress: number) => void} */
         function step(progress) {
             var img = show.getCurrent();
             img.style.top = (progress - 1) * img.offsetHeight + "px";
@@ -245,19 +244,20 @@
         };
     }
 
-    /** @param {Show} show */
+    /** @type {(show: Show) => Effect} */
     function random(show) {
         /** @type {Effect[]} */
         var effects;
         /** @type {number} */
         var effect;
 
+        /** @type {() => void} */
         function prepare() {
             effect = Math.floor(3 * Math.random());
             effects[effect].prepare();
         }
 
-        /** @param {number} progress */
+        /** @type {(progress: number) => void} */
         function step(progress) {
             return effects[effect].step(progress);
         }
@@ -273,28 +273,26 @@
         })();
     }
 
-    /**
-     * @see http://gizma.com/easing/
-     * @param {string} name
-     * @return {(progress: number) => number}
-     */
+    /** @type {(name: string) => (progress: number) => number} */
     function easingByName(name) {
-        /** @param {number} progress */
+        // see http://gizma.com/easing/
+
+        /** @type {(progress: number) => number} */
         function linear(progress) {
             return progress;
         }
 
-        /** @param {number} progress */
+        /** @type {(progress: number) => number} */
         function easeIn(progress) {
             return progress * progress;
         }
 
-        /** @param {number} progress */
+        /** @type {(progress: number) => number} */
         function easeOut(progress) {
             return -progress * (progress - 2);
         }
 
-        /** @param {number} progress */
+        /** @type {(progress: number) => number} */
         function easeInOut(progress) {
             progress *= 2;
             if (progress < 1) {
