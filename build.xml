@@ -50,8 +50,8 @@
   </target>
 
   <target name="minify" description="minifies JS">
-    <exec executable="uglifyjs" checkreturn="true" dir="${dir}">
-      <arg line="slideshow.js --module --compress --mangle --output slideshow.min.js"/>
+    <exec executable="uglifyjs" passthru="true" checkreturn="true" dir="${dir}">
+      <arg line="slideshow.js --no-module --compress --mangle --output slideshow.min.js"/>
     </exec>
   </target>
 
