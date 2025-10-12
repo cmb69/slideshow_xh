@@ -32,6 +32,10 @@
      * @prop {(progress: number) => void} step
      */
 
+    /**
+     * @typedef {(progress: number) => number} Easing
+     */
+
     /** @readonly @type {number} */
     var frameDuration = 1000 / 50;
 
@@ -264,26 +268,26 @@
         }
     }
 
-    /** @type {(name: string) => (progress: number) => number} */
+    /** @type {(name: string) => Easing} */
     function easingByName(name) {
         // see http://gizma.com/easing/
 
-        /** @type {(progress: number) => number} */
+        /** @type {Easing} */
         function linear(progress) {
             return progress;
         }
 
-        /** @type {(progress: number) => number} */
+        /** @type {Easing} */
         function easeIn(progress) {
             return progress * progress;
         }
 
-        /** @type {(progress: number) => number} */
+        /** @type {Easing} */
         function easeOut(progress) {
             return -progress * (progress - 2);
         }
 
-        /** @type {(progress: number) => number} */
+        /** @type {Easing} */
         function easeInOut(progress) {
             progress *= 2;
             if (progress < 1) {
