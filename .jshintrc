@@ -1,5 +1,5 @@
 {
-    "esversion": 6,
+    "esversion": 5,
     "browser": true,
-    "module": true
+    "strict": "implied"
 }
