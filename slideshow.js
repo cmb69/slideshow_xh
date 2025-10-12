@@ -108,9 +108,9 @@
         /** @type {() => void} */
         function animate() {
             if (lastFrame === null) {
-                lastFrame = Date.now();
+                lastFrame = performance.now();
             }
-            var now = Date.now();
+            var now = performance.now();
             if (running < 1) {
                 window.requestAnimationFrame(animate);
                 var deltaT = now - lastFrame;
