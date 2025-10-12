@@ -69,7 +69,7 @@ class InfoCommand
                 : "xh_fail",
             'message' => $this->view->text("syscheck_xhversion", $xhVersion),
         ];
-        $plibVersion = "1.2";
+        $plibVersion = "1.12";
         $checks[] = [
             'class' => $this->systemChecker->checkPlugin("plib", $plibVersion) ? "xh_success" : "xh_fail",
             'message' => $this->view->text("syscheck_plibversion", $plibVersion),

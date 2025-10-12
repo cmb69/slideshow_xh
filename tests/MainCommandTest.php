@@ -6,6 +6,7 @@ use ApprovalTests\Approvals;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Plib\FakeRequest;
+use Plib\JavaScript;
 use Plib\View;
 use Slideshow\Model\Image;
 use Slideshow\Model\ImageRepo;
@@ -18,6 +19,9 @@ class MainCommandTest extends TestCase
     /** @var ImageRepo&Stub */
     private $imageRepo;
 
+    /** @var JavaScript&MockObject */
+    private $javaScript;
+
     /** @var View */
     private $view;
 
@@ -25,6 +29,7 @@ class MainCommandTest extends TestCase
     {
         $this->conf = XH_includeVar("./config/config.php", "plugin_cf")["slideshow"];
         $this->imageRepo = $this->createStub(ImageRepo::class);
+        $this->javaScript = $this->createMock(JavaScript::class);
         $this->view = new View("./views/", XH_includeVar("./languages/en.php", "plugin_tx")["slideshow"]);
     }
 
@@ -35,6 +40,7 @@ class MainCommandTest extends TestCase
             "./userfiles/images/",
             $this->conf,
             $this->imageRepo,
+            $this->javaScript,
             $this->view
         );
     }
