@@ -21,6 +21,7 @@
 
 namespace Slideshow;
 
+use Plib\JavaScript;
 use Plib\Request;
 use Plib\Response;
 use Plib\View;
@@ -41,6 +42,9 @@ class MainCommand
     /** @var ImageRepo */
     private $imageRepo;
 
+    /** @var JavaScript */
+    private $javaScript;
+
     /** @var View */
     private $view;
 
@@ -50,12 +54,14 @@ class MainCommand
         string $imageFolder,
         array $conf,
         ImageRepo $imageRepo,
+        JavaScript $javaScript,
         View $view
     ) {
         $this->pluginFolder = $pluginFolder;
         $this->imageFolder = $imageFolder;
         $this->conf = $conf;
         $this->imageRepo = $imageRepo;
+        $this->javaScript = $javaScript;
         $this->view = $view;
     }
 
@@ -70,6 +76,7 @@ class MainCommand
             }
             return Response::create();
         }
+        $this->javaScript->include($this->pluginFolder . "slideshow");
         return Response::create($this->view->render('slideshow', [
             "images" => $this->imageData($imgs),
             "effect" => $options["effect"],
@@ -77,7 +84,6 @@ class MainCommand
             "delay" => $options["delay"],
             "pause" => $options["pause"],
             "duration" => $options["duration"],
-            "script" => $this->script(),
         ]));
     }
 
@@ -120,14 +126,5 @@ class MainCommand
             $first = false;
         }
         return $res;
-    }
-
-    private function script(): string
-    {
-        $filename = $this->pluginFolder . "slideshow.min.js";
-        if (!is_file($filename)) {
-            $filename = $this->pluginFolder . "slideshow.js";
-        }
-        return $filename;
     }
 }

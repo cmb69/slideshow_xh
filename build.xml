@@ -31,7 +31,17 @@
     <exec executable="phpunit" passthru="true" checkreturn="true"/>
   </target>
 
-  <target name="check" description="runs all checks" depends="sniff,stan,test"/>
+  <target name="js" description="format and check JS">
+    <exec executable="prettier" passthru="true" checkreturn="true">
+      <arg line="--write --print-width 100 --tab-width 4 --trailing-comma es5 slideshow.js"/>
+    </exec>
+    <exec executable="jshint" passthru="true" checkreturn="true">
+      <arg line="slideshow.js"/>
+    </exec>
+    <exec executable="tsc" passthru="true" checkreturn="true"/>
+  </target>
+
+  <target name="check" description="runs all checks" depends="sniff,stan,test,js"/>
 
   <target name="coverage" description="generates coverage report">
     <exec executable="phpunit" passthru="true" checkreturn="true">
@@ -39,18 +49,9 @@
     </exec>
   </target>
 
-  <target name="js" description="run jshint and tsc">
-    <exec executable="jshint" passthru="true" checkreturn="true">
-      <arg line="slideshow.js"/>
-    </exec>
-    <exec executable="tsc" passthru="true" checkreturn="true">
-      <arg line="--checkJs --lib ES6,DOM --noEmit slideshow.js"/>
-    </exec>
-  </target>
-
   <target name="minify" description="minifies JS">
-    <exec executable="uglifyjs" checkreturn="true" dir="${dir}">
-      <arg line="slideshow.js --module --compress --mangle --output slideshow.min.js"/>
+    <exec executable="uglifyjs" passthru="true" checkreturn="true" dir="${dir}">
+      <arg line="slideshow.js --no-module --compress --mangle --output slideshow.min.js"/>
     </exec>
   </target>
 
@@ -122,6 +123,7 @@
         <exclude name="phpstan.*"/>
         <exclude name="phpunit.xml"/>
         <exclude name="teplad.xml"/>
+        <exclude name="tsconfig.json"/>
       </fileset>
     </move>
     <delete dir="export"/>

@@ -20,7 +20,7 @@ Multiple slideshows with different effects and timings are possible.
 
 Slideshow_XH is a plugin for [CMSimple_XH](https://www.cmsimple-xh.org/).
 It requires CMSimple_XH ≥ 1.7.0 and PHP ≥ 7.1.0.
-Slideshow_XH also requires [Plib_XH](https://github.com/cmb69/plib_xh) ≥ 1.2;
+Slideshow_XH also requires [Plib_XH](https://github.com/cmb69/plib_xh) ≥ 1.12;
 if that is not already installed (see `Settings` → `Info`),
 get the [lastest release](https://github.com/cmb69/plib_xh/releases/latest),
 and install it.
@@ -127,8 +127,7 @@ To show appropriate images in a flip-book style:
 ## Limitations
 
 The slideshows can only be played,
-when JS is enabled in the browser of the visitors,
-and they are using contemporary browsers,
+when JS is enabled in the browser of the visitors.
 Otherwise only the first image will be shown.
 The transition effects are CPU-intensive,
 particularly for large images,

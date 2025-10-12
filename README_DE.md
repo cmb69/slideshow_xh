@@ -21,7 +21,7 @@ und Zeitabläufen sind möglich.
 
 Slideshow_XH ist ein Plugin für  [CMSimple_XH](https://www.cmsimple-xh.org/de/).
 Es benötigt CMSimple_XH ≥ 1.7.0 und PHP ≥ 7.1.0.
-Slideshow_XH benötigt weiterhin [Plib_XH](https://github.com/cmb69/plib_xh) ≥ 1.2;
+Slideshow_XH benötigt weiterhin [Plib_XH](https://github.com/cmb69/plib_xh) ≥ 1.12;
 ist dieses noch nicht installiert (siehe `Einstellungen` → `Info`),
 laden Sie das [aktuelle Release](https://github.com/cmb69/plib_xh/releases/latest)
 herunter, und installieren Sie es.
@@ -128,8 +128,7 @@ Zum Anzeigen geigneter Bilder als Daumenkino:
 ## Einschränkungen
 
 Die Diashows werden nur abgespielt,
-wenn JS im Browser der Besucher aktiviert ist,
-und sie einen zeitgemäßen Browser verwenden,
+wenn JS im Browser der Besucher aktiviert ist.
 Ansonsten wird nur das erste Bild angezeigt.
 Die Übergangseffekte sind rechenintensiv,
 besonders für große Bilder.

@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "lib": ["es5", "dom"],
+    "checkJs": true,
+    "noEmit": true,
+    "strict": true,
+    "strictNullChecks": false
+  },
+  "files": [
+    "slideshow.js"
+  ]
+}

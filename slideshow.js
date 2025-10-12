@@ -17,411 +17,298 @@
  * along with Slideshow_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// @ts-check
-
-/**
- * The interval in milliseconds between two animation frames.
- */
-var FRAME_DURATION = 1000 / 50;
-
-
-/**
- * The time in milliseconds,
- * which triggers the rendering of a new animation frame.
- */
-var MAX_DELTA_T = 10 * FRAME_DURATION;
-
-
-/**
- * Main slideshow class.
- *
- * @constructor
- *
- * @param {HTMLElement} element
- * @param {String} effect
- * @param {String} easing
- * @param {Number} delay
- * @param {Number} pause
- * @param {Number} duration
- */
-var Show = function(element, effect, easing, delay, pause, duration) {
-    this.elt = element;
-    switch (effect) {
-    case 'fade':
-        this.effect = new Fader(this);
-        break;
-    case 'slide':
-        this.effect = new Slider(this);
-        break;
-    case 'curtain':
-        this.effect = new Curtain(this);
-        break;
-    default:
-        this.effect = new Random(this);
-        break;
-    }
-    this.easing = easings[easing] ? easings[easing] : easings.easeInOut;
-    this.pause = pause;
-    this.duration = duration;
-
-    this.pictures = this.elt.getElementsByTagName("picture");
-    this.currentIndex = 1;
-    this.current = this.pictures[this.currentIndex];
-    this.init();
-    this.running = 0;
-    this.lastFrame = null;
-    setTimeout(this.animate.bind(this), delay + pause);
-};
-
-
-/**
- * Returns the previous `image' element.
- *
- * @returns {HTMLPictureElement}
- */
-Show.prototype.getPrevious = function() {
-    var i = this.currentIndex - 1;
-    
-    if (i < 0) {
-        i += this.pictures.length - 1;
-    }
-    return this.pictures[i];
-};
-
-
-/**
- * Returns the next `image' element.
- *
- * @returns {HTMLPictureElement}
- */
-Show.prototype.next = function() {
-    this.currentIndex++;
-    if (this.currentIndex >= this.pictures.length - 1) {
-        this.currentIndex = 0;
-    }
-    this.current = this.pictures[this.currentIndex];
-    return this.current;
-};
-
-
-/**
- * Initializes the slideshow.
- *
- * @returns {void}
- */
-Show.prototype.init = function() {
-    // Insert a clone of the first image with static position
-    // to force height of the surrounding `div' to be greater than 0,
-    // before absolutely positioning the first image.
-    var clone = /** @type {HTMLPictureElement} */ (this.pictures[0].cloneNode(true));
-    var style = clone.style;
-    //style.position = "static";
-    style.visibility = "hidden";
-    this.elt.appendChild(clone);
-    this.pictures[0].style.position = "absolute";
-
-    style = this.current.style;
-    style.display = "block";
-    this.effect.prepare();
-};
-
-
-/**
- * Executes the next animation step.
- *
- * @returns {void}
- */
-Show.prototype.animate = function() {
-    var now, deltaT;
-
-    if (this.lastFrame === null) {
-        this.lastFrame = new Date().getTime();
-    }
-    now = new Date().getTime();
-    if (this.running < 1) {
-        if (window.requestAnimationFrame) {
-            window.requestAnimationFrame(this.animate.bind(this));
-        }
-        deltaT = now - this.lastFrame;
-        if (deltaT < MAX_DELTA_T) {
-            this.render(deltaT);
-        }
-        this.lastFrame = now;
-    } else {
-        this.lastFrame = null;
-        this.running = 0;
-        setTimeout(this.animate.bind(this), this.pause);
-    }
-};
-
-
-/**
- * Renders the animation.
- *
- * @param   {Number} deltaT
- * @returns {void}
- */
-Show.prototype.render = function(deltaT) {
-    var img, prev;
-
-    img = this.current;
-    img.style.zIndex = "2";
-
-    this.running += deltaT / this.duration;
-    this.running = Math.min(this.running, 1);
-
-    this.effect.step(this.easing(this.running));
-
-    if (this.running >= 1) {
-        prev = this.getPrevious();
-        prev.style.zIndex = "0";
-        prev.style.display = "none";
-        img.style.zIndex = "1";
-        img = this.next();
-        img.style.display = "block";
-        this.effect.prepare();
-    }
-};
-
-
-/**
- * The `fade' effect class.
- *
- * @constructor
- *
- * @param {Show} show
- */
-var Fader = function(show) {
-    this.show = show;
-};
-
-
-/**
- * Prepares the next image.
- *
- * @public
- *
- * @returns {void}
- */
-Fader.prototype.prepare = function() {
-    this.show.current.style.opacity = "0";
-};
-
-
-/**
- * Executes the next animation step.
- *
- * @public
- *
- * @param   {Number} progress
- * @returns {void}
- */
-Fader.prototype.step = function(progress) {
-    this.show.current.style.opacity = progress.toString();
-};
-
-
-/**
- * The `slide' effect class.
- *
- * @constructor
- *
- * @param {Show} show
- */
-var Slider = function(show) {
-    this.show = show;
-};
-
-
-/**
- * Prepares the next image.
- *
- * @public
- *
- * @returns {void}
- */
-Slider.prototype.prepare = function() {
-    var img;
-
-    this.show.getPrevious().style.left = "0px";
-    img = this.show.current;
-    img.style.left = - img.offsetWidth + "px";
-};
-
-
-/**
- * Executes the next animation step.
- *
- * @public
- *
- * @param   {Number} progress
- * @returns {void}
- */
-Slider.prototype.step = function(progress) {
-    var img;
-
-    img = this.show.getPrevious();
-    img.style.left = progress * img.offsetWidth + "px";
-    img = this.show.current;
-    img.style.left = (progress - 1) * img.offsetWidth + "px";
-};
-
-
-/**
- * The `curtain' effect class.
- *
- * @constructor
- *
- * @param {Show} show
- */
-var Curtain = function(show) {
-    this.show = show;
-};
-
-
-/**
- * Prepares the next image.
- *
- * @public
- *
- * @returns {void}
- */
-Curtain.prototype.prepare = function() {
-    var img;
-
-    img = this.show.current;
-    img.style.top = -img.offsetHeight + "px";
-};
-
-
-/**
- * Executes the next animation step.
- *
- * @public
- *
- * @param   {Number} progress
- * @returns {void}
- */
-Curtain.prototype.step = function(progress) {
-    var img;
-
-    img = this.show.current;
-    img.style.top = (progress - 1) * img.offsetHeight + "px";
-};
-
-
-/**
- * The `random' effect.
- *
- * Switch randomly between all available effects.
- *
- * @constructor
- *
- * @param   {Show} show
- * @returns {void}
- */
-var Random = function(show) {
-    this.show = show;
-    this.effects = [new Fader(show),
-                    new Slider(show),
-                    new Curtain(show)];
-    this.effect = -1;
-};
-
-/**
- * Prepares the next image.
- *
- * @public
- *
- * @returns {void}
- */
-Random.prototype.prepare = function() {
-    this.effect = Math.floor(3 * Math.random());
-    this.effects[this.effect].prepare();
-};
-
-/**
- * Executes the next animation step.
- *
- * @public
- *
- * @param   {Number} progress
- * @returns {void}
- */
-Random.prototype.step = function(progress) {
-    return this.effects[this.effect].step(progress);
-};
-
-
-/**
- * The easing functions' namespace.
- *
- * @see http://gizma.com/easing/
- */
-var easings = {};
-
-
-/**
- * Returns a linear easing value.
- *
- * @param   {Number} progress
- * @returns {Number}
- */
-easings.linear = function(progress) {
-    return progress;
-};
-
-
-/**
- * Returns an ease in easing value.
- *
- * @param   {Number} progress
- * @returns {Number}
- */
-easings.easeIn = function(progress) {
-    return progress * progress;
-};
-
-
-/**
- * Returns an ease out easing value.
- *
- * @param   {Number} progress
- * @returns {Number}
- */
-easings.easeOut = function(progress) {
-    return - progress * (progress - 2);
-};
-
-
-/**
- * Returns an ease in-out easing value.
- *
- * @param   {Number} progress
- * @returns {Number}
- */
-easings.easeInOut = function(progress) {
-    progress *= 2;
-    if (progress < 1) {
-        return progress * progress / 2;
-    } else {
-        progress--;
-        return -1/2 * (progress * (progress - 2) - 1);
-    }
-};
-
 (function () {
-    /** @type {NodeListOf<HTMLElement>} */
-    var slideshows = document.querySelectorAll('.slideshow');
-    for (var i = 0; i < slideshows.length; i++) {
-        var show = slideshows[i];
-        new Show(
-            show,
-            show.getAttribute('data-effect') || "",
-            show.getAttribute('data-easing') || "",
-            +(show.getAttribute('data-delay') || ""),
-            +(show.getAttribute('data-pause') || ""),
-            +(show.getAttribute('data-duration') || "")
-        );
+    "use strict";
+
+    /**
+     * @typedef {Object} Show
+     * @prop {() => HTMLPictureElement} getCurrent
+     * @prop {() => HTMLPictureElement} getPrevious
+     */
+
+    /**
+     * @typedef {Object} Effect
+     * @prop {() => void} prepare
+     * @prop {(progress: number) => void} step
+     */
+
+    /**
+     * @typedef {(progress: number) => number} Easing
+     */
+
+    /** @readonly @type {number} */
+    var frameDuration = 1000 / 50;
+
+    /** @readonly @type {number} */
+    var maxDeltaT = 10 * frameDuration;
+
+    /** @type {<T>(arrayLike: ArrayLike<T>) => T[]} */
+    function array(arrayLike) {
+        return Array.prototype.slice.call(arrayLike);
     }
+
+    /** @type {(element: HTMLElement) => void} */
+    function widget(element) {
+        /** @type {number} */
+        var pause;
+        /** @type {number} */
+        var duration;
+        /** @type {Effect} */
+        var effect;
+        /** @type {(progress: number) => number} */
+        var easing;
+        /** @type {HTMLPictureElement[]} */
+        var pictures;
+        /** @type {number} */
+        var currentIndex;
+        /** @type {HTMLPictureElement} */
+        var current;
+        /** @type {number} */
+        var running;
+        /** @type {?number} */
+        var lastFrame;
+
+        /** @type {() => HTMLPictureElement} */
+        function getCurrent() {
+            return current;
+        }
+
+        /** @type {() => HTMLPictureElement} */
+        function getPrevious() {
+            var i = currentIndex - 1;
+            if (i < 0) {
+                i += pictures.length - 1;
+            }
+            return pictures[i];
+        }
+
+        /** @type {() => HTMLPictureElement} */
+        function next() {
+            currentIndex = (currentIndex + 1) % (pictures.length - 1);
+            current = pictures[currentIndex];
+            return current;
+        }
+
+        /** @type {() => void} */
+        function init() {
+            // Insert a clone of the first image with static position
+            // to force height of the surrounding `div' to be greater than 0,
+            // before absolutely positioning the first image.
+            var clone = /** @type {HTMLPictureElement} */ (pictures[0].cloneNode(true));
+            var style = clone.style;
+            //style.position = "static";
+            style.visibility = "hidden";
+            element.appendChild(clone);
+            pictures[0].style.position = "absolute";
+            style = current.style;
+            style.display = "block";
+            effect.prepare();
+        }
+
+        /** @type {() => void} */
+        function animate() {
+            if (lastFrame === null) {
+                lastFrame = performance.now();
+            }
+            var now = performance.now();
+            if (running < 1) {
+                window.requestAnimationFrame(animate);
+                var deltaT = now - lastFrame;
+                if (deltaT < maxDeltaT) {
+                    render(deltaT);
+                }
+                lastFrame = now;
+            } else {
+                lastFrame = null;
+                running = 0;
+                setTimeout(animate, pause);
+            }
+        }
+
+        /** @type {(deltaT: number) => void} */
+        function render(deltaT) {
+            var img = current;
+            img.style.zIndex = "2";
+            running += deltaT / duration;
+            running = Math.min(running, 1);
+            effect.step(easing(running));
+            if (running >= 1) {
+                var prev = getPrevious();
+                prev.style.zIndex = "0";
+                prev.style.display = "none";
+                img.style.zIndex = "1";
+                img = next();
+                img.style.display = "block";
+                effect.prepare();
+            }
+        }
+
+        (function () {
+            var effectName = element.dataset.effect || "";
+            var easingName = element.dataset.easing || "";
+            var delay = +(element.dataset.delay || "");
+            pause = +(element.dataset.pause || "");
+            duration = +(element.dataset.duration || "");
+            var show = {
+                getCurrent: getCurrent,
+                getPrevious: getPrevious,
+            };
+            effect = effectByName(effectName, show);
+            easing = easingByName(easingName);
+            pictures = array(element.getElementsByTagName("picture"));
+            currentIndex = 1;
+            current = pictures[currentIndex];
+            init();
+            running = 0;
+            lastFrame = null;
+            setTimeout(animate, delay + pause);
+        })();
+    }
+
+    /** @type {(effectName: string, show: Show) => Effect} */
+    function effectByName(effectName, show) {
+        /** @type {(show: Show) => Effect} */
+        function fader(show) {
+            /** @type {() => void} */
+            function prepare() {
+                show.getCurrent().style.opacity = "0";
+            }
+
+            /** @type {(progress: number) => void} */
+            function step(progress) {
+                show.getCurrent().style.opacity = progress.toString();
+            }
+
+            return {
+                prepare: prepare,
+                step: step,
+            };
+        }
+
+        /** @type {(show: Show) => Effect} */
+        function slider(show) {
+            /** @type {() => void} */
+            function prepare() {
+                show.getPrevious().style.left = "0px";
+                var img = show.getCurrent();
+                img.style.left = -img.offsetWidth + "px";
+            }
+
+            /** @type {(progress: number) => void} */
+            function step(progress) {
+                var img = show.getPrevious();
+                img.style.left = progress * img.offsetWidth + "px";
+                img = show.getCurrent();
+                img.style.left = (progress - 1) * img.offsetWidth + "px";
+            }
+
+            return {
+                prepare: prepare,
+                step: step,
+            };
+        }
+
+        /** @type {(show: Show) => Effect} */
+        function curtain(show) {
+            /** @type {() => void} */
+            function prepare() {
+                var img = show.getCurrent();
+                img.style.top = -img.offsetHeight + "px";
+            }
+
+            /** @type {(progress: number) => void} */
+            function step(progress) {
+                var img = show.getCurrent();
+                img.style.top = (progress - 1) * img.offsetHeight + "px";
+            }
+
+            return {
+                prepare: prepare,
+                step: step,
+            };
+        }
+
+        /** @type {(show: Show) => Effect} */
+        function random(show) {
+            /** @type {Effect[]} */
+            var effects;
+            /** @type {number} */
+            var effect;
+
+            /** @type {() => void} */
+            function prepare() {
+                effect = Math.floor(3 * Math.random());
+                effects[effect].prepare();
+            }
+
+            /** @type {(progress: number) => void} */
+            function step(progress) {
+                return effects[effect].step(progress);
+            }
+
+            return (function () {
+                effects = [fader(show), slider(show), curtain(show)];
+                effect = -1;
+                return {
+                    prepare: prepare,
+                    step: step,
+                };
+            })();
+        }
+
+        switch (effectName) {
+            case "fade":
+                return fader(show);
+            case "slide":
+                return slider(show);
+            case "curtain":
+                return curtain(show);
+            default:
+                return random(show);
+        }
+    }
+
+    /** @type {(name: string) => Easing} */
+    function easingByName(name) {
+        // see http://gizma.com/easing/
+
+        /** @type {Easing} */
+        function linear(progress) {
+            return progress;
+        }
+
+        /** @type {Easing} */
+        function easeIn(progress) {
+            return progress * progress;
+        }
+
+        /** @type {Easing} */
+        function easeOut(progress) {
+            return -progress * (progress - 2);
+        }
+
+        /** @type {Easing} */
+        function easeInOut(progress) {
+            progress *= 2;
+            if (progress < 1) {
+                return (progress * progress) / 2;
+            } else {
+                progress--;
+                return (-1 / 2) * (progress * (progress - 2) - 1);
+            }
+        }
+
+        switch (name) {
+            case "linear":
+                return linear;
+            case "easeIn":
+                return easeIn;
+            case "easeOut":
+                return easeOut;
+            default:
+                return easeInOut;
+        }
+    }
+
+    /** @type {HTMLElement[]} */ (array(document.querySelectorAll(".slideshow"))).forEach(widget);
 })();

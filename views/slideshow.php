@@ -6,7 +6,6 @@ if (!isset($this)) {http_response_code(403); exit;}
 
 /**
  * @var View $this
- * @var string $script
  * @var list<object{filename:string,name:string,webp:string,avif:string,style:string,loading:string}> $images
  * @var string $effect
  * @var string $easing
@@ -17,7 +16,6 @@ if (!isset($this)) {http_response_code(403); exit;}
 ?>
 
 <!-- Slideshow_XH slideshow -->
-<script type="module" src="<?=$this->esc($script)?>"></script>
 <div class="slideshow" style="position: relative; width: 100%; height: auto; overflow: hidden"
      data-effect="<?=$this->esc($effect)?>" data-easing="<?=$this->esc($easing)?>"
      data-delay="<?=$this->esc($delay)?>" data-pause="<?=$this->esc($pause)?>" data-duration="<?=$this->esc($duration)?>">

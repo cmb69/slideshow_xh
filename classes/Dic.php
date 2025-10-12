@@ -21,6 +21,7 @@
 
 namespace Slideshow;
 
+use Plib\JavaScript;
 use Plib\SystemChecker;
 use Plib\View;
 use Slideshow\Model\ImageRepo;
@@ -36,6 +37,7 @@ class Dic
             $pth["folder"]["images"],
             $plugin_cf["slideshow"],
             new ImageRepo(),
+            new JavaScript(),
             self::view()
         );
     }
