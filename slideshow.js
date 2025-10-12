@@ -163,6 +163,95 @@
 
     /** @type {(effectName: string, show: Show) => Effect} */
     function effectByName(effectName, show) {
+        /** @type {(show: Show) => Effect} */
+        function fader(show) {
+            /** @type {() => void} */
+            function prepare() {
+                show.getCurrent().style.opacity = "0";
+            }
+
+            /** @type {(progress: number) => void} */
+            function step(progress) {
+                show.getCurrent().style.opacity = progress.toString();
+            }
+
+            return {
+                prepare: prepare,
+                step: step,
+            };
+        }
+
+        /** @type {(show: Show) => Effect} */
+        function slider(show) {
+            /** @type {() => void} */
+            function prepare() {
+                show.getPrevious().style.left = "0px";
+                var img = show.getCurrent();
+                img.style.left = -img.offsetWidth + "px";
+            }
+
+            /** @type {(progress: number) => void} */
+            function step(progress) {
+                var img = show.getPrevious();
+                img.style.left = progress * img.offsetWidth + "px";
+                img = show.getCurrent();
+                img.style.left = (progress - 1) * img.offsetWidth + "px";
+            }
+
+            return {
+                prepare: prepare,
+                step: step,
+            };
+        }
+
+        /** @type {(show: Show) => Effect} */
+        function curtain(show) {
+            /** @type {() => void} */
+            function prepare() {
+                var img = show.getCurrent();
+                img.style.top = -img.offsetHeight + "px";
+            }
+
+            /** @type {(progress: number) => void} */
+            function step(progress) {
+                var img = show.getCurrent();
+                img.style.top = (progress - 1) * img.offsetHeight + "px";
+            }
+
+            return {
+                prepare: prepare,
+                step: step,
+            };
+        }
+
+        /** @type {(show: Show) => Effect} */
+        function random(show) {
+            /** @type {Effect[]} */
+            var effects;
+            /** @type {number} */
+            var effect;
+
+            /** @type {() => void} */
+            function prepare() {
+                effect = Math.floor(3 * Math.random());
+                effects[effect].prepare();
+            }
+
+            /** @type {(progress: number) => void} */
+            function step(progress) {
+                return effects[effect].step(progress);
+            }
+
+            return (function () {
+                effects = [fader(show), slider(show), curtain(show)];
+                effect = -1;
+                return {
+                    prepare: prepare,
+                    step: step,
+                };
+            })();
+        }
+
         switch (effectName) {
             case "fade":
                 return fader(show);
@@ -173,96 +262,6 @@
             default:
                 return random(show);
         }
-    }
-
-    /** @type {(show: Show) => Effect} */
-    function fader(show) {
-        /** @type {() => void} */
-        function prepare() {
-            show.getCurrent().style.opacity = "0";
-        }
-
-        /** @type {(progress: number) => void} */
-        function step(progress) {
-            show.getCurrent().style.opacity = progress.toString();
-        }
-
-        return {
-            prepare: prepare,
-            step: step,
-        };
-    }
-
-    /** @type {(show: Show) => Effect} */
-    function slider(show) {
-        /** @type {() => void} */
-        function prepare() {
-            show.getPrevious().style.left = "0px";
-            var img = show.getCurrent();
-            img.style.left = -img.offsetWidth + "px";
-        }
-
-        /** @type {(progress: number) => void} */
-        function step(progress) {
-            var img = show.getPrevious();
-            img.style.left = progress * img.offsetWidth + "px";
-            img = show.getCurrent();
-            img.style.left = (progress - 1) * img.offsetWidth + "px";
-        }
-
-        return {
-            prepare: prepare,
-            step: step,
-        };
-    }
-
-    /** @type {(show: Show) => Effect} */
-    function curtain(show) {
-        /** @type {() => void} */
-        function prepare() {
-            var img = show.getCurrent();
-            img.style.top = -img.offsetHeight + "px";
-        }
-
-        /** @type {(progress: number) => void} */
-        function step(progress) {
-            var img = show.getCurrent();
-            img.style.top = (progress - 1) * img.offsetHeight + "px";
-        }
-
-        return {
-            prepare: prepare,
-            step: step,
-        };
-    }
-
-    /** @type {(show: Show) => Effect} */
-    function random(show) {
-        /** @type {Effect[]} */
-        var effects;
-        /** @type {number} */
-        var effect;
-
-        /** @type {() => void} */
-        function prepare() {
-            effect = Math.floor(3 * Math.random());
-            effects[effect].prepare();
-        }
-
-        /** @type {(progress: number) => void} */
-        function step(progress) {
-            return effects[effect].step(progress);
-        }
-
-        return (function () {
-            effects = [fader(show), slider(show), curtain(show)];
-            effect = -1;
-
-            return {
-                prepare: prepare,
-                step: step,
-            };
-        })();
     }
 
     /** @type {(name: string) => (progress: number) => number} */
