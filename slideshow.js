@@ -294,14 +294,16 @@
             }
         }
 
-        return (
-            {
-                linear: linear,
-                easeIn: easeIn,
-                easeOut: easeOut,
-                easeInOut: easeInOut,
-            }[name] || easeInOut
-        );
+        switch (name) {
+            case "linear":
+                return linear;
+            case "easeIn":
+                return easeIn;
+            case "easeOut":
+                return easeOut;
+            default:
+                return easeInOut;
+        }
     }
 
     /** @type {HTMLElement[]} */ (array(document.querySelectorAll(".slideshow"))).forEach(widget);
