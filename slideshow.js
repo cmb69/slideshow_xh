@@ -93,9 +93,7 @@
 
         /** @return {HTMLPictureElement} */
         function getPrevious() {
-            var /** @type {?number} */ i;
-
-            i = currentIndex - 1;
+            var i = currentIndex - 1;
             if (i < 0) {
                 i += pictures.length - 1;
             }
@@ -110,13 +108,11 @@
         }
 
         function init() {
-            var /** @type {HTMLPictureElement} */ clone, /** @type {CSSStyleDeclaration} */ style;
-
             // Insert a clone of the first image with static position
             // to force height of the surrounding `div' to be greater than 0,
             // before absolutely positioning the first image.
-            clone = /** @type {HTMLPictureElement} */ (pictures[0].cloneNode(true));
-            style = clone.style;
+            var clone = /** @type {HTMLPictureElement} */ (pictures[0].cloneNode(true));
+            var style = clone.style;
             //style.position = "static";
             style.visibility = "hidden";
             element.appendChild(clone);
@@ -128,17 +124,15 @@
         }
 
         function animate() {
-            var /** @type {number} */ now, /** @type {number} */ deltaT;
-
             if (lastFrame === null) {
                 lastFrame = Date.now();
             }
-            now = Date.now();
+            var now = Date.now();
             if (running < 1) {
                 if (window.requestAnimationFrame) {
                     window.requestAnimationFrame(animate);
                 }
-                deltaT = now - lastFrame;
+                var deltaT = now - lastFrame;
                 if (deltaT < MAX_DELTA_T) {
                     render(deltaT);
                 }
@@ -157,9 +151,7 @@
          * @returns {void}
          */
         function render(deltaT) {
-            var /** @type {HTMLPictureElement} */ img, /** @type {HTMLPictureElement} */ prev;
-
-            img = current;
+            var img = current;
             img.style.zIndex = "2";
 
             running += deltaT / duration;
@@ -168,7 +160,7 @@
             effectF.step(easing(running));
 
             if (running >= 1) {
-                prev = getPrevious();
+                var prev = getPrevious();
                 prev.style.zIndex = "0";
                 prev.style.display = "none";
                 img.style.zIndex = "1";
@@ -204,18 +196,14 @@
         };
 
         function prepare() {
-            var /** @type {HTMLPictureElement} */ img;
-
             show.getPrevious().style.left = "0px";
-            img = show.getCurrent();
+            var img = show.getCurrent();
             img.style.left = -img.offsetWidth + "px";
         }
 
         /** @param {number} progress */
         function step(progress) {
-            var /** @type {HTMLPictureElement} */ img;
-
-            img = show.getPrevious();
+            var img = show.getPrevious();
             img.style.left = progress * img.offsetWidth + "px";
             img = show.getCurrent();
             img.style.left = (progress - 1) * img.offsetWidth + "px";
@@ -230,17 +218,13 @@
         };
 
         function prepare() {
-            var /** @type {HTMLPictureElement} */ img;
-
-            img = show.getCurrent();
+            var img = show.getCurrent();
             img.style.top = -img.offsetHeight + "px";
         }
 
         /** @param {number} progress */
         function step(progress) {
-            var /** @type {HTMLPictureElement} */ img;
-
-            img = show.getCurrent();
+            var img = show.getCurrent();
             img.style.top = (progress - 1) * img.offsetHeight + "px";
         }
     }
