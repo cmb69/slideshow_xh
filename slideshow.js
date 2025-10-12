@@ -32,16 +32,11 @@
      * @prop {(progress: number) => void} step
      */
 
-    /**
-     * The interval in milliseconds between two animation frames.
-     */
-    var FRAME_DURATION = 1000 / 50;
+    /** @readonly @type {number} */
+    var frameDuration = 1000 / 50;
 
-    /**
-     * The time in milliseconds,
-     * which triggers the rendering of a new animation frame.
-     */
-    var MAX_DELTA_T = 10 * FRAME_DURATION;
+    /** @readonly @type {number} */
+    var maxDeltaT = 10 * frameDuration;
 
     /** @type {<T>(arrayLike: ArrayLike<T>) => T[]} */
     function array(arrayLike) {
@@ -115,7 +110,7 @@
             if (running < 1) {
                 window.requestAnimationFrame(animate);
                 var deltaT = now - lastFrame;
-                if (deltaT < MAX_DELTA_T) {
+                if (deltaT < maxDeltaT) {
                     render(deltaT);
                 }
                 lastFrame = now;
