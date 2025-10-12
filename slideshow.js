@@ -79,7 +79,7 @@
         }
         easing = easingByName(easingName);
 
-        pictures = Array.prototype.slice.call(element.getElementsByTagName("picture"));
+        pictures = array(element.getElementsByTagName("picture"));
         currentIndex = 1;
         current = pictures[currentIndex];
         init();
