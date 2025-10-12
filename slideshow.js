@@ -51,7 +51,7 @@
     /** @type {(element: HTMLElement) => void} */
     function widget(element) {
         /** @type {string} */
-        var effect;
+        var effectName;
         /** @type {string} */
         var easingName;
         /** @type {number} */
@@ -61,7 +61,7 @@
         /** @type {number} */
         var duration;
         /** @type {Effect} */
-        var effectF;
+        var effect;
         /** @type {(progress: number) => number} */
         var easing;
         /** @type {HTMLPictureElement[]} */
@@ -109,7 +109,7 @@
             pictures[0].style.position = "absolute";
             style = current.style;
             style.display = "block";
-            effectF.prepare();
+            effect.prepare();
         }
 
         /** @type {() => void} */
@@ -138,7 +138,7 @@
             img.style.zIndex = "2";
             running += deltaT / duration;
             running = Math.min(running, 1);
-            effectF.step(easing(running));
+            effect.step(easing(running));
             if (running >= 1) {
                 var prev = getPrevious();
                 prev.style.zIndex = "0";
@@ -146,12 +146,12 @@
                 img.style.zIndex = "1";
                 img = next();
                 img.style.display = "block";
-                effectF.prepare();
+                effect.prepare();
             }
         }
 
         (function () {
-            effect = element.dataset.effect || "";
+            effectName = element.dataset.effect || "";
             easingName = element.dataset.easing || "";
             delay = +(element.dataset.delay || "");
             pause = +(element.dataset.pause || "");
@@ -160,18 +160,18 @@
                 getCurrent: getCurrent,
                 getPrevious: getPrevious,
             };
-            switch (effect) {
+            switch (effectName) {
                 case "fade":
-                    effectF = fader(show);
+                    effect = fader(show);
                     break;
                 case "slide":
-                    effectF = slider(show);
+                    effect = slider(show);
                     break;
                 case "curtain":
-                    effectF = curtain(show);
+                    effect = curtain(show);
                     break;
                 default:
-                    effectF = random(show);
+                    effect = random(show);
                     break;
             }
             easing = easingByName(easingName);
