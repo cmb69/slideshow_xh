@@ -43,13 +43,18 @@
 
     /**
      * @param {HTMLElement} element
-     * @param {string} effect
-     * @param {string} easingName
-     * @param {number} delay
-     * @param {number} pause
-     * @param {number} duration
      */
-    function widget(element, effect, easingName, delay, pause, duration) {
+    function widget(element) {
+        /** @type {string} */
+        var effect;
+        /** @type {string} */
+        var easingName;
+        /** @type {number} */
+        var delay;
+        /** @type {number} */
+        var pause;
+        /** @type {number} */
+        var duration;
         /** @type {Effect} */
         var effectF;
         /** @type {(progress: number) => number} */
@@ -147,6 +152,11 @@
         }
 
         (function () {
+            effect = element.dataset.effect || "";
+            easingName = element.dataset.easing || "";
+            delay = +(element.dataset.delay || "");
+            pause = +(element.dataset.pause || "");
+            duration = +(element.dataset.duration || "");
             var show = {
                 getCurrent: getCurrent,
                 getPrevious: getPrevious,
@@ -305,16 +315,5 @@
         );
     }
 
-    /** @type {HTMLElement[]} */ (array(document.querySelectorAll(".slideshow"))).forEach(
-        function (show) {
-            widget(
-                show,
-                show.getAttribute("data-effect") || "",
-                show.getAttribute("data-easing") || "",
-                +(show.getAttribute("data-delay") || ""),
-                +(show.getAttribute("data-pause") || ""),
-                +(show.getAttribute("data-duration") || "")
-            );
-        }
-    );
+    /** @type {HTMLElement[]} */ (array(document.querySelectorAll(".slideshow"))).forEach(widget);
 })();
