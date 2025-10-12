@@ -30,13 +30,11 @@
  */
 var FRAME_DURATION = 1000 / 50;
 
-
 /**
  * The time in milliseconds,
  * which triggers the rendering of a new animation frame.
  */
 var MAX_DELTA_T = 10 * FRAME_DURATION;
-
 
 /**
  * @param {HTMLElement} element
@@ -58,21 +56,21 @@ function widget(element, effect, easingName, delay, pause, duration) {
 
     show = {
         getCurrent: getCurrent,
-        getPrevious: getPrevious
+        getPrevious: getPrevious,
     };
     switch (effect) {
-    case 'fade':
-        effectF = fader(show);
-        break;
-    case 'slide':
-        effectF = slider(show);
-        break;
-    case 'curtain':
-        effectF = curtain(show);
-        break;
-    default:
-        effectF = random(show);
-        break;
+        case "fade":
+            effectF = fader(show);
+            break;
+        case "slide":
+            effectF = slider(show);
+            break;
+        case "curtain":
+            effectF = curtain(show);
+            break;
+        default:
+            effectF = random(show);
+            break;
     }
     easing = easingByName(easingName);
 
@@ -91,7 +89,7 @@ function widget(element, effect, easingName, delay, pause, duration) {
     /** @return {HTMLPictureElement} */
     function getPrevious() {
         var /** @type {?number} */ i;
-        
+
         i = currentIndex - 1;
         if (i < 0) {
             i += pictures.length - 1;
@@ -107,8 +105,7 @@ function widget(element, effect, easingName, delay, pause, duration) {
     }
 
     function init() {
-        var /** @type {HTMLPictureElement} */ clone,
-            /** @type {CSSStyleDeclaration} */ style;
+        var /** @type {HTMLPictureElement} */ clone, /** @type {CSSStyleDeclaration} */ style;
 
         // Insert a clone of the first image with static position
         // to force height of the surrounding `div' to be greater than 0,
@@ -126,8 +123,7 @@ function widget(element, effect, easingName, delay, pause, duration) {
     }
 
     function animate() {
-        var /** @type {number} */ now,
-            /** @type {number} */ deltaT;
+        var /** @type {number} */ now, /** @type {number} */ deltaT;
 
         if (lastFrame === null) {
             lastFrame = new Date().getTime();
@@ -156,8 +152,7 @@ function widget(element, effect, easingName, delay, pause, duration) {
      * @returns {void}
      */
     function render(deltaT) {
-        var /** @type {HTMLPictureElement} */ img,
-            /** @type {HTMLPictureElement} */ prev;
+        var /** @type {HTMLPictureElement} */ img, /** @type {HTMLPictureElement} */ prev;
 
         img = current;
         img.style.zIndex = "2";
@@ -183,7 +178,7 @@ function widget(element, effect, easingName, delay, pause, duration) {
 function fader(show) {
     return {
         prepare: prepare,
-        step: step
+        step: step,
     };
 
     function prepare() {
@@ -200,7 +195,7 @@ function fader(show) {
 function slider(show) {
     return {
         prepare: prepare,
-        step: step
+        step: step,
     };
 
     function prepare() {
@@ -208,7 +203,7 @@ function slider(show) {
 
         show.getPrevious().style.left = "0px";
         img = show.getCurrent();
-        img.style.left = - img.offsetWidth + "px";
+        img.style.left = -img.offsetWidth + "px";
     }
 
     /** @param {number} progress */
@@ -226,7 +221,7 @@ function slider(show) {
 function curtain(show) {
     return {
         prepare: prepare,
-        step: step
+        step: step,
     };
 
     function prepare() {
@@ -247,15 +242,14 @@ function curtain(show) {
 
 /** @param {Show} show */
 function random(show) {
-    var /** @type {Effect[]} */ effects,
-        /** @type {number} */ effect;
+    var /** @type {Effect[]} */ effects, /** @type {number} */ effect;
 
     effects = [fader(show), slider(show), curtain(show)];
     effect = -1;
 
     return {
         prepare: prepare,
-        step: step
+        step: step,
     };
 
     function prepare() {
@@ -275,12 +269,14 @@ function random(show) {
  * @return {(progress: number) => number}
  */
 function easingByName(name) {
-    return {
-        linear: linear,
-        easeIn: easeIn,
-        easeOut: easeOut,
-        easeInOut: easeInOut
-    }[name] || easeInOut;
+    return (
+        {
+            linear: linear,
+            easeIn: easeIn,
+            easeOut: easeOut,
+            easeInOut: easeInOut,
+        }[name] || easeInOut
+    );
 
     /** @param {number} progress */
     function linear(progress) {
@@ -294,28 +290,30 @@ function easingByName(name) {
 
     /** @param {number} progress */
     function easeOut(progress) {
-        return - progress * (progress - 2);
+        return -progress * (progress - 2);
     }
 
     /** @param {number} progress */
     function easeInOut(progress) {
         progress *= 2;
         if (progress < 1) {
-            return progress * progress / 2;
+            return (progress * progress) / 2;
         } else {
             progress--;
-            return -1/2 * (progress * (progress - 2) - 1);
+            return (-1 / 2) * (progress * (progress - 2) - 1);
         }
     }
 }
 
-/** @type {NodeListOf<HTMLElement>} */ (document.querySelectorAll('.slideshow')).forEach(function (show) {
-    widget(
-        show,
-        show.getAttribute('data-effect') || "",
-        show.getAttribute('data-easing') || "",
-        +(show.getAttribute('data-delay') || ""),
-        +(show.getAttribute('data-pause') || ""),
-        +(show.getAttribute('data-duration') || "")
-    );
-});
+/** @type {NodeListOf<HTMLElement>} */ (document.querySelectorAll(".slideshow")).forEach(
+    function (show) {
+        widget(
+            show,
+            show.getAttribute("data-effect") || "",
+            show.getAttribute("data-easing") || "",
+            +(show.getAttribute("data-delay") || ""),
+            +(show.getAttribute("data-pause") || ""),
+            +(show.getAttribute("data-duration") || "")
+        );
+    }
+);

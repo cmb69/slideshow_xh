@@ -31,7 +31,10 @@
     <exec executable="phpunit" passthru="true" checkreturn="true"/>
   </target>
 
-  <target name="js" description="run jshint and tsc">
+  <target name="js" description="format and check JS">
+    <exec executable="prettier" passthru="true" checkreturn="true">
+      <arg line="--write --print-width 100 --tab-width 4 --trailing-comma es5 slideshow.js"/>
+    </exec>
     <exec executable="jshint" passthru="true" checkreturn="true">
       <arg line="slideshow.js"/>
     </exec>
