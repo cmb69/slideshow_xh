@@ -149,20 +149,7 @@
                 getCurrent: getCurrent,
                 getPrevious: getPrevious,
             };
-            switch (effectName) {
-                case "fade":
-                    effect = fader(show);
-                    break;
-                case "slide":
-                    effect = slider(show);
-                    break;
-                case "curtain":
-                    effect = curtain(show);
-                    break;
-                default:
-                    effect = random(show);
-                    break;
-            }
+            effect = effectByName(effectName, show);
             easing = easingByName(easingName);
             pictures = array(element.getElementsByTagName("picture"));
             currentIndex = 1;
@@ -172,6 +159,20 @@
             lastFrame = null;
             setTimeout(animate, delay + pause);
         })();
+    }
+
+    /** @type {(effectName: string, show: Show) => Effect} */
+    function effectByName(effectName, show) {
+        switch (effectName) {
+            case "fade":
+                return fader(show);
+            case "slide":
+                return slider(show);
+            case "curtain":
+                return curtain(show);
+            default:
+                return random(show);
+        }
     }
 
     /** @type {(show: Show) => Effect} */
